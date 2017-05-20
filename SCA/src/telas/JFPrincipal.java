@@ -26,8 +26,7 @@ public class JFPrincipal extends javax.swing.JFrame {
         this.preenchido = new boolean[2];
         this.painelPrincipal = this.getContentPane();
         this.setLocationRelativeTo(null);
-       // this.carregaImagem();
-       this.setTitle("Sistema de controle de alunos");
+        this.setTitle("Sistema de controle de alunos");
 
     }
 
@@ -174,9 +173,7 @@ public class JFPrincipal extends javax.swing.JFrame {
         this.setContentPane(painelPrincipal);
 
     }
-     /* public Icon carregaImagem() {
-        return (new javax.swing.ImageIcon(getClass().getResource("ifsc.png")));
-    }*/
+  
     public void ativaLogin() {
         int aux = 0;
         for (int i = 0; i < 2; i++) {

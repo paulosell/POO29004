@@ -14,7 +14,7 @@ import javax.swing.JOptionPane;
  * @author pfsel
  */
 public class JPSelecao extends javax.swing.JPanel {
-    
+
     private JFPrincipal pai;
 
     /**
@@ -23,8 +23,7 @@ public class JPSelecao extends javax.swing.JPanel {
     public JPSelecao(JFPrincipal p) {
         this.pai = p;
         initComponents();
-       
-        
+
     }
 
     /**
@@ -52,12 +51,6 @@ public class JPSelecao extends javax.swing.JPanel {
         jRBFaltasSem = new javax.swing.JRadioButton();
         jRBChegada = new javax.swing.JRadioButton();
         jRBSaida = new javax.swing.JRadioButton();
-        jTFFaltasCon = new javax.swing.JTextField();
-        jTFFaltasInt = new javax.swing.JTextField();
-        jTFChegadaMin = new javax.swing.JTextField();
-        jTFChegadaVezes = new javax.swing.JTextField();
-        jTFSaidaMin = new javax.swing.JTextField();
-        jTFSaidaVezes = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
@@ -66,9 +59,20 @@ public class JPSelecao extends javax.swing.JPanel {
         jTFNomeAlerta = new javax.swing.JTextField();
         jBVoltar = new javax.swing.JButton();
         jBCriar = new javax.swing.JButton();
+        jFTFatasInt = new javax.swing.JFormattedTextField();
+        jFTChegadaMin = new javax.swing.JFormattedTextField();
+        jFTChegadaVezes = new javax.swing.JFormattedTextField();
+        jFTSaidaMin = new javax.swing.JFormattedTextField();
+        jFTSaidaVezes = new javax.swing.JFormattedTextField();
+        jFTFaltasCon = new javax.swing.JFormattedTextField();
 
         jBAlerta.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jBAlerta.setText("Alerta");
+        jBAlerta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBAlertaActionPerformed(evt);
+            }
+        });
 
         jBRelatorio.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jBRelatorio.setText("Relatório");
@@ -183,48 +187,6 @@ public class JPSelecao extends javax.swing.JPanel {
             }
         });
 
-        jTFFaltasCon.setEnabled(false);
-        jTFFaltasCon.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                jTFFaltasConKeyReleased(evt);
-            }
-        });
-
-        jTFFaltasInt.setEnabled(false);
-        jTFFaltasInt.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                jTFFaltasIntKeyReleased(evt);
-            }
-        });
-
-        jTFChegadaMin.setEnabled(false);
-        jTFChegadaMin.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                jTFChegadaMinKeyReleased(evt);
-            }
-        });
-
-        jTFChegadaVezes.setEnabled(false);
-        jTFChegadaVezes.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                jTFChegadaVezesKeyReleased(evt);
-            }
-        });
-
-        jTFSaidaMin.setEnabled(false);
-        jTFSaidaMin.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                jTFSaidaMinKeyReleased(evt);
-            }
-        });
-
-        jTFSaidaVezes.setEnabled(false);
-        jTFSaidaVezes.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                jTFSaidaVezesKeyReleased(evt);
-            }
-        });
-
         jPanel1.setEnabled(false);
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -249,7 +211,7 @@ public class JPSelecao extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(204, 204, 204)
                 .addComponent(jBExcluirTab)
-                .addContainerGap(98, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
@@ -268,6 +230,11 @@ public class JPSelecao extends javax.swing.JPanel {
         jlNomeAlerta.setEnabled(false);
 
         jTFNomeAlerta.setEnabled(false);
+        jTFNomeAlerta.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTFNomeAlertaKeyReleased(evt);
+            }
+        });
 
         jBVoltar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jBVoltar.setText("Voltar");
@@ -287,6 +254,78 @@ public class JPSelecao extends javax.swing.JPanel {
             }
         });
 
+        try {
+            jFTFatasInt.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        jFTFatasInt.setEnabled(false);
+        jFTFatasInt.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jFTFatasIntKeyReleased(evt);
+            }
+        });
+
+        try {
+            jFTChegadaMin.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        jFTChegadaMin.setEnabled(false);
+        jFTChegadaMin.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jFTChegadaMinKeyReleased(evt);
+            }
+        });
+
+        try {
+            jFTChegadaVezes.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        jFTChegadaVezes.setEnabled(false);
+        jFTChegadaVezes.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jFTChegadaVezesKeyReleased(evt);
+            }
+        });
+
+        try {
+            jFTSaidaMin.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        jFTSaidaMin.setEnabled(false);
+        jFTSaidaMin.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jFTSaidaMinKeyReleased(evt);
+            }
+        });
+
+        try {
+            jFTSaidaVezes.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        jFTSaidaVezes.setEnabled(false);
+        jFTSaidaVezes.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jFTSaidaVezesKeyReleased(evt);
+            }
+        });
+
+        try {
+            jFTFaltasCon.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        jFTFaltasCon.setEnabled(false);
+        jFTFaltasCon.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jFTFaltasConKeyReleased(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -294,59 +333,57 @@ public class JPSelecao extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(10, 10, 10)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jBAlerta, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBRelatorio)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jRBAluno)
-                        .addGap(2, 2, 2)
-                        .addComponent(jRBTurma)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jRBCurso))
-                    .addComponent(jTFIdentificacao, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jFTPeriodo1, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLAux)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jFTPeriodo2, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jRBFaltasCon)
-                        .addGap(38, 38, 38)
-                        .addComponent(jTFFaltasCon, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jRBFaltasInt)
-                        .addGap(42, 42, 42)
-                        .addComponent(jTFFaltasInt, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jRBFaltasSem)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jRBChegada)
-                            .addComponent(jRBSaida))
-                        .addGap(50, 50, 50)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTFChegadaMin, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
-                            .addComponent(jTFSaidaMin))))
-                .addGap(14, 14, 14)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jRBFaltasSem)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(59, 59, 59)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jRBSaida)
+                                    .addComponent(jRBChegada))
+                                .addGap(85, 85, 85)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jFTChegadaVezes, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jFTSaidaVezes, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(88, 88, 88)
                                 .addComponent(jlNomeAlerta)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTFNomeAlerta, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))))
+                                .addGap(4, 4, 4)
+                                .addComponent(jTFNomeAlerta, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jBVoltar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jBCriar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTFSaidaVezes, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTFChegadaVezes, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(175, 175, 175)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jBVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jBCriar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jFTChegadaMin, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jRBAluno)
+                                    .addGap(2, 2, 2)
+                                    .addComponent(jRBTurma)
+                                    .addGap(2, 2, 2)
+                                    .addComponent(jRBCurso))
+                                .addComponent(jTFIdentificacao, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                    .addComponent(jRBFaltasInt)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jFTFatasInt, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jRBFaltasCon)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jFTFaltasCon, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                    .addComponent(jFTPeriodo1, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(4, 4, 4)
+                                    .addComponent(jLAux)
+                                    .addGap(4, 4, 4)
+                                    .addComponent(jFTPeriodo2, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(jBAlerta, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jBRelatorio, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(jFTSaidaMin, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -358,50 +395,49 @@ public class JPSelecao extends javax.swing.JPanel {
                 .addGap(7, 7, 7)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jRBAluno)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jRBCurso)
-                        .addComponent(jRBTurma)))
+                    .addComponent(jRBTurma)
+                    .addComponent(jRBCurso))
                 .addGap(2, 2, 2)
                 .addComponent(jTFIdentificacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(15, 15, 15)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jFTPeriodo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLAux)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(3, 3, 3)
+                        .addComponent(jLAux))
                     .addComponent(jFTPeriodo2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(14, 14, 14)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jRBFaltasCon)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(1, 1, 1)
-                        .addComponent(jTFFaltasCon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jFTFaltasCon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(4, 4, 4)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jRBFaltasInt)
-                    .addComponent(jTFFaltasInt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jFTFatasInt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(12, 12, 12)
                 .addComponent(jRBFaltasSem)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jRBChegada)
-                        .addGap(0, 0, 0)
-                        .addComponent(jRBSaida))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(9, 9, 9)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTFChegadaMin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTFChegadaVezes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(6, 6, 6)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTFSaidaMin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTFSaidaVezes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jRBChegada)
+                    .addComponent(jFTChegadaMin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jFTChegadaVezes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jRBSaida)
+                    .addComponent(jFTSaidaMin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jFTSaidaVezes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(6, 6, 6)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jlNomeAlerta)
-                    .addComponent(jTFNomeAlerta, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(11, 11, 11)
-                .addComponent(jBVoltar)
-                .addGap(0, 0, 0)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(9, 9, 9)
+                        .addComponent(jlNomeAlerta))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jTFNomeAlerta, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(11, 11, 11)
+                        .addComponent(jBVoltar)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBCriar))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -424,13 +460,11 @@ public class JPSelecao extends javax.swing.JPanel {
     }//GEN-LAST:event_jRBTurmaActionPerformed
 
     private void jRBCursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRBCursoActionPerformed
-        
         this.jTFIdentificacao.setEnabled(true);
     }//GEN-LAST:event_jRBCursoActionPerformed
 
     private void jTFIdentificacaoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTFIdentificacaoKeyReleased
         this.idPreenchido(jTFIdentificacao.getText());
-
     }//GEN-LAST:event_jTFIdentificacaoKeyReleased
 
     private void jTFIdentificacaoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTFIdentificacaoMouseClicked
@@ -445,9 +479,7 @@ public class JPSelecao extends javax.swing.JPanel {
             this.jRBFaltasSem.setEnabled(true);
             this.jRBFaltasInt.setEnabled(true);
             this.jRBSaida.setEnabled(true);
-            
         }
-
     }//GEN-LAST:event_jFTPeriodo2KeyReleased
 
     private void jRBFaltasConActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRBFaltasConActionPerformed
@@ -456,85 +488,123 @@ public class JPSelecao extends javax.swing.JPanel {
 
     private void jRBFaltasIntActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRBFaltasIntActionPerformed
         this.verificaTipos();
-
     }//GEN-LAST:event_jRBFaltasIntActionPerformed
 
     private void jRBChegadaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRBChegadaActionPerformed
         this.verificaTipos();
     }//GEN-LAST:event_jRBChegadaActionPerformed
 
-    private void jTFChegadaMinKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTFChegadaMinKeyReleased
-        if (this.jTFChegadaMin.getText().length() > 0) {
-            this.jTFChegadaVezes.setEnabled(true);
-        } else {
-            this.jTFChegadaVezes.setEnabled(false);
-        }
-
-    }//GEN-LAST:event_jTFChegadaMinKeyReleased
-
     private void jRBSaidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRBSaidaActionPerformed
         this.verificaTipos();
     }//GEN-LAST:event_jRBSaidaActionPerformed
 
-    private void jTFSaidaMinKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTFSaidaMinKeyReleased
-        if (this.jTFSaidaMin.getText().length() > 0) {
-            this.jTFSaidaVezes.setEnabled(true);
-        } else {
-            this.jTFSaidaVezes.setEnabled(false);
-            
-        }
-    }//GEN-LAST:event_jTFSaidaMinKeyReleased
-
     private void jBCriarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCriarActionPerformed
-        JOptionPane.showMessageDialog(this, "Relatório será gerado",
+        if(this.jBRelatorio.isEnabled()==true){
+            JOptionPane.showMessageDialog(this, "Relatório será gerado",
                 "ATENÇÃO",
-                JOptionPane.INFORMATION_MESSAGE);
-      this.limpaCampos();
+                JOptionPane.INFORMATION_MESSAGE);}
+        else {
+             JOptionPane.showMessageDialog(this, "Alerta instanciado",
+                "ATENÇÃO",
+                JOptionPane.INFORMATION_MESSAGE);}
+        
+        this.limpaCampos();
 
     }//GEN-LAST:event_jBCriarActionPerformed
 
     private void jBVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBVoltarActionPerformed
-       this.limpaCampos();
-       this.jBAlerta.setEnabled(true);
-       this.jBRelatorio.setEnabled(true);
+        this.limpaCampos();
+        this.jBAlerta.setEnabled(true);
+        this.jBRelatorio.setEnabled(true);
     }//GEN-LAST:event_jBVoltarActionPerformed
 
-    private void jTFFaltasConKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTFFaltasConKeyReleased
-      if(this.jTFFaltasCon.getText().length() > 0){
-          this.jBCriar.setEnabled(true);
-      } else {
-          this.jBCriar.setEnabled(false);
-      }
-    }//GEN-LAST:event_jTFFaltasConKeyReleased
+    private void jFTChegadaMinKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jFTChegadaMinKeyReleased
+        if (this.jFTChegadaMin.getText().length() > 0) {
+            this.jFTChegadaVezes.setEnabled(true);
+        } else {
+            this.jFTChegadaVezes.setEnabled(false);
+        }
+    }//GEN-LAST:event_jFTChegadaMinKeyReleased
 
-    private void jTFFaltasIntKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTFFaltasIntKeyReleased
- if(this.jTFFaltasInt.getText().length() > 0){
-          this.jBCriar.setEnabled(true);
-      } else {
-          this.jBCriar.setEnabled(false);
-      }    }//GEN-LAST:event_jTFFaltasIntKeyReleased
+    private void jFTSaidaMinKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jFTSaidaMinKeyReleased
+        if (this.jFTSaidaMin.getText().length() > 0) {
+            this.jFTSaidaVezes.setEnabled(true);
+        } else {
+            this.jFTSaidaVezes.setEnabled(false);
 
-    private void jTFChegadaVezesKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTFChegadaVezesKeyReleased
-         if(this.jTFChegadaVezes.getText().length() > 0){
-          this.jBCriar.setEnabled(true);
-      } else {
-          this.jBCriar.setEnabled(false);
-      }
-    }//GEN-LAST:event_jTFChegadaVezesKeyReleased
+        }    }//GEN-LAST:event_jFTSaidaMinKeyReleased
 
-    private void jTFSaidaVezesKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTFSaidaVezesKeyReleased
-       if(this.jTFSaidaVezes.getText().length() > 0){
-          this.jBCriar.setEnabled(true);
-      } else {
-          this.jBCriar.setEnabled(false);
-      }
-    }//GEN-LAST:event_jTFSaidaVezesKeyReleased
-    
+    private void jFTFatasIntKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jFTFatasIntKeyReleased
+        if (this.jFTFatasInt.getText().length() > 0 && this.jBRelatorio.isEnabled() == true) {
+            this.jBCriar.setEnabled(true);
+        } else if (this.jFTFatasInt.getText().length() > 0) {
+            this.jTFNomeAlerta.setEnabled(true);
+            this.jlNomeAlerta.setEnabled(true);
+        } else {
+            this.jTFNomeAlerta.setEnabled(false);
+            this.jlNomeAlerta.setEnabled(false);
+        }
+    }//GEN-LAST:event_jFTFatasIntKeyReleased
+
+    private void jFTChegadaVezesKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jFTChegadaVezesKeyReleased
+        if (this.jFTChegadaVezes.getText().length() > 0 && this.jBRelatorio.isEnabled() == true) {
+            this.jBCriar.setEnabled(true);
+        } else if (this.jFTChegadaVezes.getText().length() > 0) {
+            this.jTFNomeAlerta.setEnabled(true);
+            this.jlNomeAlerta.setEnabled(true);
+        } else {
+            this.jTFNomeAlerta.setEnabled(false);
+            this.jlNomeAlerta.setEnabled(false);
+        }
+    }//GEN-LAST:event_jFTChegadaVezesKeyReleased
+
+    private void jFTSaidaVezesKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jFTSaidaVezesKeyReleased
+        if (this.jFTSaidaVezes.getText().length() > 0 && this.jBRelatorio.isEnabled() == true) {
+            this.jBCriar.setEnabled(true);
+        } else if (this.jFTSaidaVezes.getText().length() > 0) {
+            this.jTFNomeAlerta.setEnabled(true);
+            this.jlNomeAlerta.setEnabled(true);
+        } else {
+            this.jTFNomeAlerta.setEnabled(false);
+            this.jlNomeAlerta.setEnabled(false);
+
+        }
+    }//GEN-LAST:event_jFTSaidaVezesKeyReleased
+
+    private void jFTFaltasConKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jFTFaltasConKeyReleased
+        if (this.jFTFaltasCon.getText().length() > 0 && this.jBRelatorio.isEnabled() == true) {
+            this.jBCriar.setEnabled(true);
+        } else if (this.jFTFatasInt.getText().length() > 0) {
+            this.jTFNomeAlerta.setEnabled(true);
+            this.jlNomeAlerta.setEnabled(true);
+        } else {
+            this.jTFNomeAlerta.setEnabled(false);
+            this.jlNomeAlerta.setEnabled(false);
+        }
+    }//GEN-LAST:event_jFTFaltasConKeyReleased
+
+    private void jBAlertaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAlertaActionPerformed
+        this.jRBAluno.setEnabled(true);
+        this.jRBCurso.setEnabled(true);
+        this.jRBTurma.setEnabled(true);
+        this.jBRelatorio.setEnabled(false);
+        this.jBVoltar.setEnabled(true);    }//GEN-LAST:event_jBAlertaActionPerformed
+
+    private void jTFNomeAlertaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTFNomeAlertaKeyReleased
+        this.jBCriar.setEnabled(true);           
+    }//GEN-LAST:event_jTFNomeAlertaKeyReleased
+
     private void idPreenchido(String texto) {
-        if (texto.length() > 0) {
+        if (this.jBRelatorio.isEnabled() == true && texto.length() > 0) {
             this.jFTPeriodo1.setEnabled(true);
             this.jFTPeriodo2.setEnabled(true);
             this.jLAux.setEnabled(true);
+        } else if (texto.length() > 0) {
+            this.jRBChegada.setEnabled(true);
+            this.jRBFaltasCon.setEnabled(true);
+            this.jRBFaltasSem.setEnabled(true);
+            this.jRBFaltasInt.setEnabled(true);
+            this.jRBSaida.setEnabled(true);
         } else {
             this.jFTPeriodo1.setEnabled(false);
             this.jFTPeriodo2.setEnabled(false);
@@ -544,46 +614,46 @@ public class JPSelecao extends javax.swing.JPanel {
             this.jRBFaltasSem.setEnabled(false);
             this.jRBFaltasInt.setEnabled(false);
             this.jRBSaida.setEnabled(false);
-            
+
         }
-        
+
     }
-    
+
     private void verificaTipos() {
         if (this.jRBFaltasCon.isSelected()) {
-            this.jTFFaltasCon.setEnabled(true);
-            
+            this.jFTFaltasCon.setEnabled(true);
+
         } else {
-            this.jTFFaltasCon.setEnabled(false);
-            this.jTFFaltasCon.setText("");
+            this.jFTFaltasCon.setEnabled(false);
+            this.jFTFaltasCon.setText("");
         }
-        
+
         if (this.jRBFaltasInt.isSelected()) {
-            this.jTFFaltasInt.setEnabled(true);
+            this.jFTFatasInt.setEnabled(true);
         } else {
-            this.jTFFaltasInt.setEnabled(false);
-            this.jTFFaltasInt.setText("");
+            this.jFTFatasInt.setEnabled(false);
+            this.jFTFatasInt.setText("");
         }
-        
+
         if (this.jRBChegada.isSelected()) {
-            this.jTFChegadaMin.setEnabled(true);
+            this.jFTChegadaMin.setEnabled(true);
         } else {
-            this.jTFChegadaMin.setEnabled(false);
-            this.jTFChegadaVezes.setEnabled(false);
-            this.jTFChegadaMin.setText("");
-            this.jTFChegadaVezes.setText("");
+            this.jFTChegadaMin.setEnabled(false);
+            this.jFTChegadaVezes.setEnabled(false);
+            this.jFTChegadaMin.setText("");
+            this.jFTChegadaVezes.setText("");
         }
         if (this.jRBSaida.isSelected()) {
-            this.jTFSaidaMin.setEnabled(true);
+            this.jFTSaidaMin.setEnabled(true);
         } else {
-            this.jTFSaidaMin.setEnabled(false);
-            this.jTFSaidaVezes.setEnabled(false);
-            this.jTFSaidaMin.setText("");
-            this.jTFSaidaVezes.setText("");
+            this.jFTSaidaMin.setEnabled(false);
+            this.jFTSaidaVezes.setEnabled(false);
+            this.jFTSaidaMin.setText("");
+            this.jFTSaidaVezes.setText("");
         }
-           }
-    
-    private void limpaCampos(){
+    }
+
+    private void limpaCampos() {
         this.jRBAluno.setEnabled(false);
         this.jRBCurso.setEnabled(false);
         this.jRBTurma.setEnabled(false);
@@ -606,7 +676,8 @@ public class JPSelecao extends javax.swing.JPanel {
         this.jFTPeriodo2.setText("");
         this.verificaTipos();
         this.jBAlerta.setEnabled(true);
-        this.jBRelatorio.setEnabled(true);  
+        this.jBRelatorio.setEnabled(true);
+        this.jBVoltar.setEnabled(false);
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup bGMonitora;
@@ -616,8 +687,14 @@ public class JPSelecao extends javax.swing.JPanel {
     private javax.swing.JButton jBExcluirTab;
     private javax.swing.JButton jBRelatorio;
     private javax.swing.JButton jBVoltar;
+    private javax.swing.JFormattedTextField jFTChegadaMin;
+    private javax.swing.JFormattedTextField jFTChegadaVezes;
+    private javax.swing.JFormattedTextField jFTFaltasCon;
+    private javax.swing.JFormattedTextField jFTFatasInt;
     private javax.swing.JFormattedTextField jFTPeriodo1;
     private javax.swing.JFormattedTextField jFTPeriodo2;
+    private javax.swing.JFormattedTextField jFTSaidaMin;
+    private javax.swing.JFormattedTextField jFTSaidaVezes;
     private javax.swing.JLabel jLAux;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JRadioButton jRBAluno;
@@ -629,14 +706,8 @@ public class JPSelecao extends javax.swing.JPanel {
     private javax.swing.JRadioButton jRBSaida;
     private javax.swing.JRadioButton jRBTurma;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTFChegadaMin;
-    private javax.swing.JTextField jTFChegadaVezes;
-    private javax.swing.JTextField jTFFaltasCon;
-    private javax.swing.JTextField jTFFaltasInt;
     private javax.swing.JTextField jTFIdentificacao;
     private javax.swing.JTextField jTFNomeAlerta;
-    private javax.swing.JTextField jTFSaidaMin;
-    private javax.swing.JTextField jTFSaidaVezes;
     private javax.swing.JTable jTable1;
     private javax.swing.JLabel jlNomeAlerta;
     // End of variables declaration//GEN-END:variables
