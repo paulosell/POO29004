@@ -5,7 +5,13 @@
  */
 package telas;
 
+import bancodedados.Bancos;
+import bancodedados.BaseUsuariosLocal;
 import java.awt.Container;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.Scanner;
 import javax.swing.Icon;
 import javax.swing.JLabel;
 
@@ -17,7 +23,7 @@ public class JFPrincipal extends javax.swing.JFrame {
 
     private boolean preenchido[];
     public Container painelPrincipal;
-    
+
     /**
      * Creates new form JFPrincipal
      */
@@ -73,6 +79,11 @@ public class JFPrincipal extends javax.swing.JFrame {
 
         jBCadastrar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jBCadastrar.setText("Cadastrar");
+        jBCadastrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBCadastrarActionPerformed(evt);
+            }
+        });
 
         jPFSenha.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -81,8 +92,6 @@ public class JFPrincipal extends javax.swing.JFrame {
         });
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagem/if4.png"))); // NOI18N
-        jLabel3.setMaximumSize(new java.awt.Dimension(88, 114));
-        jLabel3.setMinimumSize(new java.awt.Dimension(88, 114));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -90,14 +99,14 @@ public class JFPrincipal extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel3)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel3)
                 .addContainerGap(33, Short.MAX_VALUE))
         );
 
@@ -153,19 +162,31 @@ public class JFPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jTFUsuarioKeyReleased
 
     private void jBLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBLoginActionPerformed
-        JPSelecao painel = new JPSelecao(this);
+        Bancos b = new BaseUsuariosLocal(this.jTFUsuario.getText(), this.jPFSenha.getText());
+        
+        b.consultar();
+        /*  JPSelecao painel = new JPSelecao(this);
 
         // painelPrincipal = (JPanel) this.getContentPane();
         painel.setVisible(true);
 
         painel.setBounds(0, 0, this.getWidth(), this.getHeight());
-        this.setContentPane(painel);
+        this.setContentPane(painel);*/
     }//GEN-LAST:event_jBLoginActionPerformed
 
     private void jPFSenhaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPFSenhaKeyReleased
- this.campoPreenchido(jTFUsuario.getText(), 1);
+        this.campoPreenchido(jTFUsuario.getText(), 1);
         this.ativaLogin();
     }//GEN-LAST:event_jPFSenhaKeyReleased
+
+    private void jBCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCadastrarActionPerformed
+        JPCadastro painel = new JPCadastro(this);
+        painel.setVisible(true);
+        painel.setBounds(0, 0, this.getWidth(), this.getHeight());
+        this.setContentPane(painel);
+
+
+    }//GEN-LAST:event_jBCadastrarActionPerformed
 
     void trocaPainel() {
         painelPrincipal.setBounds(0, 0, this.getWidth(), this.getHeight());
@@ -173,7 +194,7 @@ public class JFPrincipal extends javax.swing.JFrame {
         this.setContentPane(painelPrincipal);
 
     }
-  
+
     public void ativaLogin() {
         int aux = 0;
         for (int i = 0; i < 2; i++) {
