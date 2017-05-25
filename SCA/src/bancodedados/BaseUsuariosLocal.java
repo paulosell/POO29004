@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -24,7 +25,7 @@ public class BaseUsuariosLocal extends Bancos {
     private String usuario;
     private String senha;
     private String login;
-
+    private boolean t = false;
     public BaseUsuariosLocal(String u, String s) {
         this.usuario = u;
         this.senha = s;
@@ -42,13 +43,16 @@ public class BaseUsuariosLocal extends Bancos {
     public void abrir() {
 
     }
-
+    
+    public boolean logou(){
+        return t;
+    }
     @Override
     public void consultar() {
         File arquivo;
         try {
-            arquivo = new File("C:\\Users\\pfsel\\Documents\\GitHub"
-                    + "\\ProjetoPoo\\SCA\\src\\bancodedados\\arquivos\\baselocal.csv");
+          
+            arquivo = new File(getClass().getResource("/db/baselocal.csv").getPath());
             Scanner leitor = new Scanner(arquivo);
 
             ArrayList<String> l = new ArrayList<String>();
@@ -68,9 +72,11 @@ public class BaseUsuariosLocal extends Bancos {
                 System.out.println(vetLinha[1]);
                 System.out.println(vetLinha[2]);
 
-                if (vetLinha[1] == this.usuario) {
+                if (vetLinha[1].equals(this.usuario)) {
 
-                    System.out.println("LOGOU");
+                    
+                    t = true;
+                    break;
                 } else {
                     System.out.println("NAO LOGOU");
                 }
@@ -78,7 +84,7 @@ public class BaseUsuariosLocal extends Bancos {
 
             leitor.close();
         } catch (FileNotFoundException e) {
-            System.out.println("ERRO");
+            System.out.println("ERRO" + e.toString());
         }
     }
 
@@ -86,7 +92,7 @@ public class BaseUsuariosLocal extends Bancos {
     public void modificar() {
         File arquivo;
         try {
-            arquivo = new File("C:\\Users\\pfsel\\Documents\\GitHub\\ProjetoPoo\\SCA\\src\\bancodedados\\arquivos\\baselocal.csv");
+            arquivo = new File(getClass().getResource("/db/baselocal.csv").getPath());
             FileWriter fwArquivo = null;
 
 // Se o arquivo existir, abre para adicionar dados

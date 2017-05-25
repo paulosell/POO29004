@@ -162,16 +162,21 @@ public class JFPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jTFUsuarioKeyReleased
 
     private void jBLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBLoginActionPerformed
-        Bancos b = new BaseUsuariosLocal(this.jTFUsuario.getText(), this.jPFSenha.getText());
+        BaseUsuariosLocal b = new BaseUsuariosLocal(this.jTFUsuario.getText(), this.jPFSenha.getText());
         
         b.consultar();
-        /*  JPSelecao painel = new JPSelecao(this);
-
-        // painelPrincipal = (JPanel) this.getContentPane();
-        painel.setVisible(true);
-
-        painel.setBounds(0, 0, this.getWidth(), this.getHeight());
-        this.setContentPane(painel);*/
+        if(logou()){
+            
+            JPSelecao painel = new JPSelecao(this);
+            
+            // painelPrincipal = (JPanel) this.getContentPane();
+            painel.setVisible(true);
+            
+            painel.setBounds(0, 0, this.getWidth(), this.getHeight());
+            this.setContentPane(painel);
+        } else {
+            System.out.println("AAIUDHASIH");
+        }
     }//GEN-LAST:event_jBLoginActionPerformed
 
     private void jPFSenhaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPFSenhaKeyReleased
