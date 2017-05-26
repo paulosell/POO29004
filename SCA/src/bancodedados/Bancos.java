@@ -21,7 +21,7 @@ public abstract class Bancos {
     
     public abstract void gerar();
     public abstract void modificar();
-    public abstract boolean logar();
+    public abstract boolean autenticar();
     
     
     

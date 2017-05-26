@@ -80,7 +80,7 @@ public class Academico extends Bancos {
     }
 
     @Override
-    public boolean logar() {
+    public boolean autenticar() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

@@ -468,8 +468,7 @@ public class JPSelecao extends javax.swing.JPanel {
 
     private void jTFIdentificacaoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTFIdentificacaoKeyReleased
         this.idPreenchido(jTFIdentificacao.getText().toUpperCase());
-         
-          
+                 
           
     }//GEN-LAST:event_jTFIdentificacaoKeyReleased
 
