@@ -23,11 +23,13 @@ import telas.JPSelecao;
 public class BaseUsuariosLocal extends Bancos {
 
     private String usuario;
+
     private String senha;
     private String login;
     private boolean t = false;
-    public BaseUsuariosLocal(String u, String s) {
-        this.usuario = u;
+
+    public BaseUsuariosLocal(String l, String s) {
+        this.login = l;
         this.senha = s;
 
     }
@@ -43,45 +45,27 @@ public class BaseUsuariosLocal extends Bancos {
     public void abrir() {
 
     }
-    
-    public boolean logou(){
-        return t;
-    }
+
     @Override
     public void consultar() {
         File arquivo;
         try {
-          
+
             arquivo = new File(getClass().getResource("/db/baselocal.csv").getPath());
             Scanner leitor = new Scanner(arquivo);
-
+            System.out.println(this.senha);
             ArrayList<String> l = new ArrayList<String>();
-            System.out.println(this.usuario);
+
             while (leitor.hasNextLine()) {
                 String proximaLinha = leitor.nextLine();
-                System.out.println(proximaLinha);
+                proximaLinha = proximaLinha.substring(proximaLinha.indexOf(",") + 1, proximaLinha.length());
                 l.add(proximaLinha);
             }
+            boolean b = l.contains(this.login + "," + this.senha);
 
-            for (int i = 0; i < l.size(); i++) {
-
-                String linha = l.get(i);
-                System.out.println(linha);
-                String vetLinha[] = new String[3];
-                vetLinha = linha.split(",");
-                System.out.println(vetLinha[1]);
-                System.out.println(vetLinha[2]);
-
-                if (vetLinha[1].equals(this.usuario)) {
-
-                    
-                    t = true;
-                    break;
-                } else {
-                    System.out.println("NAO LOGOU");
-                }
+            if (b) {
+                t = true;
             }
-
             leitor.close();
         } catch (FileNotFoundException e) {
             System.out.println("ERRO" + e.toString());
@@ -118,6 +102,15 @@ public class BaseUsuariosLocal extends Bancos {
         } catch (IOException e) {
             System.out.println("ERRO" + e);
         }
+    }
+
+    public boolean logar() {
+        return t;
+    }
+
+    @Override
+    public void gerar() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

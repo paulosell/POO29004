@@ -5,6 +5,10 @@
  */
 package bancodedados;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
 /**
  *
  * @author pfsel
@@ -13,7 +17,14 @@ public abstract class Bancos {
     
     public abstract void abrir();
     public abstract void consultar();
+
+    
+    public abstract void gerar();
     public abstract void modificar();
+    public abstract boolean logar();
+    
+    
+    
     
     
 }

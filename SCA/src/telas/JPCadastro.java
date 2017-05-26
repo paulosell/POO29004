@@ -14,6 +14,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.Arrays;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -167,8 +168,12 @@ public class JPCadastro extends javax.swing.JPanel {
 
 
     private void jBCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCadastrarActionPerformed
+                        
+
         Bancos t = new BaseUsuariosLocal(this.jTFUsuario.getText(), this.jTFLogin.getText(), this.jTFSenha.getText());
-        
+         JOptionPane.showMessageDialog(this, "Usuário cadastrado",
+                    "Sucesso!",
+                    JOptionPane.WARNING_MESSAGE);
         t.modificar();
         pai.trocaPainel();
     }//GEN-LAST:event_jBCadastrarActionPerformed

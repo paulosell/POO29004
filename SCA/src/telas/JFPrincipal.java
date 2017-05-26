@@ -5,6 +5,7 @@
  */
 package telas;
 
+import bancodedados.Academico;
 import bancodedados.Bancos;
 import bancodedados.BaseUsuariosLocal;
 import java.awt.Container;
@@ -14,6 +15,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import javax.swing.Icon;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -162,21 +164,38 @@ public class JFPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jTFUsuarioKeyReleased
 
     private void jBLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBLoginActionPerformed
-        BaseUsuariosLocal b = new BaseUsuariosLocal(this.jTFUsuario.getText(), this.jPFSenha.getText());
+     
+        Bancos b = new BaseUsuariosLocal(this.jTFUsuario.getText(), this.jPFSenha.getText());
+        
         
         b.consultar();
-        if(logou()){
-            
-            JPSelecao painel = new JPSelecao(this);
-            
-            // painelPrincipal = (JPanel) this.getContentPane();
-            painel.setVisible(true);
-            
-            painel.setBounds(0, 0, this.getWidth(), this.getHeight());
-            this.setContentPane(painel);
+        if(b.logar()){
+        JPSelecao painel = new JPSelecao(this);
+        painel.setVisible(true);
+        painel.setBounds(0, 0, this.getWidth(), this.getHeight());
+        this.setContentPane(painel);    
+        aut=0;
+      
         } else {
-            System.out.println("AAIUDHASIH");
+           JOptionPane.showMessageDialog(this, "Usuário não encontrado",
+                    "Opa!",
+                    JOptionPane.WARNING_MESSAGE);
+           aut++;
         }
+        if (aut==2){
+             JOptionPane.showMessageDialog(this, "O aplicativo irá finalizar se você"
+                     + " errar novamente",
+                    "Opa!",
+                    JOptionPane.WARNING_MESSAGE);
+
+        }
+          if (aut==3){
+             JOptionPane.showMessageDialog(this, "O sistema será encerrado",
+                    "Opa!",
+                    JOptionPane.WARNING_MESSAGE);
+             System.exit(0);
+        }
+      
     }//GEN-LAST:event_jBLoginActionPerformed
 
     private void jPFSenhaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPFSenhaKeyReleased
@@ -252,6 +271,7 @@ public class JFPrincipal extends javax.swing.JFrame {
         });
     }
 
+        private int aut=0;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBCadastrar;
     private javax.swing.JButton jBLogin;

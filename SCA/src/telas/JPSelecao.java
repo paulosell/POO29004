@@ -5,6 +5,8 @@
  */
 package telas;
 
+import bancodedados.Academico;
+import bancodedados.Bancos;
 import java.awt.Color;
 import java.awt.Component;
 import javax.swing.JOptionPane;
@@ -16,6 +18,7 @@ import javax.swing.JOptionPane;
 public class JPSelecao extends javax.swing.JPanel {
 
     private JFPrincipal pai;
+   // private Bancos d;
 
     /**
      * Creates new form JPSelecao
@@ -23,7 +26,7 @@ public class JPSelecao extends javax.swing.JPanel {
     public JPSelecao(JFPrincipal p) {
         this.pai = p;
         initComponents();
-
+        
     }
 
     /**
@@ -464,12 +467,19 @@ public class JPSelecao extends javax.swing.JPanel {
     }//GEN-LAST:event_jRBCursoActionPerformed
 
     private void jTFIdentificacaoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTFIdentificacaoKeyReleased
-        this.idPreenchido(jTFIdentificacao.getText());
+        this.idPreenchido(jTFIdentificacao.getText().toUpperCase());
+         
+          
+          
     }//GEN-LAST:event_jTFIdentificacaoKeyReleased
 
     private void jTFIdentificacaoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTFIdentificacaoMouseClicked
         jTFIdentificacao.setText("");
         jTFIdentificacao.setForeground(Color.BLACK);
+        
+       
+
+        
     }//GEN-LAST:event_jTFIdentificacaoMouseClicked
 
     private void jFTPeriodo2KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jFTPeriodo2KeyReleased
@@ -595,11 +605,18 @@ public class JPSelecao extends javax.swing.JPanel {
     }//GEN-LAST:event_jTFNomeAlertaKeyReleased
 
     private void idPreenchido(String texto) {
-        if (this.jBRelatorio.isEnabled() == true && texto.length() > 0) {
+        Bancos d = new Academico(texto);
+        System.out.println("1");
+        System.out.println(texto);
+        System.out.println(((Academico)d).getAluno());
+        d.gerar();
+        d.consultar();
+        if (this.jBRelatorio.isEnabled() == true &&((Academico)d).existeAluno()) {
+          
             this.jFTPeriodo1.setEnabled(true);
             this.jFTPeriodo2.setEnabled(true);
             this.jLAux.setEnabled(true);
-        } else if (texto.length() > 0) {
+        } else if (((Academico)d).existeAluno()) {
             this.jRBChegada.setEnabled(true);
             this.jRBFaltasCon.setEnabled(true);
             this.jRBFaltasSem.setEnabled(true);
