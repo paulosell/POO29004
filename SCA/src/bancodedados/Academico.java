@@ -69,10 +69,7 @@ public class Academico extends Bancos {
     }
     
    
-    public boolean existeAluno() {
-        
-        return t;
-    }
+    
 
     @Override
     public void modificar() {
@@ -81,7 +78,7 @@ public class Academico extends Bancos {
 
     @Override
     public boolean autenticar() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+  return t;
     }
 
 }

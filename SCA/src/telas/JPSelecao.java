@@ -610,12 +610,12 @@ public class JPSelecao extends javax.swing.JPanel {
         System.out.println(((Academico)d).getAluno());
         d.gerar();
         d.consultar();
-        if (this.jBRelatorio.isEnabled() == true &&((Academico)d).existeAluno()) {
+        if (this.jBRelatorio.isEnabled() == true && d.autenticar()) {
           
             this.jFTPeriodo1.setEnabled(true);
             this.jFTPeriodo2.setEnabled(true);
             this.jLAux.setEnabled(true);
-        } else if (((Academico)d).existeAluno()) {
+        } else if (d.autenticar()) {
             this.jRBChegada.setEnabled(true);
             this.jRBFaltasCon.setEnabled(true);
             this.jRBFaltasSem.setEnabled(true);
