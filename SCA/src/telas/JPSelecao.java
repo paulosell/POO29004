@@ -552,6 +552,8 @@ public class JPSelecao extends javax.swing.JPanel {
         } else {
             this.jTFNomeAlerta.setEnabled(false);
             this.jlNomeAlerta.setEnabled(false);
+            this.jBCriar.setEnabled(false);
+
         }
     }//GEN-LAST:event_jFTFatasIntKeyReleased
 
@@ -564,6 +566,8 @@ public class JPSelecao extends javax.swing.JPanel {
         } else {
             this.jTFNomeAlerta.setEnabled(false);
             this.jlNomeAlerta.setEnabled(false);
+            this.jBCriar.setEnabled(false);
+
         }
     }//GEN-LAST:event_jFTChegadaVezesKeyReleased
 
@@ -576,19 +580,29 @@ public class JPSelecao extends javax.swing.JPanel {
         } else {
             this.jTFNomeAlerta.setEnabled(false);
             this.jlNomeAlerta.setEnabled(false);
+            this.jBCriar.setEnabled(false);
+
 
         }
     }//GEN-LAST:event_jFTSaidaVezesKeyReleased
 
     private void jFTFaltasConKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jFTFaltasConKeyReleased
+        if (this.jFTFaltasCon.getText().equals("  ")){
+            this.jBCriar.setEnabled(false);
+        }
+        
         if (this.jFTFaltasCon.getText().length() > 0 && this.jBRelatorio.isEnabled() == true) {
             this.jBCriar.setEnabled(true);
         } else if (this.jFTFatasInt.getText().length() > 0) {
             this.jTFNomeAlerta.setEnabled(true);
             this.jlNomeAlerta.setEnabled(true);
-        } else {
+        }                     
+      
+            else {
             this.jTFNomeAlerta.setEnabled(false);
             this.jlNomeAlerta.setEnabled(false);
+            
+
         }
     }//GEN-LAST:event_jFTFaltasConKeyReleased
 

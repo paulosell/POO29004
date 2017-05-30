@@ -91,8 +91,7 @@ public class BaseUsuariosLocal extends Bancos {
             q[0] = this.usuario;
             q[1] = this.login;
             q[2] = this.senha;
-
-            String j = Arrays.toString(q);
+            
             bw.write(q[0] + "," + q[1] + "," + q[2]);
             bw.write('\n');
 

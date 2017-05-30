@@ -21,8 +21,9 @@ import javax.swing.JOptionPane;
  *
  * @author pfsel
  */
-public class JFPrincipal extends javax.swing.JFrame {
-
+public class JFPrincipal extends javax.swing.JFrame {   
+    
+    private int aut=0;
     private boolean preenchido[];
     public Container painelPrincipal;
 
@@ -271,7 +272,7 @@ public class JFPrincipal extends javax.swing.JFrame {
         });
     }
 
-        private int aut=0;
+        
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBCadastrar;
     private javax.swing.JButton jBLogin;
