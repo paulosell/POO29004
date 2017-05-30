@@ -8,6 +8,7 @@ package telas;
 import bancodedados.Academico;
 import bancodedados.Bancos;
 import bancodedados.BaseUsuariosLocal;
+import bancodedados.EventosAux;
 import java.awt.Container;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -209,6 +210,7 @@ public class JFPrincipal extends javax.swing.JFrame {
         painel.setVisible(true);
         painel.setBounds(0, 0, this.getWidth(), this.getHeight());
         this.setContentPane(painel);
+        
 
 
     }//GEN-LAST:event_jBCadastrarActionPerformed

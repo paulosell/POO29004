@@ -13,6 +13,7 @@ public class Alunos {
     private String nome;
     private String matricula;
     private String turma;
+    
 
     public Alunos(String matricula, String nome, String turma) {
         this.nome = nome;
@@ -20,7 +21,9 @@ public class Alunos {
         this.turma = turma;
     }
 
-    
+    public Alunos(String nome){
+        this.nome = nome;
+    }
     
     public String getNome() {
         return nome;

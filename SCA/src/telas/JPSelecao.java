@@ -7,8 +7,11 @@ package telas;
 
 import bancodedados.Academico;
 import bancodedados.Bancos;
+import bancodedados.Eventos;
+import bancodedados.EventosAux;
 import java.awt.Color;
 import java.awt.Component;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 /**
@@ -508,17 +511,30 @@ public class JPSelecao extends javax.swing.JPanel {
     }//GEN-LAST:event_jRBSaidaActionPerformed
 
     private void jBCriarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCriarActionPerformed
-        if(this.jBRelatorio.isEnabled()==true){
-            JOptionPane.showMessageDialog(this, "Relatório será gerado",
-                "ATENÇÃO",
-                JOptionPane.INFORMATION_MESSAGE);}
-        else {
-             JOptionPane.showMessageDialog(this, "Alerta instanciado",
-                "ATENÇÃO",
-                JOptionPane.INFORMATION_MESSAGE);}
+        if(this.jRBFaltasCon.isSelected()){
+            Bancos ev = new Eventos();
+            ev.gerar();
+           ArrayList<EventosAux> aux = ev.retornaLista();
+           ArrayList<EventosAux> aux2 = new ArrayList<EventosAux>();
+           for(EventosAux ta : aux){
+              if(ta.getAluno().equals(jTFIdentificacao.getText().toUpperCase())){
+                   int i =0;
+                   System.out.println(ta.getAluno());
+                   System.out.println(aux.get(i++).getDia());
+                   System.out.println((aux.get(i).getDia() +1));
+                   if(aux.get(i++).getDia() == (aux.get(i).getDia() +1)){
+                       aux2.add(aux.get(i));
+                       
+                   } i++;
+               }
+           }
+            
+           for(EventosAux teu : aux2){
+               System.out.println(teu.getAluno() + " : " + teu.getDia());
+           }
+        }
         
-        this.limpaCampos();
-
+       
     }//GEN-LAST:event_jBCriarActionPerformed
 
     private void jBVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBVoltarActionPerformed

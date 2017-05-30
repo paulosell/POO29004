@@ -7,6 +7,7 @@ package bancodedados;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -22,7 +23,8 @@ public abstract class Bancos {
     public abstract void gerar();
     public abstract void modificar();
     public abstract boolean autenticar();
-    
+
+    public abstract ArrayList<EventosAux> retornaLista();
     
     
     

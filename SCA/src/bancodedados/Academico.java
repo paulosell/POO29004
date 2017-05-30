@@ -81,4 +81,9 @@ public class Academico extends Bancos {
   return t;
     }
 
+    @Override
+    public ArrayList<EventosAux> retornaLista() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }
