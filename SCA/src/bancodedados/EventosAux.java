@@ -5,6 +5,8 @@
  */
 package bancodedados;
 
+import java.util.Calendar;
+
 /**
  *
  * @author pfsel
@@ -13,20 +15,14 @@ public class EventosAux {
     
     private String aluno;
     private String sentido;
-    private int hora;
-    private int min;
-    private int mes;
-    private int dia;
-    private int ano;
+   
+    private Calendar c;
 
-    public EventosAux(String aluno, String sentido, int hora, int min, int mes, int dia, int ano) {
+    public EventosAux(String aluno, String sentido,  Calendar c) {
         this.aluno = aluno;
         this.sentido = sentido;
-        this.hora = hora;
-        this.min = min;
-        this.mes = mes;
-        this.dia = dia;
-        this.ano = ano;
+       
+       this.c = c;
     }
 
    
@@ -47,45 +43,14 @@ public class EventosAux {
         this.sentido = sentido;
     }
 
-    public int getHora() {
-        return hora;
+    public Calendar getC() {
+        return c;
     }
 
-    public void setHora(int hora) {
-        this.hora = hora;
+    public void setC(Calendar c) {
+        this.c = c;
     }
 
-    public int getMin() {
-        return min;
-    }
-
-    public void setMin(int min) {
-        this.min = min;
-    }
-
-    public int getMes() {
-        return mes;
-    }
-
-    public void setMes(int mes) {
-        this.mes = mes;
-    }
-
-    public int getDia() {
-        return dia;
-    }
-
-    public void setDia(int dia) {
-        this.dia = dia;
-    }
-
-    public int getAno() {
-        return ano;
-    }
-
-    public void setAno(int ano) {
-        this.ano = ano;
-    }
-
+   
     
 }

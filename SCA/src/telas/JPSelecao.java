@@ -12,6 +12,7 @@ import bancodedados.EventosAux;
 import java.awt.Color;
 import java.awt.Component;
 import java.util.ArrayList;
+import java.util.Calendar;
 import javax.swing.JOptionPane;
 
 /**
@@ -21,6 +22,7 @@ import javax.swing.JOptionPane;
 public class JPSelecao extends javax.swing.JPanel {
 
     private JFPrincipal pai;
+    private Calendar c1,c2;
    // private Bancos d;
 
     /**
@@ -483,6 +485,7 @@ public class JPSelecao extends javax.swing.JPanel {
     }//GEN-LAST:event_jTFIdentificacaoMouseClicked
 
     private void jFTPeriodo2KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jFTPeriodo2KeyReleased
+        
         if (this.jTFIdentificacao.getText().length() > 0) {
             this.jRBChegada.setEnabled(true);
             this.jRBFaltasCon.setEnabled(true);
@@ -509,32 +512,43 @@ public class JPSelecao extends javax.swing.JPanel {
     }//GEN-LAST:event_jRBSaidaActionPerformed
 
     private void jBCriarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCriarActionPerformed
-        if(this.jRBFaltasCon.isSelected()){
-            Bancos ev = new Eventos();
-            ev.gerar();
-                      ArrayList<Integer> aux3 = new ArrayList<Integer>();
-
-           ArrayList<EventosAux> aux = ev.retornaLista();
-           ArrayList<EventosAux> aux2 = new ArrayList<EventosAux>();
-           for(EventosAux ta : aux){
-               if(ta.getAluno().equals(this.jTFIdentificacao)){
-                   aux2.add(ta);
-               }
-           }
-           for(int i = 0; i<aux2.size(); i++){
-               if(aux2.get(i++).getDia() > (aux2.get(i).getDia() +1)){
-                   int lims = aux2.get(i++).getDia();
-                   int limi = aux2.get(i).getDia();
-                 for(int t = lims; t>limi; t--){
-                     aux3.add(t);
-                 }   
-               }
-           }
-            System.out.println(aux3.size());
-           for(Integer u : aux3){
-            System.out.println(u);
-        }
-        }
+     this.periodo();
+        if(this.jRBFaltasInt.isSelected()){
+         Bancos ev = new Eventos();
+         ev.gerar();
+         ArrayList<EventosAux> al = ev.retornaLista();
+         ArrayList<EventosAux> al2 = new ArrayList<EventosAux>();
+         ArrayList<Integer> faltas = new ArrayList<Integer>();
+         for(EventosAux monitorado : al){
+             if(monitorado.getAluno().equals(this.jTFIdentificacao.getText().toUpperCase())){
+                 al2.add(monitorado);
+             }
+         }
+         
+         
+         for(EventosAux monitorado : al2){
+             for(int i = c2.get(Calendar.DAY_OF_MONTH); i > 0; i--){
+                 if(monitorado.getC().get(Calendar.DAY_OF_MONTH) != i){
+                     if(i > c1.get(Calendar.DAY_OF_MONTH)){
+                     if(!faltas.contains(i)){
+                         faltas.add(i);
+                     }
+                     }
+                 }
+             }
+         }
+         for(EventosAux monitorado : al2){
+         for(int i = 0; i < faltas.size(); i++){
+             
+                 if(faltas.get(i) == monitorado.getC().get(Calendar.DAY_OF_MONTH)){
+                     faltas.remove(i);
+                 }
+             }
+         }
+        for(Integer te : faltas){
+            System.out.println(te);
+        } 
+     }
         
     }//GEN-LAST:event_jBCriarActionPerformed
 
@@ -633,7 +647,26 @@ public class JPSelecao extends javax.swing.JPanel {
     private void jTFNomeAlertaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTFNomeAlertaKeyReleased
         this.jBCriar.setEnabled(true);           
     }//GEN-LAST:event_jTFNomeAlertaKeyReleased
+    
+    private void periodo(){
+         this.c1 = Calendar.getInstance();
+         this.c2 = Calendar.getInstance();
+         String p1[] = jFTPeriodo1.getText().split("/");
+         String p2[] = jFTPeriodo2.getText().split("/");
 
+         c1.set(Calendar.YEAR, Integer.parseInt(p1[2]));
+         c1.set(Calendar.MONTH, Integer.parseInt(p1[2]));
+         c1.set(Calendar.DAY_OF_MONTH, Integer.parseInt(p1[0]));
+         
+         c2.set(Calendar.YEAR, Integer.parseInt(p2[2]));
+         c2.set(Calendar.MONTH, Integer.parseInt(p2[2]));
+         c2.set(Calendar.DAY_OF_MONTH, Integer.parseInt(p2[0]));
+         
+         
+           
+         
+        
+    }
     private void idPreenchido(String texto) {
         Bancos d = new Academico(texto);
        

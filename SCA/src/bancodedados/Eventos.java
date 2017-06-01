@@ -8,6 +8,7 @@ package bancodedados;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -57,8 +58,16 @@ public class Eventos extends Bancos {
                 String separaTotal[] = separaHora[1].split(":");
                 int hora = Integer.parseInt(separaTotal[0]);
                 int min = Integer.parseInt(separaTotal[1]);
+                Calendar c = Calendar.getInstance();
+                
+                 c.set(Calendar.YEAR, ano);
+         c.set(Calendar.MONTH, mes);
+         c.set(Calendar.DAY_OF_MONTH, dia);
+         c.set(Calendar.HOUR_OF_DAY, hora);
+         c.set(Calendar.MINUTE, min);
+         
                
-                EventosAux ev = new EventosAux(aluno,sentido,hora,min, mes, dia,ano);
+                EventosAux ev = new EventosAux(aluno,sentido, c);
                 lista.add(ev);
             }
                 
