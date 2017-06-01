@@ -67,7 +67,7 @@ public class JPSelecao extends javax.swing.JPanel {
         jTFNomeAlerta = new javax.swing.JTextField();
         jBVoltar = new javax.swing.JButton();
         jBCriar = new javax.swing.JButton();
-        jFTFatasInt = new javax.swing.JFormattedTextField();
+        jFTFaltasInt = new javax.swing.JFormattedTextField();
         jFTChegadaMin = new javax.swing.JFormattedTextField();
         jFTChegadaVezes = new javax.swing.JFormattedTextField();
         jFTSaidaMin = new javax.swing.JFormattedTextField();
@@ -263,14 +263,14 @@ public class JPSelecao extends javax.swing.JPanel {
         });
 
         try {
-            jFTFatasInt.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##")));
+            jFTFaltasInt.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-        jFTFatasInt.setEnabled(false);
-        jFTFatasInt.addKeyListener(new java.awt.event.KeyAdapter() {
+        jFTFaltasInt.setEnabled(false);
+        jFTFaltasInt.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                jFTFatasIntKeyReleased(evt);
+                jFTFaltasIntKeyReleased(evt);
             }
         });
 
@@ -374,7 +374,7 @@ public class JPSelecao extends javax.swing.JPanel {
                                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                     .addComponent(jRBFaltasInt)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jFTFatasInt, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jFTFaltasInt, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGroup(layout.createSequentialGroup()
                                     .addComponent(jRBFaltasCon)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -419,7 +419,7 @@ public class JPSelecao extends javax.swing.JPanel {
                 .addGap(4, 4, 4)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jRBFaltasInt)
-                    .addComponent(jFTFatasInt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jFTFaltasInt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(12, 12, 12)
                 .addComponent(jRBFaltasSem)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -512,8 +512,82 @@ public class JPSelecao extends javax.swing.JPanel {
     private void jBCriarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCriarActionPerformed
         this.periodo();
         this.faltasInt();
+        this.faltasCon();
     }//GEN-LAST:event_jBCriarActionPerformed
     @SuppressWarnings("empty-statement")
+    
+    public void faltasCon(){
+           if (this.jRBFaltasCon.isSelected()) {
+            Bancos ev = new Eventos();
+            ev.gerar();
+            ArrayList<EventosAux> al = ev.retornaLista();
+            ArrayList<EventosAux> al2 = new ArrayList<EventosAux>();
+            ArrayList<Integer> faltas = new ArrayList<Integer>();
+            for (EventosAux monitorado : al) {
+                if (monitorado.getAluno().equals(this.jTFIdentificacao.getText().toUpperCase())) {
+                    al2.add(monitorado);
+                }
+            }
+
+            for (EventosAux monitorado : al2) { //dias que veio
+                for (int i = c2.get(Calendar.DAY_OF_MONTH); i > 0; i--) {
+                    if (monitorado.getC().get(Calendar.DAY_OF_MONTH) != i) {
+                        if (i > c1.get(Calendar.DAY_OF_MONTH)) {
+                            if (!faltas.contains(i)) {
+                                faltas.add(i);
+                            }
+                        }
+                    }
+                }
+            }
+ 
+            for (EventosAux monitorado : al2) { //remove os dias que veio
+                for (int i = 0; i < faltas.size(); i++) {
+
+                    if (faltas.get(i) == monitorado.getC().get(Calendar.DAY_OF_MONTH)) {
+                        faltas.remove(i);
+                    }
+                }
+            }
+            
+            ArrayList<ArrayList<Integer>> teste = new ArrayList<ArrayList<Integer>>();
+            
+            
+                for(int i = 0; i < faltas.size()-1; i++){
+                        ArrayList<Integer> aux = new ArrayList<Integer>();
+                        int k =i;
+                    while((faltas.get(k+1) == (faltas.get(k) -1))){
+                        aux.add(faltas.get(k));
+                        aux.add(faltas.get(k+1));
+                        k++;
+                    }
+                    teste.add(aux);
+                }
+                
+            ArrayList<Integer> faltasTot = new ArrayList<Integer>();
+            
+            for(ArrayList<Integer> testes : teste){
+                for(Integer tes : testes){
+                    if(!faltasTot.contains(tes)){
+                        faltasTot.add(tes);
+                    }
+                }
+            }
+            
+            
+           
+            if (faltas.size() < Integer.parseInt(jFTFaltasCon.getText())) {
+                System.out.println("Não faltou mais que 5 dias");
+            } else {
+                for (Integer te : faltasTot) {
+                    System.out.println(te);
+                }
+            }
+        }
+    }
+        
+        
+    
     public void faltasInt() {
         if (this.jRBFaltasInt.isSelected()) {
             Bancos ev = new Eventos();
@@ -547,9 +621,9 @@ public class JPSelecao extends javax.swing.JPanel {
                     }
                 }
             }
-            System.out.println(Integer.parseInt(jFTFatasInt.getText()));
-            if (faltas.size() < Integer.parseInt(jFTFatasInt.getText())) {
-                System.out.println("Não faltou mais que 5 dias consec");
+            System.out.println(Integer.parseInt(jFTFaltasInt.getText()));
+            if (faltas.size() < Integer.parseInt(jFTFaltasInt.getText())) {
+                System.out.println("Não faltou mais que 5 dias");
             } else {
                 for (Integer te : faltas) {
                     System.out.println(te);
@@ -579,10 +653,10 @@ public class JPSelecao extends javax.swing.JPanel {
 
         }    }//GEN-LAST:event_jFTSaidaMinKeyReleased
 
-    private void jFTFatasIntKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jFTFatasIntKeyReleased
-        if (this.jFTFatasInt.getText().length() > 0 && this.jBRelatorio.isEnabled() == true) {
+    private void jFTFaltasIntKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jFTFaltasIntKeyReleased
+        if (this.jFTFaltasInt.getText().length() > 0 && this.jBRelatorio.isEnabled() == true) {
             this.jBCriar.setEnabled(true);
-        } else if (this.jFTFatasInt.getText().length() > 0) {
+        } else if (this.jFTFaltasInt.getText().length() > 0) {
             this.jTFNomeAlerta.setEnabled(true);
             this.jlNomeAlerta.setEnabled(true);
         } else {
@@ -591,7 +665,7 @@ public class JPSelecao extends javax.swing.JPanel {
             this.jBCriar.setEnabled(false);
 
         }
-    }//GEN-LAST:event_jFTFatasIntKeyReleased
+    }//GEN-LAST:event_jFTFaltasIntKeyReleased
 
     private void jFTChegadaVezesKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jFTChegadaVezesKeyReleased
         if (this.jFTChegadaVezes.getText().length() > 0 && this.jBRelatorio.isEnabled() == true) {
@@ -628,7 +702,7 @@ public class JPSelecao extends javax.swing.JPanel {
 
         if (this.jFTFaltasCon.getText().length() > 0 && this.jBRelatorio.isEnabled() == true) {
             this.jBCriar.setEnabled(true);
-        } else if (this.jFTFatasInt.getText().length() > 0) {
+        } else if (this.jFTFaltasInt.getText().length() > 0) {
             this.jTFNomeAlerta.setEnabled(true);
             this.jlNomeAlerta.setEnabled(true);
         } else {
@@ -705,10 +779,10 @@ public class JPSelecao extends javax.swing.JPanel {
         }
 
         if (this.jRBFaltasInt.isSelected()) {
-            this.jFTFatasInt.setEnabled(true);
+            this.jFTFaltasInt.setEnabled(true);
         } else {
-            this.jFTFatasInt.setEnabled(false);
-            this.jFTFatasInt.setText("");
+            this.jFTFaltasInt.setEnabled(false);
+            this.jFTFaltasInt.setText("");
         }
 
         if (this.jRBChegada.isSelected()) {
@@ -766,7 +840,7 @@ public class JPSelecao extends javax.swing.JPanel {
     private javax.swing.JFormattedTextField jFTChegadaMin;
     private javax.swing.JFormattedTextField jFTChegadaVezes;
     private javax.swing.JFormattedTextField jFTFaltasCon;
-    private javax.swing.JFormattedTextField jFTFatasInt;
+    private javax.swing.JFormattedTextField jFTFaltasInt;
     private javax.swing.JFormattedTextField jFTPeriodo1;
     private javax.swing.JFormattedTextField jFTPeriodo2;
     private javax.swing.JFormattedTextField jFTSaidaMin;

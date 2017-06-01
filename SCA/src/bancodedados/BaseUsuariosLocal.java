@@ -92,8 +92,8 @@ public class BaseUsuariosLocal extends Bancos {
             q[1] = this.login;
             q[2] = this.senha;
             
-            bw.write(q[0] + "," + q[1] + "," + q[2]);
             bw.write('\n');
+            bw.write(q[0] + "," + q[1] + "," + q[2]);
 
             // fechando arquivo
             bw.close();

@@ -66,7 +66,7 @@
                               <Group type="102" alignment="1" attributes="0">
                                   <Component id="jRBFaltasInt" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="32767" attributes="0"/>
-                                  <Component id="jFTFatasInt" min="-2" pref="30" max="-2" attributes="0"/>
+                                  <Component id="jFTFaltasInt" min="-2" pref="30" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="jRBFaltasCon" min="-2" max="-2" attributes="0"/>
@@ -124,7 +124,7 @@
               <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jRBFaltasInt" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jFTFatasInt" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jFTFaltasInt" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
               <Component id="jRBFaltasSem" min="-2" max="-2" attributes="0"/>
@@ -417,7 +417,7 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBCriarActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JFormattedTextField" name="jFTFatasInt">
+    <Component class="javax.swing.JFormattedTextField" name="jFTFaltasInt">
       <Properties>
         <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor" preCode="try {" postCode="} catch (java.text.ParseException ex) {&#xa;ex.printStackTrace();&#xa;}">
           <Format format="##" subtype="-1" type="5"/>
@@ -425,7 +425,7 @@
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <Events>
-        <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jFTFatasIntKeyReleased"/>
+        <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jFTFaltasIntKeyReleased"/>
       </Events>
     </Component>
     <Component class="javax.swing.JFormattedTextField" name="jFTChegadaMin">

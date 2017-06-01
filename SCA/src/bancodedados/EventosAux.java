@@ -15,7 +15,6 @@ public class EventosAux {
     
     private String aluno;
     private String sentido;
-   
     private Calendar c;
 
     public EventosAux(String aluno, String sentido,  Calendar c) {

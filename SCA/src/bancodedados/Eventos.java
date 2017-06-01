@@ -42,7 +42,7 @@ public class Eventos extends Bancos {
     public void gerar() {
         File arquivo;
         try {
-            arquivo = new File(getClass().getResource("/db/db-catraca-eventos-alterado.csv").getPath());
+            arquivo = new File(getClass().getResource("/db/db-catraca-eventos-alterado-1.csv").getPath());
             Scanner leitor = new Scanner(arquivo);
             String lixo = leitor.nextLine();
             while (leitor.hasNextLine()) {
