@@ -22,8 +22,8 @@ import javax.swing.JOptionPane;
 public class JPSelecao extends javax.swing.JPanel {
 
     private JFPrincipal pai;
-    private Calendar c1,c2;
-   // private Bancos d;
+    private Calendar c1, c2;
+    // private Bancos d;
 
     /**
      * Creates new form JPSelecao
@@ -31,7 +31,7 @@ public class JPSelecao extends javax.swing.JPanel {
     public JPSelecao(JFPrincipal p) {
         this.pai = p;
         initComponents();
-        
+
     }
 
     /**
@@ -471,21 +471,19 @@ public class JPSelecao extends javax.swing.JPanel {
 
     private void jTFIdentificacaoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTFIdentificacaoKeyReleased
         this.idPreenchido(jTFIdentificacao.getText().toUpperCase());
-                 
-          
+
+
     }//GEN-LAST:event_jTFIdentificacaoKeyReleased
 
     private void jTFIdentificacaoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTFIdentificacaoMouseClicked
         jTFIdentificacao.setText("");
         jTFIdentificacao.setForeground(Color.BLACK);
-        
-       
 
-        
+
     }//GEN-LAST:event_jTFIdentificacaoMouseClicked
 
     private void jFTPeriodo2KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jFTPeriodo2KeyReleased
-        
+
         if (this.jTFIdentificacao.getText().length() > 0) {
             this.jRBChegada.setEnabled(true);
             this.jRBFaltasCon.setEnabled(true);
@@ -512,46 +510,53 @@ public class JPSelecao extends javax.swing.JPanel {
     }//GEN-LAST:event_jRBSaidaActionPerformed
 
     private void jBCriarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCriarActionPerformed
-     this.periodo();
-        if(this.jRBFaltasInt.isSelected()){
-         Bancos ev = new Eventos();
-         ev.gerar();
-         ArrayList<EventosAux> al = ev.retornaLista();
-         ArrayList<EventosAux> al2 = new ArrayList<EventosAux>();
-         ArrayList<Integer> faltas = new ArrayList<Integer>();
-         for(EventosAux monitorado : al){
-             if(monitorado.getAluno().equals(this.jTFIdentificacao.getText().toUpperCase())){
-                 al2.add(monitorado);
-             }
-         }
-         
-         
-         for(EventosAux monitorado : al2){
-             for(int i = c2.get(Calendar.DAY_OF_MONTH); i > 0; i--){
-                 if(monitorado.getC().get(Calendar.DAY_OF_MONTH) != i){
-                     if(i > c1.get(Calendar.DAY_OF_MONTH)){
-                     if(!faltas.contains(i)){
-                         faltas.add(i);
-                     }
-                     }
-                 }
-             }
-         }
-         for(EventosAux monitorado : al2){
-         for(int i = 0; i < faltas.size(); i++){
-             
-                 if(faltas.get(i) == monitorado.getC().get(Calendar.DAY_OF_MONTH)){
-                     faltas.remove(i);
-                 }
-             }
-         }
-        for(Integer te : faltas){
-            System.out.println(te);
-        } 
-     }
-        
+        this.periodo();
+        this.faltasInt();
     }//GEN-LAST:event_jBCriarActionPerformed
+    @SuppressWarnings("empty-statement")
+    public void faltasInt() {
+        if (this.jRBFaltasInt.isSelected()) {
+            Bancos ev = new Eventos();
+            ev.gerar();
+            ArrayList<EventosAux> al = ev.retornaLista();
+            ArrayList<EventosAux> al2 = new ArrayList<EventosAux>();
+            ArrayList<Integer> faltas = new ArrayList<Integer>();
+            for (EventosAux monitorado : al) {
+                if (monitorado.getAluno().equals(this.jTFIdentificacao.getText().toUpperCase())) {
+                    al2.add(monitorado);
+                }
+            }
 
+            for (EventosAux monitorado : al2) {
+                for (int i = c2.get(Calendar.DAY_OF_MONTH); i > 0; i--) {
+                    if (monitorado.getC().get(Calendar.DAY_OF_MONTH) != i) {
+                        if (i > c1.get(Calendar.DAY_OF_MONTH)) {
+                            if (!faltas.contains(i)) {
+                                faltas.add(i);
+                            }
+                        }
+                    }
+                }
+            }
+
+            for (EventosAux monitorado : al2) {
+                for (int i = 0; i < faltas.size(); i++) {
+
+                    if (faltas.get(i) == monitorado.getC().get(Calendar.DAY_OF_MONTH)) {
+                        faltas.remove(i);
+                    }
+                }
+            }
+            System.out.println(Integer.parseInt(jFTFatasInt.getText()));
+            if (faltas.size() < Integer.parseInt(jFTFatasInt.getText())) {
+                System.out.println("Não faltou mais que 5 dias consec");
+            } else {
+                for (Integer te : faltas) {
+                    System.out.println(te);
+                }
+            }
+        }
+    }
     private void jBVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBVoltarActionPerformed
         this.limpaCampos();
         this.jBAlerta.setEnabled(true);
@@ -613,26 +618,22 @@ public class JPSelecao extends javax.swing.JPanel {
             this.jlNomeAlerta.setEnabled(false);
             this.jBCriar.setEnabled(false);
 
-
         }
     }//GEN-LAST:event_jFTSaidaVezesKeyReleased
 
     private void jFTFaltasConKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jFTFaltasConKeyReleased
-        if (this.jFTFaltasCon.getText().equals("  ")){
+        if (this.jFTFaltasCon.getText().equals("  ")) {
             this.jBCriar.setEnabled(false);
         }
-        
+
         if (this.jFTFaltasCon.getText().length() > 0 && this.jBRelatorio.isEnabled() == true) {
             this.jBCriar.setEnabled(true);
         } else if (this.jFTFatasInt.getText().length() > 0) {
             this.jTFNomeAlerta.setEnabled(true);
             this.jlNomeAlerta.setEnabled(true);
-        }                     
-      
-            else {
+        } else {
             this.jTFNomeAlerta.setEnabled(false);
             this.jlNomeAlerta.setEnabled(false);
-            
 
         }
     }//GEN-LAST:event_jFTFaltasConKeyReleased
@@ -645,35 +646,32 @@ public class JPSelecao extends javax.swing.JPanel {
         this.jBVoltar.setEnabled(true);    }//GEN-LAST:event_jBAlertaActionPerformed
 
     private void jTFNomeAlertaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTFNomeAlertaKeyReleased
-        this.jBCriar.setEnabled(true);           
+        this.jBCriar.setEnabled(true);
     }//GEN-LAST:event_jTFNomeAlertaKeyReleased
-    
-    private void periodo(){
-         this.c1 = Calendar.getInstance();
-         this.c2 = Calendar.getInstance();
-         String p1[] = jFTPeriodo1.getText().split("/");
-         String p2[] = jFTPeriodo2.getText().split("/");
 
-         c1.set(Calendar.YEAR, Integer.parseInt(p1[2]));
-         c1.set(Calendar.MONTH, Integer.parseInt(p1[2]));
-         c1.set(Calendar.DAY_OF_MONTH, Integer.parseInt(p1[0]));
-         
-         c2.set(Calendar.YEAR, Integer.parseInt(p2[2]));
-         c2.set(Calendar.MONTH, Integer.parseInt(p2[2]));
-         c2.set(Calendar.DAY_OF_MONTH, Integer.parseInt(p2[0]));
-         
-         
-           
-         
-        
+    private void periodo() {
+        this.c1 = Calendar.getInstance();
+        this.c2 = Calendar.getInstance();
+        String p1[] = jFTPeriodo1.getText().split("/");
+        String p2[] = jFTPeriodo2.getText().split("/");
+
+        c1.set(Calendar.YEAR, Integer.parseInt(p1[2]));
+        c1.set(Calendar.MONTH, Integer.parseInt(p1[1]));
+        c1.set(Calendar.DAY_OF_MONTH, Integer.parseInt(p1[0]));
+        c2.set(Calendar.YEAR, Integer.parseInt(p2[2]));
+
+        c2.set(Calendar.MONTH, Integer.parseInt(p2[1]));
+        c2.set(Calendar.DAY_OF_MONTH, Integer.parseInt(p2[0]));
+
     }
+
     private void idPreenchido(String texto) {
         Bancos d = new Academico(texto);
-       
+
         d.gerar();
         d.consultar();
         if (this.jBRelatorio.isEnabled() == true && d.autenticar()) {
-          
+
             this.jFTPeriodo1.setEnabled(true);
             this.jFTPeriodo2.setEnabled(true);
             this.jLAux.setEnabled(true);
