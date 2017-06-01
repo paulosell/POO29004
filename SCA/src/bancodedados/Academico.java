@@ -35,7 +35,7 @@ public class Academico extends Bancos {
         File arquivo;
         try {
 
-            arquivo = new File(getClass().getResource("/db/db-academico.csv").getPath());
+            arquivo = new File(getClass().getResource("/db/db-academico-alterado.csv").getPath());
             Scanner leitor = new Scanner(arquivo);
             String lixo = leitor.nextLine();
             while (leitor.hasNextLine()) {
@@ -67,9 +67,6 @@ public class Academico extends Bancos {
             }
         }
     }
-    
-   
-    
 
     @Override
     public void modificar() {
@@ -78,7 +75,7 @@ public class Academico extends Bancos {
 
     @Override
     public boolean autenticar() {
-  return t;
+        return t;
     }
 
     @Override

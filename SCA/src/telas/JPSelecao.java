@@ -350,7 +350,6 @@ public class JPSelecao extends javax.swing.JPanel {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jFTChegadaVezes, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jFTSaidaVezes, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(88, 88, 88)
@@ -384,9 +383,8 @@ public class JPSelecao extends javax.swing.JPanel {
                                     .addComponent(jLAux)
                                     .addGap(4, 4, 4)
                                     .addComponent(jFTPeriodo2, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(jBAlerta, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jBRelatorio, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addComponent(jBAlerta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jBRelatorio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addComponent(jFTSaidaMin, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
@@ -514,27 +512,30 @@ public class JPSelecao extends javax.swing.JPanel {
         if(this.jRBFaltasCon.isSelected()){
             Bancos ev = new Eventos();
             ev.gerar();
+                      ArrayList<Integer> aux3 = new ArrayList<Integer>();
+
            ArrayList<EventosAux> aux = ev.retornaLista();
            ArrayList<EventosAux> aux2 = new ArrayList<EventosAux>();
            for(EventosAux ta : aux){
-              if(ta.getAluno().equals(jTFIdentificacao.getText().toUpperCase())){
-                   int i =0;
-                   System.out.println(ta.getAluno());
-                   System.out.println(aux.get(i++).getDia());
-                   System.out.println((aux.get(i).getDia() +1));
-                   if(aux.get(i++).getDia() == (aux.get(i).getDia() +1)){
-                       aux2.add(aux.get(i));
-                       
-                   } i++;
+               if(ta.getAluno().equals(this.jTFIdentificacao)){
+                   aux2.add(ta);
                }
            }
-            
-           for(EventosAux teu : aux2){
-               System.out.println(teu.getAluno() + " : " + teu.getDia());
+           for(int i = 0; i<aux2.size(); i++){
+               if(aux2.get(i++).getDia() > (aux2.get(i).getDia() +1)){
+                   int lims = aux2.get(i++).getDia();
+                   int limi = aux2.get(i).getDia();
+                 for(int t = lims; t>limi; t--){
+                     aux3.add(t);
+                 }   
+               }
            }
+            System.out.println(aux3.size());
+           for(Integer u : aux3){
+            System.out.println(u);
+        }
         }
         
-       
     }//GEN-LAST:event_jBCriarActionPerformed
 
     private void jBVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBVoltarActionPerformed
@@ -635,9 +636,7 @@ public class JPSelecao extends javax.swing.JPanel {
 
     private void idPreenchido(String texto) {
         Bancos d = new Academico(texto);
-        System.out.println("1");
-        System.out.println(texto);
-        System.out.println(((Academico)d).getAluno());
+       
         d.gerar();
         d.consultar();
         if (this.jBRelatorio.isEnabled() == true && d.autenticar()) {
