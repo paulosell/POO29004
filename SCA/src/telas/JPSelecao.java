@@ -513,120 +513,245 @@ public class JPSelecao extends javax.swing.JPanel {
         this.periodo();
         this.faltasInt();
         this.faltasCon();
+        this.chegadaTardia();
+        this.saidaAntecipada();
     }//GEN-LAST:event_jBCriarActionPerformed
     @SuppressWarnings("empty-statement")
-    
-    public void faltasCon(){
-           if (this.jRBFaltasCon.isSelected()) {
-            Bancos ev = new Eventos();
-            ev.gerar();
-            ArrayList<EventosAux> al = ev.retornaLista();
-            ArrayList<EventosAux> al2 = new ArrayList<EventosAux>();
-            ArrayList<Integer> faltas = new ArrayList<Integer>();
-            for (EventosAux monitorado : al) {
-                if (monitorado.getAluno().equals(this.jTFIdentificacao.getText().toUpperCase())) {
-                    al2.add(monitorado);
-                }
-            }
 
-            for (EventosAux monitorado : al2) { //dias que veio
-                for (int i = c2.get(Calendar.DAY_OF_MONTH); i > 0; i--) {
-                    if (monitorado.getC().get(Calendar.DAY_OF_MONTH) != i) {
-                        if (i > c1.get(Calendar.DAY_OF_MONTH)) {
-                            if (!faltas.contains(i)) {
-                                faltas.add(i);
+    public void saidaAntecipada(){
+        if (this.jBRelatorio.isEnabled()) {
+            if (this.jRBSaida.isSelected()) {
+                    Bancos ev = new Eventos();
+                ev.gerar();
+                ArrayList<EventosAux> al = ev.retornaLista();
+                ArrayList<EventosAux> al2 = new ArrayList<EventosAux>();
+                ArrayList<EventosAux> saidas = new ArrayList<EventosAux>();
+                for (EventosAux monitorado : al) {
+                    if (monitorado.getAluno().equals(this.jTFIdentificacao.getText().toUpperCase())) {
+                        al2.add(monitorado);
+                    }
+                }
+                
+                  if (Integer.parseInt(this.jFTSaidaMin.getText()) > 30) {
+                    for (EventosAux hora : al2) {
+                        if (hora.getSentido().equals("Interna,Externa")) {
+                            if (((hora.getC().get(Calendar.HOUR_OF_DAY) > 7) && (hora.getC().get(Calendar.HOUR) < 12))
+                                    || ((hora.getC().get(Calendar.HOUR_OF_DAY) > 13) && (hora.getC().get(Calendar.HOUR) < 18))) {
+                                saidas.add(hora);
+                            }
+                        }
+                    }
+                } else {
+                    for (EventosAux hora : al2) {
+                        if (hora.getSentido().equals("Interna,Externa")) {
+
+                            System.out.println(hora.getC().get(Calendar.MINUTE));
+                            System.out.println(hora.getC().get(Calendar.HOUR_OF_DAY));
+                            if (hora.getC().get(Calendar.MINUTE) < 30) {
+                                if ((hora.getC().get(Calendar.MINUTE) + (Integer.parseInt(this.jFTSaidaMin.getText()))) < 30) {
+                                    saidas.add(hora);
+                                }
+                            }
+                        }
+                    }
+                  }
+                     System.out.println(saidas.size());
+                if (saidas.size() >= Integer.parseInt(this.jFTSaidaVezes.getText())) {
+                    for (EventosAux fim : saidas) {
+                        if (fim.getC().get(Calendar.MINUTE) < 10) {
+                            System.out.println(fim.getC().get(Calendar.HOUR_OF_DAY) + ":0" + fim.getC().get(Calendar.MINUTE));
+
+                        } else {
+                            System.out.println(fim.getC().get(Calendar.HOUR_OF_DAY) + ":" + fim.getC().get(Calendar.MINUTE));
+
+                        }
+                    }
+                } else {
+                    System.out.println("nada");
+                }
+            
+                }
+                
+            }
+            
+    
+    }
+    public void chegadaTardia() {
+        if (this.jBRelatorio.isEnabled()) {
+            if (this.jRBChegada.isSelected()) {
+                Bancos ev = new Eventos();
+                ev.gerar();
+                ArrayList<EventosAux> al = ev.retornaLista();
+                ArrayList<EventosAux> al2 = new ArrayList<EventosAux>();
+                ArrayList<EventosAux> chegadas = new ArrayList<EventosAux>();
+                for (EventosAux monitorado : al) {
+                    if (monitorado.getAluno().equals(this.jTFIdentificacao.getText().toUpperCase())) {
+                        al2.add(monitorado);
+                    }
+                }
+
+                if (Integer.parseInt(this.jFTChegadaMin.getText()) > 30) {
+                    for (EventosAux hora : al2) {
+                        if (hora.getSentido().equals("Externa,Interna")) {
+                            if (((hora.getC().get(Calendar.HOUR_OF_DAY) > 7) && (hora.getC().get(Calendar.HOUR) < 12))
+                                    || ((hora.getC().get(Calendar.HOUR_OF_DAY) > 13) && (hora.getC().get(Calendar.HOUR) < 18))) {
+                                chegadas.add(hora);
+                            }
+                        }
+                    }
+                } else {
+                    for (EventosAux hora : al2) {
+                        if (hora.getSentido().equals("Externa,Interna")) {
+
+                            System.out.println(hora.getC().get(Calendar.MINUTE));
+                            System.out.println(hora.getC().get(Calendar.HOUR_OF_DAY));
+                            if (hora.getC().get(Calendar.MINUTE) > 30) {
+                                if ((hora.getC().get(Calendar.MINUTE) - (Integer.parseInt(this.jFTChegadaMin.getText()))) > 30) {
+                                    chegadas.add(hora);
+                                }
                             }
                         }
                     }
                 }
-            }
- 
-            for (EventosAux monitorado : al2) { //remove os dias que veio
-                for (int i = 0; i < faltas.size(); i++) {
+                System.out.println(chegadas.size());
+                if (chegadas.size() >= Integer.parseInt(this.jFTChegadaVezes.getText())) {
+                    for (EventosAux fim : chegadas) {
+                        if (fim.getC().get(Calendar.MINUTE) < 10) {
+                            System.out.println(fim.getC().get(Calendar.HOUR_OF_DAY) + ":0" + fim.getC().get(Calendar.MINUTE));
 
-                    if (faltas.get(i) == monitorado.getC().get(Calendar.DAY_OF_MONTH)) {
-                        faltas.remove(i);
+                        } else {
+                            System.out.println(fim.getC().get(Calendar.HOUR_OF_DAY) + ":" + fim.getC().get(Calendar.MINUTE));
+
+                        }
                     }
-                }
-            }
-            
-            ArrayList<ArrayList<Integer>> teste = new ArrayList<ArrayList<Integer>>();
-            
-            
-                for(int i = 0; i < faltas.size()-1; i++){
-                        ArrayList<Integer> aux = new ArrayList<Integer>();
-                        int k =i;
-                    while((faltas.get(k+1) == (faltas.get(k) -1))){
-                        aux.add(faltas.get(k));
-                        aux.add(faltas.get(k+1));
-                        k++;
-                    }
-                    teste.add(aux);
-                }
-                
-            ArrayList<Integer> faltasTot = new ArrayList<Integer>();
-            
-            for(ArrayList<Integer> testes : teste){
-                for(Integer tes : testes){
-                    if(!faltasTot.contains(tes)){
-                        faltasTot.add(tes);
-                    }
-                }
-            }
-            
-            
-           
-            if (faltas.size() < Integer.parseInt(jFTFaltasCon.getText())) {
-                System.out.println("Não faltou mais que 5 dias");
-            } else {
-                for (Integer te : faltasTot) {
-                    System.out.println(te);
+                } else {
+                    System.out.println("nada");
                 }
             }
         }
     }
-        
-        
-    
-    public void faltasInt() {
-        if (this.jRBFaltasInt.isSelected()) {
-            Bancos ev = new Eventos();
-            ev.gerar();
-            ArrayList<EventosAux> al = ev.retornaLista();
-            ArrayList<EventosAux> al2 = new ArrayList<EventosAux>();
-            ArrayList<Integer> faltas = new ArrayList<Integer>();
-            for (EventosAux monitorado : al) {
-                if (monitorado.getAluno().equals(this.jTFIdentificacao.getText().toUpperCase())) {
-                    al2.add(monitorado);
-                }
-            }
 
-            for (EventosAux monitorado : al2) {
-                for (int i = c2.get(Calendar.DAY_OF_MONTH); i > 0; i--) {
-                    if (monitorado.getC().get(Calendar.DAY_OF_MONTH) != i) {
-                        if (i > c1.get(Calendar.DAY_OF_MONTH)) {
-                            if (!faltas.contains(i)) {
-                                faltas.add(i);
+    public void faltasCon() {
+        if (this.jBRelatorio.isEnabled()) {
+
+            if (this.jRBFaltasCon.isSelected()) {
+                Bancos ev = new Eventos();
+                ev.gerar();
+                ArrayList<EventosAux> al = ev.retornaLista();
+                ArrayList<EventosAux> al2 = new ArrayList<EventosAux>();
+                ArrayList<Integer> faltas = new ArrayList<Integer>();
+                for (EventosAux monitorado : al) {
+                    if (monitorado.getAluno().equals(this.jTFIdentificacao.getText().toUpperCase())) {
+                        al2.add(monitorado);
+                    }
+                }
+
+                for (EventosAux monitorado : al2) { //dias que veio
+                    for (int i = c2.get(Calendar.DAY_OF_MONTH); i > 0; i--) {
+                        if (monitorado.getC().get(Calendar.DAY_OF_MONTH) != i) {
+                            if (i > c1.get(Calendar.DAY_OF_MONTH)) {
+                                if (!faltas.contains(i)) {
+                                    faltas.add(i);
+                                }
                             }
                         }
                     }
                 }
-            }
 
-            for (EventosAux monitorado : al2) {
-                for (int i = 0; i < faltas.size(); i++) {
+                for (EventosAux monitorado : al2) { //remove os dias que veio
+                    for (int i = 0; i < faltas.size(); i++) {
 
-                    if (faltas.get(i) == monitorado.getC().get(Calendar.DAY_OF_MONTH)) {
-                        faltas.remove(i);
+                        if (faltas.get(i) == monitorado.getC().get(Calendar.DAY_OF_MONTH)) {
+                            faltas.remove(i);
+                        }
                     }
                 }
+
+                ArrayList<ArrayList<Integer>> filtro = new ArrayList<ArrayList<Integer>>();
+
+                for (int i = 0; i < faltas.size() - 1; i++) {
+                    ArrayList<Integer> aux = new ArrayList<Integer>();
+                    int k = i;
+
+                    while ((faltas.get(k + 1) == (faltas.get(k) - 1))) {
+                        aux.add(faltas.get(k));
+                        aux.add(faltas.get(k + 1));
+                        k++;
+                        if (k == faltas.size() - 1) {
+                            break;
+                        }
+                    }
+                    filtro.add(aux);
+                }
+
+                ArrayList<Integer> faltasTot = new ArrayList<Integer>();
+
+                for (ArrayList<Integer> preTotal : filtro) {
+                    if (preTotal.size() >= Integer.parseInt(this.jFTFaltasCon.getText())) {
+
+                        for (Integer pre : preTotal) {
+                            if (!faltasTot.contains(pre)) {
+                                faltasTot.add(pre);
+                            }
+                        }
+                    }
+                }
+
+                if (faltasTot.size() < Integer.parseInt(jFTFaltasCon.getText())) {
+                    System.out.println("Não faltou mais que 5 dias");
+                } else {
+                    for (Integer te : faltasTot) {
+                        System.out.println("faltas:");
+                        System.out.println(te);
+                    }
+                }
+
             }
-            System.out.println(Integer.parseInt(jFTFaltasInt.getText()));
-            if (faltas.size() < Integer.parseInt(jFTFaltasInt.getText())) {
-                System.out.println("Não faltou mais que 5 dias");
-            } else {
-                for (Integer te : faltas) {
-                    System.out.println(te);
+        }
+
+    }
+
+    public void faltasInt() {
+        if (this.jBRelatorio.isEnabled()) {
+            if (this.jRBFaltasInt.isSelected()) {
+                Bancos ev = new Eventos();
+                ev.gerar();
+                ArrayList<EventosAux> al = ev.retornaLista();
+                ArrayList<EventosAux> al2 = new ArrayList<EventosAux>();
+                ArrayList<Integer> faltas = new ArrayList<Integer>();
+                for (EventosAux monitorado : al) {
+                    if (monitorado.getAluno().equals(this.jTFIdentificacao.getText().toUpperCase())) {
+                        al2.add(monitorado);
+                    }
+                }
+
+                for (EventosAux monitorado : al2) {
+                    for (int i = c2.get(Calendar.DAY_OF_MONTH); i > 0; i--) {
+                        if (monitorado.getC().get(Calendar.DAY_OF_MONTH) != i) {
+                            if (i > c1.get(Calendar.DAY_OF_MONTH)) {
+                                if (!faltas.contains(i)) {
+                                    faltas.add(i);
+                                }
+                            }
+                        }
+                    }
+                }
+
+                for (EventosAux monitorado : al2) {
+                    for (int i = 0; i < faltas.size(); i++) {
+
+                        if (faltas.get(i) == monitorado.getC().get(Calendar.DAY_OF_MONTH)) {
+                            faltas.remove(i);
+                        }
+                    }
+                }
+                System.out.println(Integer.parseInt(jFTFaltasInt.getText()));
+                if (faltas.size() < Integer.parseInt(jFTFaltasInt.getText())) {
+                    System.out.println("Não faltou mais que 5 dias");
+                } else {
+                    for (Integer te : faltas) {
+                        System.out.println(te);
+                    }
                 }
             }
         }
@@ -724,19 +849,21 @@ public class JPSelecao extends javax.swing.JPanel {
     }//GEN-LAST:event_jTFNomeAlertaKeyReleased
 
     private void periodo() {
-        this.c1 = Calendar.getInstance();
-        this.c2 = Calendar.getInstance();
-        String p1[] = jFTPeriodo1.getText().split("/");
-        String p2[] = jFTPeriodo2.getText().split("/");
+        if (this.jBRelatorio.isEnabled()) {
+            this.c1 = Calendar.getInstance();
+            this.c2 = Calendar.getInstance();
+            String p1[] = jFTPeriodo1.getText().split("/");
+            String p2[] = jFTPeriodo2.getText().split("/");
 
-        c1.set(Calendar.YEAR, Integer.parseInt(p1[2]));
-        c1.set(Calendar.MONTH, Integer.parseInt(p1[1]));
-        c1.set(Calendar.DAY_OF_MONTH, Integer.parseInt(p1[0]));
-        c2.set(Calendar.YEAR, Integer.parseInt(p2[2]));
+            c1.set(Calendar.YEAR, Integer.parseInt(p1[2]));
+            c1.set(Calendar.MONTH, Integer.parseInt(p1[1]));
+            c1.set(Calendar.DAY_OF_MONTH, Integer.parseInt(p1[0]));
+            c2.set(Calendar.YEAR, Integer.parseInt(p2[2]));
 
-        c2.set(Calendar.MONTH, Integer.parseInt(p2[1]));
-        c2.set(Calendar.DAY_OF_MONTH, Integer.parseInt(p2[0]));
+            c2.set(Calendar.MONTH, Integer.parseInt(p2[1]));
+            c2.set(Calendar.DAY_OF_MONTH, Integer.parseInt(p2[0]));
 
+        }
     }
 
     private void idPreenchido(String texto) {
