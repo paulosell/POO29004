@@ -5,10 +5,13 @@
  */
 package telas;
 
+
 import bancodedados.Academico;
 import bancodedados.Bancos;
 import bancodedados.Eventos;
 import bancodedados.EventosAux;
+import controles.Controle;
+import controles.controleRelatorio;
 import java.awt.Color;
 import java.awt.Component;
 import java.util.ArrayList;
@@ -20,9 +23,11 @@ import javax.swing.JOptionPane;
  * @author pfsel
  */
 public class JPSelecao extends javax.swing.JPanel {
-
+    
     private JFPrincipal pai;
     private Calendar c1, c2;
+    private Controle control;
+
     // private Bancos d;
 
     /**
@@ -31,7 +36,7 @@ public class JPSelecao extends javax.swing.JPanel {
     public JPSelecao(JFPrincipal p) {
         this.pai = p;
         initComponents();
-
+     
     }
 
     /**
@@ -73,6 +78,8 @@ public class JPSelecao extends javax.swing.JPanel {
         jFTSaidaMin = new javax.swing.JFormattedTextField();
         jFTSaidaVezes = new javax.swing.JFormattedTextField();
         jFTFaltasCon = new javax.swing.JFormattedTextField();
+        jTFSemanas = new javax.swing.JTextField();
+        jFTSemanasVezes = new javax.swing.JFormattedTextField();
 
         jBAlerta.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jBAlerta.setText("Alerta");
@@ -176,6 +183,11 @@ public class JPSelecao extends javax.swing.JPanel {
         bGTipos.add(jRBFaltasSem);
         jRBFaltasSem.setText("Faltas por dia da semana");
         jRBFaltasSem.setEnabled(false);
+        jRBFaltasSem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRBFaltasSemActionPerformed(evt);
+            }
+        });
 
         bGTipos.add(jRBChegada);
         jRBChegada.setText("Chegada tardia");
@@ -219,7 +231,7 @@ public class JPSelecao extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(204, 204, 204)
                 .addComponent(jBExcluirTab)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(75, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
@@ -334,6 +346,32 @@ public class JPSelecao extends javax.swing.JPanel {
             }
         });
 
+        jTFSemanas.setForeground(new java.awt.Color(102, 102, 102));
+        jTFSemanas.setText("INFORME");
+        jTFSemanas.setEnabled(false);
+        jTFSemanas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTFSemanasMouseClicked(evt);
+            }
+        });
+        jTFSemanas.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTFSemanasKeyReleased(evt);
+            }
+        });
+
+        try {
+            jFTSemanasVezes.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        jFTSemanasVezes.setEnabled(false);
+        jFTSemanasVezes.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jFTSemanasVezesKeyReleased(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -343,108 +381,117 @@ public class JPSelecao extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jRBFaltasSem)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jRBSaida)
-                                    .addComponent(jRBChegada))
-                                .addGap(85, 85, 85)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jFTChegadaVezes, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jFTSaidaVezes, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(88, 88, 88)
-                                .addComponent(jlNomeAlerta)
-                                .addGap(4, 4, 4)
-                                .addComponent(jTFNomeAlerta, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jBVoltar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jBCriar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jFTChegadaMin, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jRBAluno)
-                                    .addGap(2, 2, 2)
-                                    .addComponent(jRBTurma)
-                                    .addGap(2, 2, 2)
-                                    .addComponent(jRBCurso))
-                                .addComponent(jTFIdentificacao, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                    .addComponent(jRBFaltasInt)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jFTFaltasInt, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jFTChegadaMin, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jRBAluno)
+                                        .addGap(2, 2, 2)
+                                        .addComponent(jRBTurma)
+                                        .addGap(2, 2, 2)
+                                        .addComponent(jRBCurso))
+                                    .addComponent(jTFIdentificacao, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jRBFaltasCon)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jFTFaltasCon, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                    .addComponent(jFTPeriodo1, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(4, 4, 4)
-                                    .addComponent(jLAux)
-                                    .addGap(4, 4, 4)
-                                    .addComponent(jFTPeriodo2, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(jBAlerta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jBRelatorio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(jFTSaidaMin, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addComponent(jFTPeriodo1, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(4, 4, 4)
+                                        .addComponent(jLAux)
+                                        .addGap(4, 4, 4)
+                                        .addComponent(jFTPeriodo2, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jBAlerta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jBRelatorio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(jFTSaidaMin, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jRBFaltasInt)
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jFTFaltasCon, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jFTFaltasInt, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(18, 18, 18)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jRBSaida)
+                            .addComponent(jRBChegada))
+                        .addGap(85, 85, 85)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jFTChegadaVezes, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jFTSaidaVezes, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jBVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jBCriar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(57, 57, 57))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jRBFaltasSem)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTFSemanas, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(6, 6, 6)
+                        .addComponent(jFTSemanasVezes, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(22, 22, 22)
+                        .addComponent(jlNomeAlerta)
+                        .addGap(4, 4, 4)
+                        .addComponent(jTFNomeAlerta, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(11, 11, 11)
-                .addComponent(jBAlerta)
-                .addGap(6, 6, 6)
-                .addComponent(jBRelatorio)
-                .addGap(7, 7, 7)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jRBAluno)
-                    .addComponent(jRBTurma)
-                    .addComponent(jRBCurso))
-                .addGap(2, 2, 2)
-                .addComponent(jTFIdentificacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(15, 15, 15)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jFTPeriodo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(3, 3, 3)
-                        .addComponent(jLAux))
-                    .addComponent(jFTPeriodo2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(14, 14, 14)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jRBFaltasCon)
-                    .addComponent(jFTFaltasCon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(4, 4, 4)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jRBFaltasInt)
-                    .addComponent(jFTFaltasInt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(12, 12, 12)
-                .addComponent(jRBFaltasSem)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jRBChegada)
-                    .addComponent(jFTChegadaMin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jFTChegadaVezes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jRBSaida)
-                    .addComponent(jFTSaidaMin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jFTSaidaVezes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(6, 6, 6)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(9, 9, 9)
-                        .addComponent(jlNomeAlerta))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jTFNomeAlerta, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(11, 11, 11)
-                        .addComponent(jBVoltar)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBCriar))
+                        .addComponent(jBAlerta)
+                        .addGap(6, 6, 6)
+                        .addComponent(jBRelatorio)
+                        .addGap(7, 7, 7)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jRBAluno)
+                            .addComponent(jRBTurma)
+                            .addComponent(jRBCurso))
+                        .addGap(2, 2, 2)
+                        .addComponent(jTFIdentificacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(15, 15, 15)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jFTPeriodo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(3, 3, 3)
+                                .addComponent(jLAux))
+                            .addComponent(jFTPeriodo2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(14, 14, 14)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jRBFaltasCon)
+                            .addComponent(jFTFaltasCon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(4, 4, 4)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jRBFaltasInt)
+                            .addComponent(jFTFaltasInt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(12, 12, 12)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jRBFaltasSem)
+                            .addComponent(jTFSemanas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jFTSemanasVezes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jRBChegada)
+                            .addComponent(jFTChegadaMin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jFTChegadaVezes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jRBSaida)
+                            .addComponent(jFTSaidaMin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jFTSaidaVezes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(6, 6, 6)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(9, 9, 9)
+                                .addComponent(jlNomeAlerta))
+                            .addComponent(jTFNomeAlerta, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jBVoltar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jBCriar)))
+                .addContainerGap(47, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -510,252 +557,34 @@ public class JPSelecao extends javax.swing.JPanel {
     }//GEN-LAST:event_jRBSaidaActionPerformed
 
     private void jBCriarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCriarActionPerformed
+        if(this.jBRelatorio.isEnabled()){
         this.periodo();
-        this.faltasInt();
-        this.faltasCon();
-        this.chegadaTardia();
-        this.saidaAntecipada();
+        if(this.jRBFaltasInt.isSelected()){
+            control = new controleRelatorio(this.jTFIdentificacao, this.jFTFaltasInt, this.c1, this.c2);
+            control.faltasInt();
+        }
+        if(this.jRBFaltasCon.isSelected()){
+            control = new controleRelatorio(this.jTFIdentificacao, this.jFTFaltasCon, this.c1, this.c2);
+            control.faltasCon();
+        }
+        if(this.jRBSaida.isSelected()){
+            control = new controleRelatorio(this.jTFIdentificacao, this.jFTSaidaMin, this.jFTSaidaVezes);
+            control.saidaAntecipada();
+        }
+        if(this.jRBChegada.isSelected()){
+            control = new controleRelatorio(this.jTFIdentificacao, this.jFTChegadaMin, this.jFTChegadaVezes);
+            control.chegadaTardia();
+        }
+        if(this.jRBFaltasSem.isSelected()){
+            control = new controleRelatorio(this.jTFIdentificacao, this.jFTSemanasVezes, this.jTFSemanas,
+            this.c1, this.c2);
+            control.faltasSemana();
+        }
+        
+        }        
+       
     }//GEN-LAST:event_jBCriarActionPerformed
-    @SuppressWarnings("empty-statement")
-
-    public void saidaAntecipada(){
-        if (this.jBRelatorio.isEnabled()) {
-            if (this.jRBSaida.isSelected()) {
-                    Bancos ev = new Eventos();
-                ev.gerar();
-                ArrayList<EventosAux> al = ev.retornaLista();
-                ArrayList<EventosAux> al2 = new ArrayList<EventosAux>();
-                ArrayList<EventosAux> saidas = new ArrayList<EventosAux>();
-                for (EventosAux monitorado : al) {
-                    if (monitorado.getAluno().equals(this.jTFIdentificacao.getText().toUpperCase())) {
-                        al2.add(monitorado);
-                    }
-                }
-                
-                  if (Integer.parseInt(this.jFTSaidaMin.getText()) > 30) {
-                    for (EventosAux hora : al2) {
-                        if (hora.getSentido().equals("Interna,Externa")) {
-                            if (((hora.getC().get(Calendar.HOUR_OF_DAY) > 7) && (hora.getC().get(Calendar.HOUR) < 12))
-                                    || ((hora.getC().get(Calendar.HOUR_OF_DAY) > 13) && (hora.getC().get(Calendar.HOUR) < 18))) {
-                                saidas.add(hora);
-                            }
-                        }
-                    }
-                } else {
-                    for (EventosAux hora : al2) {
-                        if (hora.getSentido().equals("Interna,Externa")) {
-
-                            System.out.println(hora.getC().get(Calendar.MINUTE));
-                            System.out.println(hora.getC().get(Calendar.HOUR_OF_DAY));
-                            if (hora.getC().get(Calendar.MINUTE) < 30) {
-                                if ((hora.getC().get(Calendar.MINUTE) + (Integer.parseInt(this.jFTSaidaMin.getText()))) < 30) {
-                                    saidas.add(hora);
-                                }
-                            }
-                        }
-                    }
-                  }
-                     System.out.println(saidas.size());
-                if (saidas.size() >= Integer.parseInt(this.jFTSaidaVezes.getText())) {
-                    for (EventosAux fim : saidas) {
-                        if (fim.getC().get(Calendar.MINUTE) < 10) {
-                            System.out.println(fim.getC().get(Calendar.HOUR_OF_DAY) + ":0" + fim.getC().get(Calendar.MINUTE));
-
-                        } else {
-                            System.out.println(fim.getC().get(Calendar.HOUR_OF_DAY) + ":" + fim.getC().get(Calendar.MINUTE));
-
-                        }
-                    }
-                } else {
-                    System.out.println("nada");
-                }
-            
-                }
-                
-            }
-            
-    
-    }
-    public void chegadaTardia() {
-        if (this.jBRelatorio.isEnabled()) {
-            if (this.jRBChegada.isSelected()) {
-                Bancos ev = new Eventos();
-                ev.gerar();
-                ArrayList<EventosAux> al = ev.retornaLista();
-                ArrayList<EventosAux> al2 = new ArrayList<EventosAux>();
-                ArrayList<EventosAux> chegadas = new ArrayList<EventosAux>();
-                for (EventosAux monitorado : al) {
-                    if (monitorado.getAluno().equals(this.jTFIdentificacao.getText().toUpperCase())) {
-                        al2.add(monitorado);
-                    }
-                }
-
-                if (Integer.parseInt(this.jFTChegadaMin.getText()) > 30) {
-                    for (EventosAux hora : al2) {
-                        if (hora.getSentido().equals("Externa,Interna")) {
-                            if (((hora.getC().get(Calendar.HOUR_OF_DAY) > 7) && (hora.getC().get(Calendar.HOUR) < 12))
-                                    || ((hora.getC().get(Calendar.HOUR_OF_DAY) > 13) && (hora.getC().get(Calendar.HOUR) < 18))) {
-                                chegadas.add(hora);
-                            }
-                        }
-                    }
-                } else {
-                    for (EventosAux hora : al2) {
-                        if (hora.getSentido().equals("Externa,Interna")) {
-
-                            System.out.println(hora.getC().get(Calendar.MINUTE));
-                            System.out.println(hora.getC().get(Calendar.HOUR_OF_DAY));
-                            if (hora.getC().get(Calendar.MINUTE) > 30) {
-                                if ((hora.getC().get(Calendar.MINUTE) - (Integer.parseInt(this.jFTChegadaMin.getText()))) > 30) {
-                                    chegadas.add(hora);
-                                }
-                            }
-                        }
-                    }
-                }
-                System.out.println(chegadas.size());
-                if (chegadas.size() >= Integer.parseInt(this.jFTChegadaVezes.getText())) {
-                    for (EventosAux fim : chegadas) {
-                        if (fim.getC().get(Calendar.MINUTE) < 10) {
-                            System.out.println(fim.getC().get(Calendar.HOUR_OF_DAY) + ":0" + fim.getC().get(Calendar.MINUTE));
-
-                        } else {
-                            System.out.println(fim.getC().get(Calendar.HOUR_OF_DAY) + ":" + fim.getC().get(Calendar.MINUTE));
-
-                        }
-                    }
-                } else {
-                    System.out.println("nada");
-                }
-            }
-        }
-    }
-
-    public void faltasCon() {
-        if (this.jBRelatorio.isEnabled()) {
-
-            if (this.jRBFaltasCon.isSelected()) {
-                Bancos ev = new Eventos();
-                ev.gerar();
-                ArrayList<EventosAux> al = ev.retornaLista();
-                ArrayList<EventosAux> al2 = new ArrayList<EventosAux>();
-                ArrayList<Integer> faltas = new ArrayList<Integer>();
-                for (EventosAux monitorado : al) {
-                    if (monitorado.getAluno().equals(this.jTFIdentificacao.getText().toUpperCase())) {
-                        al2.add(monitorado);
-                    }
-                }
-
-                for (EventosAux monitorado : al2) { //dias que veio
-                    for (int i = c2.get(Calendar.DAY_OF_MONTH); i > 0; i--) {
-                        if (monitorado.getC().get(Calendar.DAY_OF_MONTH) != i) {
-                            if (i > c1.get(Calendar.DAY_OF_MONTH)) {
-                                if (!faltas.contains(i)) {
-                                    faltas.add(i);
-                                }
-                            }
-                        }
-                    }
-                }
-
-                for (EventosAux monitorado : al2) { //remove os dias que veio
-                    for (int i = 0; i < faltas.size(); i++) {
-
-                        if (faltas.get(i) == monitorado.getC().get(Calendar.DAY_OF_MONTH)) {
-                            faltas.remove(i);
-                        }
-                    }
-                }
-
-                ArrayList<ArrayList<Integer>> filtro = new ArrayList<ArrayList<Integer>>();
-
-                for (int i = 0; i < faltas.size() - 1; i++) {
-                    ArrayList<Integer> aux = new ArrayList<Integer>();
-                    int k = i;
-
-                    while ((faltas.get(k + 1) == (faltas.get(k) - 1))) {
-                        aux.add(faltas.get(k));
-                        aux.add(faltas.get(k + 1));
-                        k++;
-                        if (k == faltas.size() - 1) {
-                            break;
-                        }
-                    }
-                    filtro.add(aux);
-                }
-
-                ArrayList<Integer> faltasTot = new ArrayList<Integer>();
-
-                for (ArrayList<Integer> preTotal : filtro) {
-                    if (preTotal.size() >= Integer.parseInt(this.jFTFaltasCon.getText())) {
-
-                        for (Integer pre : preTotal) {
-                            if (!faltasTot.contains(pre)) {
-                                faltasTot.add(pre);
-                            }
-                        }
-                    }
-                }
-
-                if (faltasTot.size() < Integer.parseInt(jFTFaltasCon.getText())) {
-                    System.out.println("Não faltou mais que 5 dias");
-                } else {
-                    for (Integer te : faltasTot) {
-                        System.out.println("faltas:");
-                        System.out.println(te);
-                    }
-                }
-
-            }
-        }
-
-    }
-
-    public void faltasInt() {
-        if (this.jBRelatorio.isEnabled()) {
-            if (this.jRBFaltasInt.isSelected()) {
-                Bancos ev = new Eventos();
-                ev.gerar();
-                ArrayList<EventosAux> al = ev.retornaLista();
-                ArrayList<EventosAux> al2 = new ArrayList<EventosAux>();
-                ArrayList<Integer> faltas = new ArrayList<Integer>();
-                for (EventosAux monitorado : al) {
-                    if (monitorado.getAluno().equals(this.jTFIdentificacao.getText().toUpperCase())) {
-                        al2.add(monitorado);
-                    }
-                }
-
-                for (EventosAux monitorado : al2) {
-                    for (int i = c2.get(Calendar.DAY_OF_MONTH); i > 0; i--) {
-                        if (monitorado.getC().get(Calendar.DAY_OF_MONTH) != i) {
-                            if (i > c1.get(Calendar.DAY_OF_MONTH)) {
-                                if (!faltas.contains(i)) {
-                                    faltas.add(i);
-                                }
-                            }
-                        }
-                    }
-                }
-
-                for (EventosAux monitorado : al2) {
-                    for (int i = 0; i < faltas.size(); i++) {
-
-                        if (faltas.get(i) == monitorado.getC().get(Calendar.DAY_OF_MONTH)) {
-                            faltas.remove(i);
-                        }
-                    }
-                }
-                System.out.println(Integer.parseInt(jFTFaltasInt.getText()));
-                if (faltas.size() < Integer.parseInt(jFTFaltasInt.getText())) {
-                    System.out.println("Não faltou mais que 5 dias");
-                } else {
-                    for (Integer te : faltas) {
-                        System.out.println(te);
-                    }
-                }
-            }
-        }
-    }
+         
     private void jBVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBVoltarActionPerformed
         this.limpaCampos();
         this.jBAlerta.setEnabled(true);
@@ -848,6 +677,43 @@ public class JPSelecao extends javax.swing.JPanel {
         this.jBCriar.setEnabled(true);
     }//GEN-LAST:event_jTFNomeAlertaKeyReleased
 
+    private void jRBFaltasSemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRBFaltasSemActionPerformed
+        this.verificaTipos();
+    }//GEN-LAST:event_jRBFaltasSemActionPerformed
+
+    private void jTFSemanasKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTFSemanasKeyReleased
+       String diaSema = this.jTFSemanas.getText().toUpperCase();
+        if (diaSema.equals("SEGUNDA-FEIRA") || diaSema.equals("TERÇA-FEIRA") || diaSema.equals("QUARTA-FEIRA")
+                || diaSema.equals("QUINTA-FEIRA") || diaSema.equals("SEXTA-FEIRA")) {
+            this.jFTSemanasVezes.setEnabled(true);
+        } else {
+            this.jFTSemanasVezes.setEnabled(false);
+        }
+        
+       
+
+    }//GEN-LAST:event_jTFSemanasKeyReleased
+
+    private void jFTSemanasVezesKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jFTSemanasVezesKeyReleased
+        if (this.jFTSemanasVezes.getText().length() > 0 && this.jBRelatorio.isEnabled() == true) {
+            this.jBCriar.setEnabled(true);
+        } else if (this.jFTSemanasVezes.getText().length() > 0) {
+            this.jTFNomeAlerta.setEnabled(true);
+            this.jlNomeAlerta.setEnabled(true);
+        } else {
+            this.jTFNomeAlerta.setEnabled(false);
+            this.jlNomeAlerta.setEnabled(false);
+            this.jBCriar.setEnabled(false);
+
+        }
+    }//GEN-LAST:event_jFTSemanasVezesKeyReleased
+
+    private void jTFSemanasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTFSemanasMouseClicked
+        jTFSemanas.setText("");
+        jTFSemanas.setForeground(Color.BLACK);
+    }//GEN-LAST:event_jTFSemanasMouseClicked
+
+
     private void periodo() {
         if (this.jBRelatorio.isEnabled()) {
             this.c1 = Calendar.getInstance();
@@ -856,11 +722,11 @@ public class JPSelecao extends javax.swing.JPanel {
             String p2[] = jFTPeriodo2.getText().split("/");
 
             c1.set(Calendar.YEAR, Integer.parseInt(p1[2]));
-            c1.set(Calendar.MONTH, Integer.parseInt(p1[1]));
+            c1.set(Calendar.MONTH, Integer.parseInt(p1[1])-1);
             c1.set(Calendar.DAY_OF_MONTH, Integer.parseInt(p1[0]));
             c2.set(Calendar.YEAR, Integer.parseInt(p2[2]));
 
-            c2.set(Calendar.MONTH, Integer.parseInt(p2[1]));
+            c2.set(Calendar.MONTH, Integer.parseInt(p2[1])-1);
             c2.set(Calendar.DAY_OF_MONTH, Integer.parseInt(p2[0]));
 
         }
@@ -920,6 +786,15 @@ public class JPSelecao extends javax.swing.JPanel {
             this.jFTChegadaMin.setText("");
             this.jFTChegadaVezes.setText("");
         }
+        if (this.jRBFaltasSem.isSelected()) {
+            this.jTFSemanas.setEnabled(true);
+        } else {
+            this.jTFSemanas.setEnabled(false);
+            this.jFTSemanasVezes.setEnabled(false);
+            this.jTFSemanas.setText("");
+            this.jFTSemanasVezes.setText("");
+
+        }
         if (this.jRBSaida.isSelected()) {
             this.jFTSaidaMin.setEnabled(true);
         } else {
@@ -972,6 +847,7 @@ public class JPSelecao extends javax.swing.JPanel {
     private javax.swing.JFormattedTextField jFTPeriodo2;
     private javax.swing.JFormattedTextField jFTSaidaMin;
     private javax.swing.JFormattedTextField jFTSaidaVezes;
+    private javax.swing.JFormattedTextField jFTSemanasVezes;
     private javax.swing.JLabel jLAux;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JRadioButton jRBAluno;
@@ -985,6 +861,7 @@ public class JPSelecao extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTFIdentificacao;
     private javax.swing.JTextField jTFNomeAlerta;
+    private javax.swing.JTextField jTFSemanas;
     private javax.swing.JTable jTable1;
     private javax.swing.JLabel jlNomeAlerta;
     // End of variables declaration//GEN-END:variables

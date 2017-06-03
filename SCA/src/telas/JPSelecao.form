@@ -27,66 +27,69 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jRBFaltasSem" min="-2" max="-2" attributes="0"/>
-                          <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jRBSaida" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jRBChegada" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" alignment="0" groupAlignment="1" attributes="0">
+                              <Component id="jFTChegadaMin" min="-2" pref="30" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Group type="102" attributes="0">
+                                      <Component id="jRBAluno" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace min="2" pref="2" max="-2" attributes="0"/>
+                                      <Component id="jRBTurma" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace min="2" pref="2" max="-2" attributes="0"/>
+                                      <Component id="jRBCurso" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Component id="jTFIdentificacao" min="-2" pref="163" max="-2" attributes="0"/>
+                                  <Component id="jRBFaltasCon" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <Component id="jFTPeriodo1" min="-2" pref="80" max="-2" attributes="0"/>
+                                      <EmptySpace min="4" pref="4" max="-2" attributes="0"/>
+                                      <Component id="jLAux" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace min="4" pref="4" max="-2" attributes="0"/>
+                                      <Component id="jFTPeriodo2" min="-2" pref="80" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Component id="jBAlerta" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="jBRelatorio" alignment="0" max="32767" attributes="0"/>
                               </Group>
-                              <EmptySpace min="85" pref="85" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jFTChegadaVezes" min="-2" pref="30" max="-2" attributes="0"/>
-                                  <Component id="jFTSaidaVezes" alignment="0" min="-2" pref="30" max="-2" attributes="0"/>
-                              </Group>
+                              <Component id="jFTSaidaMin" alignment="1" min="-2" pref="30" max="-2" attributes="0"/>
                           </Group>
-                      </Group>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <EmptySpace min="-2" pref="88" max="-2" attributes="0"/>
-                              <Component id="jlNomeAlerta" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
-                              <Component id="jTFNomeAlerta" min="-2" pref="152" max="-2" attributes="0"/>
-                          </Group>
-                          <Component id="jBVoltar" alignment="1" min="-2" pref="80" max="-2" attributes="0"/>
-                          <Component id="jBCriar" alignment="1" min="-2" pref="80" max="-2" attributes="0"/>
-                      </Group>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="jFTChegadaMin" min="-2" pref="30" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Group type="102" attributes="0">
-                                  <Component id="jRBAluno" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="2" pref="2" max="-2" attributes="0"/>
-                                  <Component id="jRBTurma" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="2" pref="2" max="-2" attributes="0"/>
-                                  <Component id="jRBCurso" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <Component id="jTFIdentificacao" min="-2" pref="163" max="-2" attributes="0"/>
-                              <Group type="102" alignment="1" attributes="0">
-                                  <Component id="jRBFaltasInt" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="32767" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="jRBFaltasInt" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="jFTFaltasCon" min="-2" pref="30" max="-2" attributes="0"/>
                                   <Component id="jFTFaltasInt" min="-2" pref="30" max="-2" attributes="0"/>
                               </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="jRBFaltasCon" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="32767" attributes="0"/>
-                                  <Component id="jFTFaltasCon" min="-2" pref="30" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="1" attributes="0">
-                                  <Component id="jFTPeriodo1" min="-2" pref="80" max="-2" attributes="0"/>
-                                  <EmptySpace min="4" pref="4" max="-2" attributes="0"/>
-                                  <Component id="jLAux" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="4" pref="4" max="-2" attributes="0"/>
-                                  <Component id="jFTPeriodo2" min="-2" pref="80" max="-2" attributes="0"/>
-                              </Group>
-                              <Component id="jBAlerta" alignment="0" max="32767" attributes="0"/>
-                              <Component id="jBRelatorio" alignment="0" max="32767" attributes="0"/>
                           </Group>
-                          <Component id="jFTSaidaMin" alignment="1" min="-2" pref="30" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="jPanel1" max="32767" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="1" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jRBSaida" min="-2" max="-2" attributes="0"/>
+                          <Component id="jRBChegada" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="85" pref="85" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jFTChegadaVezes" alignment="0" min="-2" pref="30" max="-2" attributes="0"/>
+                          <Component id="jFTSaidaVezes" alignment="0" min="-2" pref="30" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jBVoltar" min="-2" pref="80" max="-2" attributes="0"/>
+                          <Component id="jBCriar" min="-2" pref="80" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="57" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="jRBFaltasSem" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jTFSemanas" min="-2" pref="113" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
+                      <Component id="jFTSemanasVezes" min="-2" pref="30" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
+                      <Component id="jlNomeAlerta" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
+                      <Component id="jTFNomeAlerta" min="-2" pref="152" max="-2" attributes="0"/>
                   </Group>
               </Group>
           </Group>
@@ -95,68 +98,75 @@
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
-              <EmptySpace min="11" pref="11" max="-2" attributes="0"/>
-              <Component id="jBAlerta" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
-              <Component id="jBRelatorio" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="7" pref="7" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jRBAluno" min="-2" max="-2" attributes="0"/>
-                  <Component id="jRBTurma" min="-2" max="-2" attributes="0"/>
-                  <Component id="jRBCurso" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace min="2" pref="2" max="-2" attributes="0"/>
-              <Component id="jTFIdentificacao" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="15" pref="15" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jFTPeriodo1" min="-2" max="-2" attributes="0"/>
-                  <Group type="102" attributes="0">
-                      <EmptySpace min="3" pref="3" max="-2" attributes="0"/>
-                      <Component id="jLAux" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <Component id="jFTPeriodo2" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jRBFaltasCon" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jFTFaltasCon" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jRBFaltasInt" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jFTFaltasInt" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
-              <Component id="jRBFaltasSem" min="-2" max="-2" attributes="0"/>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jRBChegada" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jFTChegadaMin" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jFTChegadaVezes" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jRBSaida" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jFTSaidaMin" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jFTSaidaVezes" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-          </Group>
-          <Group type="102" attributes="0">
-              <Component id="jPanel1" min="-2" pref="217" max="-2" attributes="0"/>
-              <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
-                      <EmptySpace min="9" pref="9" max="-2" attributes="0"/>
-                      <Component id="jlNomeAlerta" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" attributes="0">
-                      <Component id="jTFNomeAlerta" min="-2" pref="33" max="-2" attributes="0"/>
                       <EmptySpace min="11" pref="11" max="-2" attributes="0"/>
+                      <Component id="jBAlerta" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
+                      <Component id="jBRelatorio" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="7" pref="7" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jRBAluno" min="-2" max="-2" attributes="0"/>
+                          <Component id="jRBTurma" min="-2" max="-2" attributes="0"/>
+                          <Component id="jRBCurso" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="2" pref="2" max="-2" attributes="0"/>
+                      <Component id="jTFIdentificacao" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="15" pref="15" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jFTPeriodo1" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <EmptySpace min="3" pref="3" max="-2" attributes="0"/>
+                              <Component id="jLAux" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="jFTPeriodo2" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="jRBFaltasCon" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jFTFaltasCon" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="jRBFaltasInt" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jFTFaltasInt" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="jRBFaltasSem" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jTFSemanas" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jFTSemanasVezes" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="jRBChegada" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jFTChegadaMin" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jFTChegadaVezes" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="jRBSaida" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jFTSaidaMin" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jFTSaidaVezes" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <Group type="102" attributes="0">
+                      <Component id="jPanel1" min="-2" pref="217" max="-2" attributes="0"/>
+                      <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <EmptySpace min="9" pref="9" max="-2" attributes="0"/>
+                              <Component id="jlNomeAlerta" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="jTFNomeAlerta" min="-2" pref="33" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Component id="jBVoltar" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jBCriar" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="jBCriar" min="-2" max="-2" attributes="0"/>
+              <EmptySpace pref="47" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -292,6 +302,9 @@
         <Property name="text" type="java.lang.String" value="Faltas por dia da semana"/>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRBFaltasSemActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JRadioButton" name="jRBChegada">
       <Properties>
@@ -328,7 +341,7 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="204" max="-2" attributes="0"/>
                   <Component id="jBExcluirTab" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace pref="75" max="32767" attributes="0"/>
               </Group>
               <Group type="102" alignment="0" attributes="0">
                   <Component id="jScrollPane1" min="-2" pref="272" max="-2" attributes="0"/>
@@ -481,6 +494,30 @@
       </Properties>
       <Events>
         <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jFTFaltasConKeyReleased"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JTextField" name="jTFSemanas">
+      <Properties>
+        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="66" green="66" red="66" type="rgb"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="INFORME"/>
+        <Property name="enabled" type="boolean" value="false"/>
+      </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTFSemanasMouseClicked"/>
+        <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTFSemanasKeyReleased"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JFormattedTextField" name="jFTSemanasVezes">
+      <Properties>
+        <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor" preCode="try {" postCode="} catch (java.text.ParseException ex) {&#xa;ex.printStackTrace();&#xa;}">
+          <Format format="##" subtype="-1" type="5"/>
+        </Property>
+        <Property name="enabled" type="boolean" value="false"/>
+      </Properties>
+      <Events>
+        <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jFTSemanasVezesKeyReleased"/>
       </Events>
     </Component>
   </SubComponents>
