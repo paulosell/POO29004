@@ -3,12 +3,26 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/pfsel/Documents/GitHub/ProjetoPoo/SCA/src/controles/Controle.java</file>
+            <file>file:/C:/Users/pfsel/Documents/GitHub/ProjetoPoo/SCA/src/db/db-academico-alterado.csv</file>
+            <file>file:/C:/Users/pfsel/Documents/GitHub/ProjetoPoo/SCA/src/db/db-catraca-eventos-alterado-1.csv</file>
+            <file>file:/C:/Users/pfsel/Documents/GitHub/ProjetoPoo/SCA/src/controles/ControleRelatorio.java</file>
+            <file>file:/C:/Users/pfsel/Documents/GitHub/ProjetoPoo/SCA/src/relatorios/RelHorario.java</file>
+            <file>file:/C:/Users/pfsel/Documents/GitHub/ProjetoPoo/SCA/src/relatorios/RelSemana.java</file>
+            <file>file:/C:/Users/pfsel/Documents/GitHub/ProjetoPoo/SCA/src/db/db-catraca-eventos.csv</file>
+            <file>file:/C:/Users/pfsel/Documents/GitHub/ProjetoPoo/SCA/src/relatorios/Relatorios.java</file>
             <file>file:/C:/Users/pfsel/Documents/GitHub/ProjetoPoo/SCA/src/telas/JPSelecao.java</file>
-            <file>file:/C:/Users/pfsel/Documents/GitHub/ProjetoPoo/SCA/src/controles/controleRelatorio.java</file>
-            <file>file:/C:/Users/pfsel/Documents/GitHub/ProjetoPoo/SCA/src/relatorios/relatorioFaltasInt.java</file>
             <file>file:/C:/Users/pfsel/Documents/GitHub/ProjetoPoo/SCA/src/bancodedados/Alunos.java</file>
+            <file>file:/C:/Users/pfsel/Documents/GitHub/ProjetoPoo/SCA/src/relatorios/faltasInt.jrxml</file>
+            <file>file:/C:/Users/pfsel/Documents/GitHub/ProjetoPoo/SCA/src/controles/Controle.java</file>
             <file>file:/C:/Users/pfsel/Documents/GitHub/ProjetoPoo/SCA/src/bancodedados/Academico.java</file>
+            <file>file:/C:/Users/pfsel/Documents/GitHub/ProjetoPoo/SCA/src/relatorios/RelFaltas.java</file>
+            <file>file:/C:/Users/pfsel/Documents/GitHub/ProjetoPoo/SCA/src/bancodedados/BaseUsuariosLocal.java</file>
+            <file>file:/C:/Users/pfsel/Documents/GitHub/ProjetoPoo/SCA/src/bancodedados/Bancos.java</file>
+            <file>file:/C:/Users/pfsel/Documents/GitHub/ProjetoPoo/SCA/src/telas/JFPrincipal.java</file>
+            <file>file:/C:/Users/pfsel/Documents/GitHub/ProjetoPoo/SCA/src/bancodedados/EventosAux.java</file>
+            <file>file:/C:/Users/pfsel/Documents/GitHub/ProjetoPoo/SCA/src/bancodedados/Eventos.java</file>
+            <file>file:/C:/Users/pfsel/Documents/GitHub/ProjetoPoo/SCA/src/relatorios/faltasChegadas.jrxml</file>
+            <file>file:/C:/Users/pfsel/Documents/GitHub/ProjetoPoo/SCA/src/relatorios/faltasSemana.jrxml</file>
         </group>
     </open-files>
 </project-private>

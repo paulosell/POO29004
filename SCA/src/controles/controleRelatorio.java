@@ -5,24 +5,27 @@
  */
 package controles;
 
+import relatorios.RelFaltas;
+import relatorios.RelHorario;
 import bancodedados.Bancos;
 import bancodedados.Eventos;
 import bancodedados.EventosAux;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFormattedTextField;
-import javax.swing.JRadioButton;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
-import net.sf.jasperreports.engine.JRException;
-import relatorios.relatorioFaltasInt;
+import relatorios.RelSemana;
+import relatorios.Relatorios;
 
 /**
  *
  * @author pfsel
  */
-public class controleRelatorio extends Controle {
+public class ControleRelatorio extends Controle {
 
     private JTextField id;
     private JFormattedTextField min;
@@ -31,10 +34,12 @@ public class controleRelatorio extends Controle {
     private int dia;
     private String diaFinal;
     private Calendar c1, c2;
+    private Bancos ev;
 
-    public controleRelatorio(JTextField texto,
+    public ControleRelatorio(JTextField texto,
             JFormattedTextField vezes, Calendar c1, Calendar c2) {
-
+        this.ev = new Eventos();
+        this.ev.gerar();
         this.id = texto;
         this.c1 = c1;
         this.c2 = c2;
@@ -42,8 +47,10 @@ public class controleRelatorio extends Controle {
 
     }
 
-    public controleRelatorio(JTextField texto,
+    public ControleRelatorio(JTextField texto,
             JFormattedTextField min, JFormattedTextField vezes) {
+        this.ev = new Eventos();
+        this.ev.gerar();
 
         this.id = texto;
         this.min = min;
@@ -51,8 +58,10 @@ public class controleRelatorio extends Controle {
 
     }
 
-    public controleRelatorio(JTextField texto,
+    public ControleRelatorio(JTextField texto,
             JFormattedTextField vezes, JTextField diasemana, Calendar c1, Calendar c2) {
+        this.ev = new Eventos();
+        this.ev.gerar();
 
         this.id = texto;
         this.vezes = vezes;
@@ -63,6 +72,7 @@ public class controleRelatorio extends Controle {
 
     }
 
+    @Override
     public String auxiliaDia() {
 
         if (this.dia == 1) {
@@ -85,299 +95,396 @@ public class controleRelatorio extends Controle {
         return this.diaFinal;
     }
 
+    @Override
     public void saidaAntecipada() {
 
-        Bancos ev = new Eventos();
-        ev.gerar();
-        ArrayList<EventosAux> al = ev.retornaLista();
-        ArrayList<EventosAux> al2 = new ArrayList<EventosAux>();
-        ArrayList<EventosAux> saidas = new ArrayList<EventosAux>();
-        for (EventosAux monitorado : al) {
+        ArrayList<EventosAux> primeiraLista = this.ev.retornaLista();
+        ArrayList<EventosAux> listaAuxiliar = new ArrayList<EventosAux>();
+        ArrayList<EventosAux> listaFinal = new ArrayList<EventosAux>();
+        ArrayList<RelHorario> listaReport = new ArrayList<RelHorario>();
+
+        for (EventosAux monitorado : primeiraLista) {
             if (monitorado.getAluno().equals(this.id.getText().toUpperCase())) {
-                al2.add(monitorado);
+                listaAuxiliar.add(monitorado);
             }
         }
 
         if (Integer.parseInt(this.min.getText()) > 30) {
-            for (EventosAux hora : al2) {
+            for (EventosAux hora : listaAuxiliar) {
                 if (hora.getSentido().equals("Interna,Externa")) {
                     if (((hora.getC().get(Calendar.HOUR_OF_DAY) > 7) && (hora.getC().get(Calendar.HOUR) < 12))
                             || ((hora.getC().get(Calendar.HOUR_OF_DAY) > 13) && (hora.getC().get(Calendar.HOUR) < 18))) {
-                        saidas.add(hora);
+                        listaFinal.add(hora);
                     }
                 }
             }
         } else {
-            for (EventosAux hora : al2) {
-                if (hora.getSentido().equals("Interna,Externa")) {
-
-                    System.out.println(hora.getC().get(Calendar.MINUTE));
-                    System.out.println(hora.getC().get(Calendar.HOUR_OF_DAY));
-                    if (hora.getC().get(Calendar.MINUTE) < 30) {
-                        if ((hora.getC().get(Calendar.MINUTE) + (Integer.parseInt(this.min.getText()))) < 30) {
-                            saidas.add(hora);
+            for (EventosAux monitorado : listaAuxiliar) {
+                if (monitorado.getSentido().equals("Interna,Externa")) {
+                    if (monitorado.getC().get(Calendar.MINUTE) < 30) {
+                        if ((monitorado.getC().get(Calendar.MINUTE) + (Integer.parseInt(this.min.getText()))) < 30) {
+                            listaFinal.add(monitorado);
                         }
                     }
                 }
             }
         }
-        System.out.println(saidas.size());
-        if (saidas.size() >= Integer.parseInt(this.vezes.getText())) {
-            for (EventosAux fim : saidas) {
+        if (listaFinal.size() >= Integer.parseInt(this.vezes.getText())) {
+            for (EventosAux fim : listaFinal) {
                 if (fim.getC().get(Calendar.MINUTE) < 10) {
-                    System.out.println(fim.getC().get(Calendar.HOUR_OF_DAY) + ":0" + fim.getC().get(Calendar.MINUTE));
+                    String horario = (fim.getC().get(Calendar.HOUR_OF_DAY) + ":0" + fim.getC().get(Calendar.MINUTE));
+                    String aluno = fim.getAluno();
+                    String data = (fim.getC().get(Calendar.DAY_OF_MONTH) + "/" + fim.getC().get(Calendar.MONTH) + "/"
+                            + fim.getC().get(Calendar.YEAR));
+                    RelHorario monitorado = new RelHorario(aluno, horario, data);
+                    listaReport.add(monitorado);
 
                 } else {
-                    System.out.println(fim.getC().get(Calendar.HOUR_OF_DAY) + ":" + fim.getC().get(Calendar.MINUTE));
-
+                    String horario = (fim.getC().get(Calendar.HOUR_OF_DAY) + ":" + fim.getC().get(Calendar.MINUTE));
+                    String aluno = fim.getAluno();
+                    String data = (fim.getC().get(Calendar.DAY_OF_MONTH) + "/" + fim.getC().get(Calendar.MONTH) + "/"
+                            + fim.getC().get(Calendar.YEAR));
+                    RelHorario monitorado = new RelHorario(aluno, horario, data);
+                    listaReport.add(monitorado);
                 }
             }
+            Relatorios t = new Relatorios();
+            try {
+                t.imprimir(listaReport, "/relatorios/faltasSaidas.jrxml");
+
+            } catch (Exception ex) {
+                Logger.getLogger(ControleRelatorio.class.getName()).log(Level.SEVERE, null, ex);
+            }
         } else {
-            System.out.println("nada");
+            JOptionPane.showMessageDialog(null, "Aluno não se atrasou mais que " + this.min.getText()
+                    + " minutos por " + this.vezes.getText() + " vezes.",
+                    "Opa!",
+                    JOptionPane.WARNING_MESSAGE);
         }
 
     }
 
+    @Override
     public void chegadaTardia() {
-        Bancos ev = new Eventos();
-        ev.gerar();
-        ArrayList<EventosAux> al = ev.retornaLista();
-        ArrayList<EventosAux> al2 = new ArrayList<EventosAux>();
-        ArrayList<EventosAux> chegadas = new ArrayList<EventosAux>();
-        for (EventosAux monitorado : al) {
+
+        ArrayList<EventosAux> primeiraLista = this.ev.retornaLista();
+        ArrayList<EventosAux> listaAuxiliar = new ArrayList<EventosAux>();
+        ArrayList<EventosAux> listaFinal = new ArrayList<EventosAux>();
+        ArrayList<RelHorario> listaReport = new ArrayList<RelHorario>();
+
+        for (EventosAux monitorado : primeiraLista) {
             if (monitorado.getAluno().equals(this.id.getText().toUpperCase())) {
-                al2.add(monitorado);
+                listaAuxiliar.add(monitorado);
             }
         }
 
         if (Integer.parseInt(this.min.getText()) > 30) {
-            for (EventosAux hora : al2) {
-                if (hora.getSentido().equals("Externa,Interna")) {
-                    if (((hora.getC().get(Calendar.HOUR_OF_DAY) > 7) && (hora.getC().get(Calendar.HOUR) < 12))
-                            || ((hora.getC().get(Calendar.HOUR_OF_DAY) > 13) && (hora.getC().get(Calendar.HOUR) < 18))) {
-                        chegadas.add(hora);
+            for (EventosAux monitorado : listaAuxiliar) {
+                if (monitorado.getSentido().equals("Externa,Interna")) {
+                    if (((monitorado.getC().get(Calendar.HOUR_OF_DAY) > 7) && (monitorado.getC().get(Calendar.HOUR) < 12))
+                            || ((monitorado.getC().get(Calendar.HOUR_OF_DAY) > 13) && (monitorado.getC().get(Calendar.HOUR) < 18))) {
+                        listaFinal.add(monitorado);
                     }
                 }
             }
         } else {
-            for (EventosAux hora : al2) {
-                if (hora.getSentido().equals("Externa,Interna")) {
-
-                    System.out.println(hora.getC().get(Calendar.MINUTE));
-                    System.out.println(hora.getC().get(Calendar.HOUR_OF_DAY));
-                    if (hora.getC().get(Calendar.MINUTE) > 30) {
-                        if ((hora.getC().get(Calendar.MINUTE) - (Integer.parseInt(this.min.getText()))) > 30) {
-                            chegadas.add(hora);
+            for (EventosAux monitorado : listaAuxiliar) {
+                if (monitorado.getSentido().equals("Externa,Interna")) {
+                    if (monitorado.getC().get(Calendar.MINUTE) > 30) {
+                        if ((monitorado.getC().get(Calendar.MINUTE) - (Integer.parseInt(this.min.getText()))) > 30) {
+                            listaFinal.add(monitorado);
                         }
                     }
                 }
             }
         }
-        System.out.println(chegadas.size());
-        if (chegadas.size() >= Integer.parseInt(this.vezes.getText())) {
-            for (EventosAux fim : chegadas) {
+
+        if (listaFinal.size() >= Integer.parseInt(this.vezes.getText())) {
+            for (EventosAux fim : listaFinal) {
                 if (fim.getC().get(Calendar.MINUTE) < 10) {
-                    System.out.println(fim.getC().get(Calendar.HOUR_OF_DAY) + ":0" + fim.getC().get(Calendar.MINUTE));
+                    String horario = (fim.getC().get(Calendar.HOUR_OF_DAY) + ":0" + fim.getC().get(Calendar.MINUTE));
+                    String aluno = fim.getAluno();
+                    String data = (fim.getC().get(Calendar.DAY_OF_MONTH) + "/" + fim.getC().get(Calendar.MONTH) + "/"
+                            + fim.getC().get(Calendar.YEAR));
+                    RelHorario monitorado = new RelHorario(aluno, horario, data);
+                    listaReport.add(monitorado);
 
                 } else {
-                    System.out.println(fim.getC().get(Calendar.HOUR_OF_DAY) + ":" + fim.getC().get(Calendar.MINUTE));
-
+                    String horario = (fim.getC().get(Calendar.HOUR_OF_DAY) + ":" + fim.getC().get(Calendar.MINUTE));
+                    String aluno = fim.getAluno();
+                    String data = (fim.getC().get(Calendar.DAY_OF_MONTH) + "/" + fim.getC().get(Calendar.MONTH) + "/"
+                            + fim.getC().get(Calendar.YEAR));
+                    RelHorario monitorado = new RelHorario(aluno, horario, data);
+                    listaReport.add(monitorado);
                 }
             }
+            Relatorios t = new Relatorios();
+            try {
+                t.imprimir(listaReport, "/relatorios/faltasChegadas.jrxml");
+
+            } catch (Exception ex) {
+                Logger.getLogger(ControleRelatorio.class.getName()).log(Level.SEVERE, null, ex);
+            }
         } else {
-            System.out.println("nada");
+            JOptionPane.showMessageDialog(null, "Aluno não se atrasou mais que " + this.min.getText()
+                    + " minutos por " + this.vezes.getText() + " vezes.",
+                    "Opa!",
+                    JOptionPane.WARNING_MESSAGE);
         }
     }
 
+    @Override
     public void faltasSemana() {
 
         String t = this.auxiliaDia();
-        System.out.println(t);
 
-        Bancos ev = new Eventos();
-        ev.gerar();
-        ArrayList<EventosAux> al = ev.retornaLista();
-        ArrayList<EventosAux> al2 = new ArrayList<EventosAux>();
-        ArrayList<Integer> falta = new ArrayList<Integer>();
+        ArrayList<RelSemana> listaReport = new ArrayList<RelSemana>();
+        ArrayList<EventosAux> primeiraLista = this.ev.retornaLista();
+        ArrayList<EventosAux> listaAuxiliar = new ArrayList<EventosAux>();
+        ArrayList<Integer> controlaDias = new ArrayList<Integer>();
+        ArrayList<EventosAux> preliminar = new ArrayList<EventosAux>();
 
-        for (EventosAux monitorado : al) {
+        for (EventosAux monitorado : primeiraLista) {
             if (monitorado.getAluno().equals(this.id.getText().toUpperCase())) {
-                al2.add(monitorado);
+                listaAuxiliar.add(monitorado);
             }
-
         }
 
-        for (EventosAux monitorado : al2) {
+        for (EventosAux monitorado : listaAuxiliar) {
             for (int i = this.c2.get(Calendar.DAY_OF_MONTH); i > 0; i--) {
                 if (monitorado.getC().get(Calendar.DAY_OF_MONTH) != i) {
                     if (i > this.c1.get(Calendar.DAY_OF_MONTH)) {
-                        if (!falta.contains(i)) {
-                            falta.add(i);
+                        if (!controlaDias.contains(i)) {
+                            Calendar c = Calendar.getInstance();
+                            c.set(Calendar.YEAR, monitorado.getC().get(Calendar.YEAR));
+                            c.set(Calendar.MONTH, monitorado.getC().get(Calendar.MONTH));
+                            c.set(Calendar.DAY_OF_MONTH, i);
+                            EventosAux aux = new EventosAux(monitorado.getAluno(), monitorado.getSentido(), c);
+                            preliminar.add(aux);
+                            controlaDias.add(i);
                         }
                     }
                 }
             }
         }
 
-        for (EventosAux monitorado : al2) {
-            for (int i = 0; i < falta.size(); i++) {
-
-                if (falta.get(i) == monitorado.getC().get(Calendar.DAY_OF_MONTH)) {
-                    falta.remove(i);
+        for (EventosAux monitorado : listaAuxiliar) {
+            for (int i = 0; i < preliminar.size(); i++) {
+                if (preliminar.get(i).getC().get(Calendar.DAY_OF_MONTH) == monitorado.getC().get(Calendar.DAY_OF_MONTH)) {
+                    preliminar.remove(i);
                 }
             }
         }
-        ArrayList<Integer> fim = new ArrayList<Integer>();
-        for (Integer filtra : falta) {
-            Calendar c = Calendar.getInstance();
-            c.set(Calendar.DAY_OF_MONTH, filtra);
-            c.set(Calendar.YEAR, this.c1.get(Calendar.YEAR));
-            c.set(Calendar.MONTH, this.c1.get(Calendar.MONTH));
 
-            System.out.println("MES:  " + this.c1.get(Calendar.MONTH));
-            System.out.println(c.getTime().toString());
-            String separa[] = c.getTime().toString().split(" ");
+        ArrayList<EventosAux> fim = new ArrayList<EventosAux>();
+        for (EventosAux filtra : preliminar) {
+            String separa[] = filtra.getC().getTime().toString().split(" ");
+
             if (separa[0].equals(t)) {
+                filtra.getC().set(Calendar.MONTH, filtra.getC().get(Calendar.MONDAY) + 1);
                 fim.add(filtra);
             }
 
         }
-
         if (fim.size() < Integer.parseInt(this.vezes.getText())) {
-            System.out.println("Não faltou mais que 5 dias");
+            JOptionPane.showMessageDialog(null, "Aluno não faltou mais que " + this.vezes.getText()
+                    + " vezes.",
+                    "Opa!",
+                    JOptionPane.WARNING_MESSAGE);
         } else {
-            for (Integer te : fim) {
-                System.out.println(te);
+            for (EventosAux monitorado : fim) {
+
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                String data = (monitorado.getC().get(Calendar.DAY_OF_MONTH) + "/" + monitorado.getC().get(Calendar.MONTH) + "/"
+                        + monitorado.getC().get(Calendar.YEAR));
+
+                RelSemana rel = new RelSemana(monitorado.getAluno(), data, this.diasemana.getText());
+                listaReport.add(rel);
+
             }
+
+            Relatorios tu = new Relatorios();
+            try {
+                tu.imprimir(listaReport);
+                
+
+            } catch (Exception ex) {
+                Logger.getLogger(ControleRelatorio.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
         }
+
     }
 
+    @Override
     public void faltasCon() {
-        Bancos ev = new Eventos();
-        ev.gerar();
-        ArrayList<EventosAux> al = ev.retornaLista();
-        ArrayList<EventosAux> al2 = new ArrayList<EventosAux>();
-        ArrayList<Integer> faltas = new ArrayList<Integer>();
-        for (EventosAux monitorado : al) {
+
+        ArrayList<RelFaltas> listaReport = new ArrayList<RelFaltas>();
+        ArrayList<EventosAux> primeiraLista = this.ev.retornaLista();
+        ArrayList<EventosAux> listaAuxiliar = new ArrayList<EventosAux>();
+        ArrayList<Integer> controlaDias = new ArrayList<Integer>();
+        ArrayList<EventosAux> listaFinal = new ArrayList<EventosAux>();
+
+        for (EventosAux monitorado : primeiraLista) {
             if (monitorado.getAluno().equals(this.id.getText().toUpperCase())) {
-                al2.add(monitorado);
+                listaAuxiliar.add(monitorado);
             }
         }
 
-        for (EventosAux monitorado : al2) { //dias que veio
+        for (EventosAux monitorado : listaAuxiliar) {
             for (int i = this.c2.get(Calendar.DAY_OF_MONTH); i > 0; i--) {
                 if (monitorado.getC().get(Calendar.DAY_OF_MONTH) != i) {
                     if (i > this.c1.get(Calendar.DAY_OF_MONTH)) {
-                        if (!faltas.contains(i)) {
-                            faltas.add(i);
+                        if (!controlaDias.contains(i)) {
+                            Calendar c = Calendar.getInstance();
+                            c.set(Calendar.YEAR, monitorado.getC().get(Calendar.YEAR));
+                            c.set(Calendar.MONTH, monitorado.getC().get(Calendar.MONTH));
+                            c.set(Calendar.DAY_OF_MONTH, i);
+                            EventosAux aux = new EventosAux(monitorado.getAluno(), monitorado.getSentido(), c);
+                            listaFinal.add(aux);
+                            controlaDias.add(i);
                         }
                     }
                 }
             }
         }
 
-        for (EventosAux monitorado : al2) { //remove os dias que veio
-            for (int i = 0; i < faltas.size(); i++) {
-
-                if (faltas.get(i) == monitorado.getC().get(Calendar.DAY_OF_MONTH)) {
-                    faltas.remove(i);
+        for (EventosAux monitorado : listaAuxiliar) {
+            for (int i = 0; i < listaFinal.size(); i++) {
+                if (listaFinal.get(i).getC().get(Calendar.DAY_OF_MONTH) == monitorado.getC().get(Calendar.DAY_OF_MONTH)) {
+                    listaFinal.remove(i);
                 }
             }
         }
 
-        ArrayList<ArrayList<Integer>> filtro = new ArrayList<ArrayList<Integer>>();
+        ArrayList<ArrayList<EventosAux>> filtro = new ArrayList<ArrayList<EventosAux>>();
 
-        for (int i = 0; i < faltas.size() - 1; i++) {
-            ArrayList<Integer> aux = new ArrayList<Integer>();
+        for (int i = 0; i < listaFinal.size() - 1; i++) {
+            ArrayList<EventosAux> aux = new ArrayList<EventosAux>();
             int k = i;
-
-            while ((faltas.get(k + 1) == (faltas.get(k) - 1))) {
-                aux.add(faltas.get(k));
-                aux.add(faltas.get(k + 1));
+            while ((listaFinal.get(k + 1).getC().get(Calendar.DAY_OF_MONTH))
+                    == (listaFinal.get(k).getC().get(Calendar.DAY_OF_MONTH) - 1)) {
+                aux.add(listaFinal.get(k));
+                aux.add(listaFinal.get(k + 1));
                 k++;
-                if (k == faltas.size() - 1) {
+                if (k == listaFinal.size() - 1) {
                     break;
                 }
             }
             filtro.add(aux);
         }
 
-        ArrayList<Integer> faltasTot = new ArrayList<Integer>();
+        ArrayList<EventosAux> faltasTot = new ArrayList<EventosAux>();
 
-        for (ArrayList<Integer> preTotal : filtro) {
+        for (ArrayList<EventosAux> preTotal : filtro) {
             if (preTotal.size() >= Integer.parseInt(this.vezes.getText())) {
 
-                for (Integer pre : preTotal) {
+                for (EventosAux pre : preTotal) {
                     if (!faltasTot.contains(pre)) {
                         faltasTot.add(pre);
                     }
                 }
             }
         }
-
         if (faltasTot.size() < Integer.parseInt(this.vezes.getText())) {
-            System.out.println("Não faltou mais que 5 dias");
+            JOptionPane.showMessageDialog(null, "Aluno não faltou mais que " + this.vezes.getText()
+                    + " vezes.",
+                    "Opa!",
+                    JOptionPane.WARNING_MESSAGE);
         } else {
-            for (Integer te : faltasTot) {
-                System.out.println("faltas:");
-                System.out.println(te);
+            for (EventosAux monitorado : faltasTot) {
+
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                String data = (monitorado.getC().get(Calendar.DAY_OF_MONTH) + "/" + monitorado.getC().get(Calendar.MONTH) + "/"
+                        + monitorado.getC().get(Calendar.YEAR));
+
+                RelFaltas rel = new RelFaltas(monitorado.getAluno(), data);
+                listaReport.add(rel);
+
             }
+
+            Relatorios t = new Relatorios();
+            try {
+                t.imprimir(listaReport, 1);
+
+            } catch (Exception ex) {
+                Logger.getLogger(ControleRelatorio.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
         }
 
     }
 
+    @Override
     public void faltasInt() {
 
-        Bancos ev = new Eventos();
-        ev.gerar();
-        ArrayList<EventosAux> al = ev.retornaLista();
-        ArrayList<EventosAux> al2 = new ArrayList<EventosAux>();
-        ArrayList<Integer> faltas = new ArrayList<Integer>();
-        for (EventosAux monitorado : al) {
+        ArrayList<RelFaltas> listaReport = new ArrayList<RelFaltas>();
+        ArrayList<EventosAux> primeiraLista = this.ev.retornaLista();
+        ArrayList<EventosAux> listaAuxiliar = new ArrayList<EventosAux>();
+        ArrayList<Integer> controlaDias = new ArrayList<Integer>();
+        ArrayList<EventosAux> listaFinal = new ArrayList<EventosAux>();
+
+        for (EventosAux monitorado : primeiraLista) {
             if (monitorado.getAluno().equals(this.id.getText().toUpperCase())) {
-                al2.add(monitorado);
+                listaAuxiliar.add(monitorado);
             }
         }
 
-        for (EventosAux monitorado : al2) {
+        for (EventosAux monitorado : listaAuxiliar) {
             for (int i = this.c2.get(Calendar.DAY_OF_MONTH); i > 0; i--) {
                 if (monitorado.getC().get(Calendar.DAY_OF_MONTH) != i) {
                     if (i > this.c1.get(Calendar.DAY_OF_MONTH)) {
-                        if (!faltas.contains(i)) {
-                            faltas.add(i);
+                        if (!controlaDias.contains(i)) {
+                            Calendar c = Calendar.getInstance();
+                            c.set(Calendar.YEAR, monitorado.getC().get(Calendar.YEAR));
+                            c.set(Calendar.MONTH, monitorado.getC().get(Calendar.MONTH));
+                            c.set(Calendar.DAY_OF_MONTH, i);
+                            EventosAux aux = new EventosAux(monitorado.getAluno(), monitorado.getSentido(), c);
+                            listaFinal.add(aux);
+                            controlaDias.add(i);
                         }
                     }
                 }
             }
         }
 
-        for (EventosAux monitorado : al2) {
-            for (int i = 0; i < faltas.size(); i++) {
-
-                if (faltas.get(i) == monitorado.getC().get(Calendar.DAY_OF_MONTH)) {
-                    faltas.remove(i);
+        for (EventosAux monitorado : listaAuxiliar) {
+            for (int i = 0; i < listaFinal.size(); i++) {
+                if (listaFinal.get(i).getC().get(Calendar.DAY_OF_MONTH) == monitorado.getC().get(Calendar.DAY_OF_MONTH)) {
+                    listaFinal.remove(i);
                 }
             }
         }
-        System.out.println(Integer.parseInt(this.vezes.getText()));
-        if (faltas.size() < Integer.parseInt(this.vezes.getText())) {
-            System.out.println("Não faltou mais que 5 dias");
+
+        if (listaFinal.size() < Integer.parseInt(this.vezes.getText())) {
+            JOptionPane.showMessageDialog(null, "Aluno não faltou mais que " + this.vezes.getText()
+                    + " vezes.",
+                    "Opa!",
+                    JOptionPane.WARNING_MESSAGE);
         } else {
-            for (Integer te : faltas) {
-                System.out.println(te);
+            for (EventosAux monitorado : listaFinal) {
+
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                String data = (monitorado.getC().get(Calendar.DAY_OF_MONTH) + "/" + monitorado.getC().get(Calendar.MONTH) + "/"
+                        + monitorado.getC().get(Calendar.YEAR));
+
+                RelFaltas rel = new RelFaltas(monitorado.getAluno(), data);
+                listaReport.add(rel);
+
             }
+
+            Relatorios t = new Relatorios();
+            try {
+                t.imprimir(listaReport, 2);
+
+            } catch (Exception ex) {
+                Logger.getLogger(ControleRelatorio.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
         }
-        
-        relatorioFaltasInt t = new relatorioFaltasInt();
-        try {
-            t.gerar(faltas);
-        } catch (JRException ex) {
-            Logger.getLogger(controleRelatorio.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        
     }
 
+    @Override
     public int setDiaSemana(String diaSema) {
 
         if (diaSema.equals("SEGUNDA-FEIRA")) {
