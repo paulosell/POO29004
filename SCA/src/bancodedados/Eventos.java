@@ -61,7 +61,7 @@ public class Eventos extends Bancos {
                 Calendar c = Calendar.getInstance();
                 
                  c.set(Calendar.YEAR, ano);
-         c.set(Calendar.MONTH, mes);
+         c.set(Calendar.MONTH, mes-1);
          c.set(Calendar.DAY_OF_MONTH, dia);
          c.set(Calendar.HOUR_OF_DAY, hora);
          c.set(Calendar.MINUTE, min);

@@ -12,18 +12,23 @@ import java.util.Calendar;
  * @author pfsel
  */
 public class EventosAux {
-    
+
     private String aluno;
     private String sentido;
     private Calendar c;
 
-    public EventosAux(String aluno, String sentido,  Calendar c) {
+    public EventosAux(String aluno, String sentido, Calendar c) {
         this.aluno = aluno;
         this.sentido = sentido;
-       
-       this.c = c;
+
+        this.c = c;
     }
 
+    public EventosAux() {
+    }
+
+    ;
+    
    
 
     public String getAluno() {
@@ -50,6 +55,4 @@ public class EventosAux {
         this.c = c;
     }
 
-   
-    
 }

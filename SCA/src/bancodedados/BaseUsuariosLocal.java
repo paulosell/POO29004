@@ -52,8 +52,7 @@ public class BaseUsuariosLocal extends Bancos {
         try {
 
             arquivo = new File(getClass().getResource("/db/baselocal.csv").getPath());
-            Scanner leitor = new Scanner(arquivo);
-            System.out.println(this.senha);
+            Scanner leitor = new Scanner(arquivo);          
             ArrayList<String> l = new ArrayList<String>();
 
             while (leitor.hasNextLine()) {

@@ -11,7 +11,7 @@ import bancodedados.Bancos;
 import bancodedados.Eventos;
 import bancodedados.EventosAux;
 import controles.Controle;
-import controles.controleRelatorio;
+import controles.ControleRelatorio;
 import java.awt.Color;
 import java.awt.Component;
 import java.util.ArrayList;
@@ -497,8 +497,8 @@ public class JPSelecao extends javax.swing.JPanel {
 
     private void jBRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBRelatorioActionPerformed
         this.jRBAluno.setEnabled(true);
-        this.jRBCurso.setEnabled(true);
-        this.jRBTurma.setEnabled(true);
+        //this.jRBCurso.setEnabled(true);
+        //this.jRBTurma.setEnabled(true);
         this.jBAlerta.setEnabled(false);
         this.jBVoltar.setEnabled(true);
 
@@ -560,29 +560,30 @@ public class JPSelecao extends javax.swing.JPanel {
         if(this.jBRelatorio.isEnabled()){
         this.periodo();
         if(this.jRBFaltasInt.isSelected()){
-            control = new controleRelatorio(this.jTFIdentificacao, this.jFTFaltasInt, this.c1, this.c2);
+            control = new ControleRelatorio(this.jTFIdentificacao, this.jFTFaltasInt, this.c1, this.c2);
             control.faltasInt();
         }
         if(this.jRBFaltasCon.isSelected()){
-            control = new controleRelatorio(this.jTFIdentificacao, this.jFTFaltasCon, this.c1, this.c2);
+            control = new ControleRelatorio(this.jTFIdentificacao, this.jFTFaltasCon, this.c1, this.c2);
             control.faltasCon();
         }
         if(this.jRBSaida.isSelected()){
-            control = new controleRelatorio(this.jTFIdentificacao, this.jFTSaidaMin, this.jFTSaidaVezes);
+            control = new ControleRelatorio(this.jTFIdentificacao, this.jFTSaidaMin, this.jFTSaidaVezes);
             control.saidaAntecipada();
         }
         if(this.jRBChegada.isSelected()){
-            control = new controleRelatorio(this.jTFIdentificacao, this.jFTChegadaMin, this.jFTChegadaVezes);
+            control = new ControleRelatorio(this.jTFIdentificacao, this.jFTChegadaMin, this.jFTChegadaVezes);
             control.chegadaTardia();
         }
         if(this.jRBFaltasSem.isSelected()){
-            control = new controleRelatorio(this.jTFIdentificacao, this.jFTSemanasVezes, this.jTFSemanas,
+            control = new ControleRelatorio(this.jTFIdentificacao, this.jFTSemanasVezes, this.jTFSemanas,
             this.c1, this.c2);
             control.faltasSemana();
         }
         
         }        
        
+        this.jBCriar.setEnabled(false);
     }//GEN-LAST:event_jBCriarActionPerformed
          
     private void jBVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBVoltarActionPerformed
