@@ -738,12 +738,12 @@ public class JPSelecao extends javax.swing.JPanel {
 
         d.gerar();
         d.consultar();
-        if (this.jBRelatorio.isEnabled() == true && d.autenticar()) {
+        if (this.jBRelatorio.isEnabled() == true && d.autenticado()) {
 
             this.jFTPeriodo1.setEnabled(true);
             this.jFTPeriodo2.setEnabled(true);
             this.jLAux.setEnabled(true);
-        } else if (d.autenticar()) {
+        } else if (d.autenticado()) {
             this.jRBChegada.setEnabled(true);
             this.jRBFaltasCon.setEnabled(true);
             this.jRBFaltasSem.setEnabled(true);

@@ -102,7 +102,7 @@ public class BaseUsuariosLocal extends Bancos {
         }
     }
 
-    public boolean autenticar() {
+    public boolean autenticado() {
         return t;
     }
 

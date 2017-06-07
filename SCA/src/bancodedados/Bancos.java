@@ -22,7 +22,7 @@ public abstract class Bancos {
     
     public abstract void gerar();
     public abstract void modificar();
-    public abstract boolean autenticar();
+    public abstract boolean autenticado();
 
     public abstract ArrayList<EventosAux> retornaLista();
     

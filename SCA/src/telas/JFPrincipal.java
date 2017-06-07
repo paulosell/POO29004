@@ -172,7 +172,7 @@ public class JFPrincipal extends javax.swing.JFrame {
         
         
         b.consultar();
-        if(b.autenticar()){
+        if(b.autenticado()){
         JPSelecao painel = new JPSelecao(this);
         painel.setVisible(true);
         painel.setBounds(0, 0, this.getWidth(), this.getHeight());

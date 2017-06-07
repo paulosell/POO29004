@@ -250,27 +250,31 @@ public class ControleRelatorio extends Controle {
             }
         }
 
+       
+        Calendar aux1 = Calendar.getInstance();
+
+        aux1.set(Calendar.YEAR, this.c1.get(Calendar.YEAR));
+        aux1.set(Calendar.MONTH, this.c1.get(Calendar.MONTH));
+        aux1.set(Calendar.DAY_OF_MONTH, this.c1.get(Calendar.DAY_OF_MONTH));
+
         for (EventosAux monitorado : listaAuxiliar) {
-            for (int i = this.c2.get(Calendar.DAY_OF_MONTH); i > 0; i--) {
-                if (monitorado.getC().get(Calendar.DAY_OF_MONTH) != i) {
-                    if (i > this.c1.get(Calendar.DAY_OF_MONTH)) {
-                        if (!controlaDias.contains(i)) {
-                            Calendar c = Calendar.getInstance();
-                            c.set(Calendar.YEAR, monitorado.getC().get(Calendar.YEAR));
-                            c.set(Calendar.MONTH, monitorado.getC().get(Calendar.MONTH));
-                            c.set(Calendar.DAY_OF_MONTH, i);
-                            EventosAux aux = new EventosAux(monitorado.getAluno(), monitorado.getSentido(), c);
-                            preliminar.add(aux);
-                            controlaDias.add(i);
-                        }
-                    }
-                }
+            while (aux1.before(this.c2)) {
+                aux1.add(Calendar.DAY_OF_MONTH, +1);
+                Calendar aux2 = Calendar.getInstance();
+                aux2.set(Calendar.YEAR, aux1.get(Calendar.YEAR));
+                aux2.set(Calendar.MONTH, (aux1.get(Calendar.MONTH)));
+                aux2.set(Calendar.DAY_OF_MONTH, aux1.get(Calendar.DAY_OF_MONTH));
+                EventosAux re = new EventosAux(monitorado.getAluno(), monitorado.getSentido(), aux2);
+                preliminar.add(re);
+
             }
         }
 
         for (EventosAux monitorado : listaAuxiliar) {
             for (int i = 0; i < preliminar.size(); i++) {
-                if (preliminar.get(i).getC().get(Calendar.DAY_OF_MONTH) == monitorado.getC().get(Calendar.DAY_OF_MONTH)) {
+
+                if ((preliminar.get(i).getC().get(Calendar.DAY_OF_MONTH) == monitorado.getC().get(Calendar.DAY_OF_MONTH))
+                        && (preliminar.get(i).getC().get(Calendar.MONTH) == monitorado.getC().get(Calendar.MONTH))) {
                     preliminar.remove(i);
                 }
             }
@@ -306,7 +310,6 @@ public class ControleRelatorio extends Controle {
             Relatorios tu = new Relatorios();
             try {
                 tu.imprimir(listaReport);
-                
 
             } catch (Exception ex) {
                 Logger.getLogger(ControleRelatorio.class.getName()).log(Level.SEVERE, null, ex);
@@ -331,27 +334,29 @@ public class ControleRelatorio extends Controle {
             }
         }
 
+        Calendar aux1 = Calendar.getInstance();
+
+        aux1.set(Calendar.YEAR, this.c1.get(Calendar.YEAR));
+        aux1.set(Calendar.MONTH, this.c1.get(Calendar.MONTH));
+        aux1.set(Calendar.DAY_OF_MONTH, this.c1.get(Calendar.DAY_OF_MONTH));
+
         for (EventosAux monitorado : listaAuxiliar) {
-            for (int i = this.c2.get(Calendar.DAY_OF_MONTH); i > 0; i--) {
-                if (monitorado.getC().get(Calendar.DAY_OF_MONTH) != i) {
-                    if (i > this.c1.get(Calendar.DAY_OF_MONTH)) {
-                        if (!controlaDias.contains(i)) {
-                            Calendar c = Calendar.getInstance();
-                            c.set(Calendar.YEAR, monitorado.getC().get(Calendar.YEAR));
-                            c.set(Calendar.MONTH, monitorado.getC().get(Calendar.MONTH));
-                            c.set(Calendar.DAY_OF_MONTH, i);
-                            EventosAux aux = new EventosAux(monitorado.getAluno(), monitorado.getSentido(), c);
-                            listaFinal.add(aux);
-                            controlaDias.add(i);
-                        }
-                    }
-                }
+            while (aux1.before(this.c2)) {
+                aux1.add(Calendar.DAY_OF_MONTH, +1);
+                Calendar aux2 = Calendar.getInstance();
+                aux2.set(Calendar.YEAR, aux1.get(Calendar.YEAR));
+                aux2.set(Calendar.MONTH, (aux1.get(Calendar.MONTH)));
+                aux2.set(Calendar.DAY_OF_MONTH, aux1.get(Calendar.DAY_OF_MONTH));
+                EventosAux re = new EventosAux(monitorado.getAluno(), monitorado.getSentido(), aux2);
+                listaFinal.add(re);
+
             }
         }
 
         for (EventosAux monitorado : listaAuxiliar) {
             for (int i = 0; i < listaFinal.size(); i++) {
-                if (listaFinal.get(i).getC().get(Calendar.DAY_OF_MONTH) == monitorado.getC().get(Calendar.DAY_OF_MONTH)) {
+                if ((listaFinal.get(i).getC().get(Calendar.DAY_OF_MONTH) == monitorado.getC().get(Calendar.DAY_OF_MONTH))
+                        && (listaFinal.get(i).getC().get(Calendar.MONTH) == monitorado.getC().get(Calendar.MONTH))) {
                     listaFinal.remove(i);
                 }
             }
@@ -362,10 +367,12 @@ public class ControleRelatorio extends Controle {
         for (int i = 0; i < listaFinal.size() - 1; i++) {
             ArrayList<EventosAux> aux = new ArrayList<EventosAux>();
             int k = i;
+
             while ((listaFinal.get(k + 1).getC().get(Calendar.DAY_OF_MONTH))
-                    == (listaFinal.get(k).getC().get(Calendar.DAY_OF_MONTH) - 1)) {
+                    == (listaFinal.get(k).getC().get(Calendar.DAY_OF_MONTH) + 1)) {
                 aux.add(listaFinal.get(k));
                 aux.add(listaFinal.get(k + 1));
+
                 k++;
                 if (k == listaFinal.size() - 1) {
                     break;
@@ -377,15 +384,18 @@ public class ControleRelatorio extends Controle {
         ArrayList<EventosAux> faltasTot = new ArrayList<EventosAux>();
 
         for (ArrayList<EventosAux> preTotal : filtro) {
+
             if (preTotal.size() >= Integer.parseInt(this.vezes.getText())) {
 
                 for (EventosAux pre : preTotal) {
+
                     if (!faltasTot.contains(pre)) {
                         faltasTot.add(pre);
                     }
                 }
             }
         }
+        System.out.println(faltasTot.size());
         if (faltasTot.size() < Integer.parseInt(this.vezes.getText())) {
             JOptionPane.showMessageDialog(null, "Aluno não faltou mais que " + this.vezes.getText()
                     + " vezes.",
@@ -395,7 +405,12 @@ public class ControleRelatorio extends Controle {
             for (EventosAux monitorado : faltasTot) {
 
                 SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-                String data = (monitorado.getC().get(Calendar.DAY_OF_MONTH) + "/" + monitorado.getC().get(Calendar.MONTH) + "/"
+                //monitorado.getC().set(Calendar.MONTH, (monitorado.getC().get(Calendar.MONTH) + 1));
+                int tu = monitorado.getC().get(Calendar.MONTH) + 1;
+                if (tu == 0) {
+                    tu = 12;
+                }
+                String data = (monitorado.getC().get(Calendar.DAY_OF_MONTH) + "/" + tu + "/"
                         + monitorado.getC().get(Calendar.YEAR));
 
                 RelFaltas rel = new RelFaltas(monitorado.getAluno(), data);
@@ -416,6 +431,7 @@ public class ControleRelatorio extends Controle {
     }
 
     @Override
+    @SuppressWarnings("empty-statement")
     public void faltasInt() {
 
         ArrayList<RelFaltas> listaReport = new ArrayList<RelFaltas>();
@@ -430,27 +446,30 @@ public class ControleRelatorio extends Controle {
             }
         }
 
+        Calendar aux1 = Calendar.getInstance();
+
+        aux1.set(Calendar.YEAR, this.c1.get(Calendar.YEAR));
+        aux1.set(Calendar.MONTH, this.c1.get(Calendar.MONTH));
+        aux1.set(Calendar.DAY_OF_MONTH, this.c1.get(Calendar.DAY_OF_MONTH));
+
         for (EventosAux monitorado : listaAuxiliar) {
-            for (int i = this.c2.get(Calendar.DAY_OF_MONTH); i > 0; i--) {
-                if (monitorado.getC().get(Calendar.DAY_OF_MONTH) != i) {
-                    if (i > this.c1.get(Calendar.DAY_OF_MONTH)) {
-                        if (!controlaDias.contains(i)) {
-                            Calendar c = Calendar.getInstance();
-                            c.set(Calendar.YEAR, monitorado.getC().get(Calendar.YEAR));
-                            c.set(Calendar.MONTH, monitorado.getC().get(Calendar.MONTH));
-                            c.set(Calendar.DAY_OF_MONTH, i);
-                            EventosAux aux = new EventosAux(monitorado.getAluno(), monitorado.getSentido(), c);
-                            listaFinal.add(aux);
-                            controlaDias.add(i);
-                        }
-                    }
-                }
+            while (aux1.before(this.c2)) {
+                aux1.add(Calendar.DAY_OF_MONTH, +1);
+                Calendar aux2 = Calendar.getInstance();
+                aux2.set(Calendar.YEAR, aux1.get(Calendar.YEAR));
+                aux2.set(Calendar.MONTH, (aux1.get(Calendar.MONTH)));
+                aux2.set(Calendar.DAY_OF_MONTH, aux1.get(Calendar.DAY_OF_MONTH));
+                EventosAux re = new EventosAux(monitorado.getAluno(), monitorado.getSentido(), aux2);
+                listaFinal.add(re);
+
             }
         }
 
         for (EventosAux monitorado : listaAuxiliar) {
             for (int i = 0; i < listaFinal.size(); i++) {
-                if (listaFinal.get(i).getC().get(Calendar.DAY_OF_MONTH) == monitorado.getC().get(Calendar.DAY_OF_MONTH)) {
+
+                if ((listaFinal.get(i).getC().get(Calendar.DAY_OF_MONTH) == monitorado.getC().get(Calendar.DAY_OF_MONTH))
+                        && (listaFinal.get(i).getC().get(Calendar.MONTH) == monitorado.getC().get(Calendar.MONTH))) {
                     listaFinal.remove(i);
                 }
             }
@@ -465,7 +484,11 @@ public class ControleRelatorio extends Controle {
             for (EventosAux monitorado : listaFinal) {
 
                 SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-                String data = (monitorado.getC().get(Calendar.DAY_OF_MONTH) + "/" + monitorado.getC().get(Calendar.MONTH) + "/"
+                int tu = monitorado.getC().get(Calendar.MONTH) + 1;
+                if (tu == 0) {
+                    tu = 12;
+                }
+                String data = (monitorado.getC().get(Calendar.DAY_OF_MONTH) + "/" + tu + "/"
                         + monitorado.getC().get(Calendar.YEAR));
 
                 RelFaltas rel = new RelFaltas(monitorado.getAluno(), data);

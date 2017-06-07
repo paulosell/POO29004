@@ -74,7 +74,7 @@ public class Academico extends Bancos {
     }
 
     @Override
-    public boolean autenticar() {
+    public boolean autenticado() {
         return t;
     }
 

@@ -86,7 +86,7 @@ public class Eventos extends Bancos {
     }
 
     @Override
-    public boolean autenticar() {
+    public boolean autenticado() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
