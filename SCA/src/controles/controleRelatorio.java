@@ -98,7 +98,7 @@ public class ControleRelatorio extends Controle {
     @Override
     public void saidaAntecipada() {
 
-        ArrayList<EventosAux> primeiraLista = this.ev.retornaLista();
+        ArrayList<EventosAux> primeiraLista = this.ev.retornaListaEventos();
         ArrayList<EventosAux> listaAuxiliar = new ArrayList<EventosAux>();
         ArrayList<EventosAux> listaFinal = new ArrayList<EventosAux>();
         ArrayList<RelHorario> listaReport = new ArrayList<RelHorario>();
@@ -167,7 +167,7 @@ public class ControleRelatorio extends Controle {
     @Override
     public void chegadaTardia() {
 
-        ArrayList<EventosAux> primeiraLista = this.ev.retornaLista();
+        ArrayList<EventosAux> primeiraLista = this.ev.retornaListaEventos();
         ArrayList<EventosAux> listaAuxiliar = new ArrayList<EventosAux>();
         ArrayList<EventosAux> listaFinal = new ArrayList<EventosAux>();
         ArrayList<RelHorario> listaReport = new ArrayList<RelHorario>();
@@ -239,7 +239,7 @@ public class ControleRelatorio extends Controle {
         String t = this.auxiliaDia();
 
         ArrayList<RelSemana> listaReport = new ArrayList<RelSemana>();
-        ArrayList<EventosAux> primeiraLista = this.ev.retornaLista();
+        ArrayList<EventosAux> primeiraLista = this.ev.retornaListaEventos();
         ArrayList<EventosAux> listaAuxiliar = new ArrayList<EventosAux>();
         ArrayList<Integer> controlaDias = new ArrayList<Integer>();
         ArrayList<EventosAux> preliminar = new ArrayList<EventosAux>();
@@ -323,7 +323,7 @@ public class ControleRelatorio extends Controle {
     public void faltasCon() {
 
         ArrayList<RelFaltas> listaReport = new ArrayList<RelFaltas>();
-        ArrayList<EventosAux> primeiraLista = this.ev.retornaLista();
+        ArrayList<EventosAux> primeiraLista = this.ev.retornaListaEventos();
         ArrayList<EventosAux> listaAuxiliar = new ArrayList<EventosAux>();
         ArrayList<Integer> controlaDias = new ArrayList<Integer>();
         ArrayList<EventosAux> listaFinal = new ArrayList<EventosAux>();
@@ -435,7 +435,7 @@ public class ControleRelatorio extends Controle {
     public void faltasInt() {
 
         ArrayList<RelFaltas> listaReport = new ArrayList<RelFaltas>();
-        ArrayList<EventosAux> primeiraLista = this.ev.retornaLista();
+        ArrayList<EventosAux> primeiraLista = this.ev.retornaListaEventos();
         ArrayList<EventosAux> listaAuxiliar = new ArrayList<EventosAux>();
         ArrayList<Integer> controlaDias = new ArrayList<Integer>();
         ArrayList<EventosAux> listaFinal = new ArrayList<EventosAux>();
