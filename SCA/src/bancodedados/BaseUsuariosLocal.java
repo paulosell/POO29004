@@ -38,6 +38,7 @@ public class BaseUsuariosLocal extends Bancos {
         this.login = l;
         this.usuario = u;
         this.senha = s;
+       
 
     }
 
@@ -75,7 +76,7 @@ public class BaseUsuariosLocal extends Bancos {
     public void modificar() {
         File arquivo;
         try {
-            arquivo = new File(getClass().getResource("/db/baselocal.csv").getPath());
+            arquivo = new File(getClass().getResource("/db/db-alertas.csv").getPath());
             FileWriter fwArquivo = null;
 
 // Se o arquivo existir, abre para adicionar dados
@@ -112,7 +113,12 @@ public class BaseUsuariosLocal extends Bancos {
     }
 
     @Override
-    public ArrayList<EventosAux> retornaLista() {
+    public ArrayList<EventosAux> retornaListaEventos() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public ArrayList<Alerta> retornaListaAlertas() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

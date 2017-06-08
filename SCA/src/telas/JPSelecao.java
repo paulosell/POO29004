@@ -7,10 +7,13 @@ package telas;
 
 
 import bancodedados.Academico;
+import bancodedados.Alerta;
 import bancodedados.Bancos;
+import bancodedados.EscreveAlerta;
 import bancodedados.Eventos;
 import bancodedados.EventosAux;
 import controles.Controle;
+import controles.ControleAlerta;
 import controles.ControleRelatorio;
 import java.awt.Color;
 import java.awt.Component;
@@ -36,6 +39,7 @@ public class JPSelecao extends javax.swing.JPanel {
     public JPSelecao(JFPrincipal p) {
         this.pai = p;
         initComponents();
+       
      
     }
 
@@ -80,6 +84,7 @@ public class JPSelecao extends javax.swing.JPanel {
         jFTFaltasCon = new javax.swing.JFormattedTextField();
         jTFSemanas = new javax.swing.JTextField();
         jFTSemanasVezes = new javax.swing.JFormattedTextField();
+        jButton1 = new javax.swing.JButton();
 
         jBAlerta.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jBAlerta.setText("Alerta");
@@ -372,6 +377,13 @@ public class JPSelecao extends javax.swing.JPanel {
             }
         });
 
+        jButton1.setText("jButton1");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -417,6 +429,8 @@ public class JPSelecao extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jFTChegadaVezes, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jFTSaidaVezes, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jBVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -431,7 +445,8 @@ public class JPSelecao extends javax.swing.JPanel {
                         .addGap(22, 22, 22)
                         .addComponent(jlNomeAlerta)
                         .addGap(4, 4, 4)
-                        .addComponent(jTFNomeAlerta, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(jTFNomeAlerta, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -481,16 +496,21 @@ public class JPSelecao extends javax.swing.JPanel {
                             .addComponent(jFTSaidaVezes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(6, 6, 6)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(9, 9, 9)
-                                .addComponent(jlNomeAlerta))
-                            .addComponent(jTFNomeAlerta, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jBVoltar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jBCriar)))
+                                .addGap(6, 6, 6)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(9, 9, 9)
+                                        .addComponent(jlNomeAlerta))
+                                    .addComponent(jTFNomeAlerta, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jBVoltar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jBCriar))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(58, 58, 58)
+                                .addComponent(jButton1)))))
                 .addContainerGap(47, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -557,6 +577,7 @@ public class JPSelecao extends javax.swing.JPanel {
     }//GEN-LAST:event_jRBSaidaActionPerformed
 
     private void jBCriarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCriarActionPerformed
+
         if(this.jBRelatorio.isEnabled()){
         this.periodo();
         if(this.jRBFaltasInt.isSelected()){
@@ -581,7 +602,19 @@ public class JPSelecao extends javax.swing.JPanel {
             control.faltasSemana();
         }
         
-        }        
+        }     else {
+              if(this.jRBFaltasInt.isSelected()){
+                     Calendar data = Calendar.getInstance();
+            //String q = data.getTime().toString();
+          
+            Alerta c = new Alerta(this.jTFIdentificacao.getText().toUpperCase(), data, this.jFTFaltasInt.getText(), 
+            this.jTFNomeAlerta.getText(),"1");
+            Bancos esc = new EscreveAlerta(c);
+            esc.modificar();
+            
+          
+              }
+        }   
        
         this.jBCriar.setEnabled(false);
     }//GEN-LAST:event_jBCriarActionPerformed
@@ -714,6 +747,12 @@ public class JPSelecao extends javax.swing.JPanel {
         jTFSemanas.setForeground(Color.BLACK);
     }//GEN-LAST:event_jTFSemanasMouseClicked
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+            Controle g = new ControleAlerta();
+            g.faltasInt();
+
+    }//GEN-LAST:event_jButton1ActionPerformed
+
 
     private void periodo() {
         if (this.jBRelatorio.isEnabled()) {
@@ -840,6 +879,7 @@ public class JPSelecao extends javax.swing.JPanel {
     private javax.swing.JButton jBExcluirTab;
     private javax.swing.JButton jBRelatorio;
     private javax.swing.JButton jBVoltar;
+    private javax.swing.JButton jButton1;
     private javax.swing.JFormattedTextField jFTChegadaMin;
     private javax.swing.JFormattedTextField jFTChegadaVezes;
     private javax.swing.JFormattedTextField jFTFaltasCon;

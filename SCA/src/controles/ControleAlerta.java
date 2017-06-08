@@ -5,48 +5,35 @@
  */
 package controles;
 
+import bancodedados.Alerta;
 import bancodedados.Bancos;
 import bancodedados.EscreveAlerta;
+import bancodedados.Eventos;
 import bancodedados.EventosAux;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JFormattedTextField;
-import javax.swing.JOptionPane;
-import javax.swing.JTextField;
-import relatorios.RelFaltas;
-import relatorios.Relatorios;
 
 /**
  *
  * @author pfsel
  */
-public class Alerta extends Controle{
-    
-    
-    private JTextField id;
-    private JFormattedTextField min;
-    private JFormattedTextField vezes;
-    private JTextField diasemana;
-    private int dia;
-    private String diaFinal;
-    private Bancos ev;
-    private Calendar c;
+public class ControleAlerta extends Controle {
 
-    public Alerta(JTextField id, JFormattedTextField vezes) {
-        this.id = id;
-        this.vezes = vezes;
+    private String aluno;
+    private Calendar inicio;
+    private String vezes;
+    private String nomeAlerta;
+    private String tipo;
+    private Bancos ev;
+    private Bancos al;
+
+    public ControleAlerta() {
+        ev = new Eventos();
+        al = new EscreveAlerta();
+        ev.gerar();
+        al.gerar();
+
     }
-    
-    
-    
-    
 
     @Override
     public String auxiliaDia() {
@@ -75,30 +62,16 @@ public class Alerta extends Controle{
 
     @Override
     public void faltasInt() {
-  ArrayList<RelFaltas> listaReport = new ArrayList<RelFaltas>();
-        ArrayList<EventosAux> primeiraLista = this.ev.retornaLista();
-        ArrayList<EventosAux> listaAuxiliar = new ArrayList<EventosAux>();
-        ArrayList<Integer> controlaDias = new ArrayList<Integer>();
-        ArrayList<EventosAux> listaFinal = new ArrayList<EventosAux>();
+        ArrayList<Alerta> listaAlerta = al.retornaListaAlertas();
+        ArrayList<EventosAux> listaEventos = ev.retornaListaEventos();
+     
+    
 
-        for (EventosAux monitorado : primeiraLista) {
-            if (monitorado.getAluno().equals(this.id.getText().toUpperCase())) {
-                listaAuxiliar.add(monitorado);
-            }
-        }
-        
-        int t = listaAuxiliar.size();
-        
-       Bancos q = new EscreveAlerta(t);
-        q.modificar();
-        
-        
-        
     }
 
     @Override
     public int setDiaSemana(String diaSema) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
 }

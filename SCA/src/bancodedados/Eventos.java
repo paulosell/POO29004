@@ -19,13 +19,12 @@ import java.util.logging.Logger;
  */
 public class Eventos extends Bancos {
 
-   private ArrayList<EventosAux> lista;
-   private Alunos aluno;
-   
-   public Eventos(){
-       lista = new ArrayList<EventosAux>();
-   }
-   
+    private ArrayList<EventosAux> lista;
+    private Alunos aluno;
+
+    public Eventos() {
+        lista = new ArrayList<EventosAux>();
+    }
 
     @Override
     public void abrir() {
@@ -34,7 +33,6 @@ public class Eventos extends Bancos {
 
     @Override
     public void consultar() {
-        
 
     }
 
@@ -47,7 +45,7 @@ public class Eventos extends Bancos {
             String lixo = leitor.nextLine();
             while (leitor.hasNextLine()) {
                 String proximaLinha = leitor.nextLine();
-                   String separados[] = proximaLinha.split(",");
+                String separados[] = proximaLinha.split(",");
                 String sentido = (separados[2] + "," + separados[3]);
                 String aluno = separados[6];
                 String t[] = separados[1].split("-");
@@ -59,28 +57,24 @@ public class Eventos extends Bancos {
                 int hora = Integer.parseInt(separaTotal[0]);
                 int min = Integer.parseInt(separaTotal[1]);
                 Calendar c = Calendar.getInstance();
-                
-                 c.set(Calendar.YEAR, ano);
-         c.set(Calendar.MONTH, mes-1);
-         c.set(Calendar.DAY_OF_MONTH, dia);
-         c.set(Calendar.HOUR_OF_DAY, hora);
-         c.set(Calendar.MINUTE, min);
-         
-               
-                EventosAux ev = new EventosAux(aluno,sentido, c);
+
+                c.set(Calendar.YEAR, ano);
+                c.set(Calendar.MONTH, mes - 1);
+                c.set(Calendar.DAY_OF_MONTH, dia);
+                c.set(Calendar.HOUR_OF_DAY, hora);
+                c.set(Calendar.MINUTE, min);
+
+                EventosAux ev = new EventosAux(aluno, sentido, c);
                 lista.add(ev);
             }
-                
 
-         
-
-    }   catch (FileNotFoundException ex) {
+        } catch (FileNotFoundException ex) {
             Logger.getLogger(Eventos.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
     @Override
-    
-    
+
     public void modificar() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
@@ -90,8 +84,13 @@ public class Eventos extends Bancos {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public ArrayList<EventosAux> retornaLista() {
+    public ArrayList<EventosAux> retornaListaEventos() {
         return lista;
+    }
+
+    @Override
+    public ArrayList<Alerta> retornaListaAlertas() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

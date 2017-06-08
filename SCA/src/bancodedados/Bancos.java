@@ -24,7 +24,9 @@ public abstract class Bancos {
     public abstract void modificar();
     public abstract boolean autenticado();
 
-    public abstract ArrayList<EventosAux> retornaLista();
+    public abstract ArrayList<EventosAux> retornaListaEventos();
+    public abstract ArrayList<Alerta> retornaListaAlertas();
+    
     
     
     
