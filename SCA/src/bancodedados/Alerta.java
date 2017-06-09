@@ -25,6 +25,7 @@ public class Alerta{
     private String vezes;
     private String nomeAlerta;
     private String tipo;
+    private String minutos;
 
     public Alerta(String aluno, Calendar inicio, String vezes, String nomeAlerta, String tipo) {
         this.aluno = aluno;
@@ -34,7 +35,26 @@ public class Alerta{
         this.nomeAlerta = nomeAlerta;
       
     }
+     public Alerta(String aluno, Calendar inicio, String vezes, String nomeAlerta, String tipo, String minutos) {
+        this.aluno = aluno;
+        this.tipo=tipo;
+        this.inicio = inicio;
+        this.vezes = vezes;
+        this.nomeAlerta = nomeAlerta;
+        this.minutos=minutos;
+      
+    }
 
+    public String getMinutos() {
+        return minutos;
+    }
+
+    public void setMinutos(String minutos) {
+        this.minutos = minutos;
+    }
+
+     
+     
     public String getTipo() {
         return tipo;
     }

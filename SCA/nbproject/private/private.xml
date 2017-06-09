@@ -4,10 +4,15 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/pfsel/Documents/GitHub/ProjetoPoo/SCA/src/telas/JPSelecao.java</file>
-            <file>file:/C:/Users/pfsel/Documents/GitHub/ProjetoPoo/SCA/src/controles/controleRelatorio.java</file>
-            <file>file:/C:/Users/pfsel/Documents/GitHub/ProjetoPoo/SCA/src/bancodedados/Academico.java</file>
             <file>file:/C:/Users/pfsel/Documents/GitHub/ProjetoPoo/SCA/src/controles/Controle.java</file>
-            <file>file:/C:/Users/pfsel/Documents/GitHub/ProjetoPoo/SCA/src/bancodedados/Alunos.java</file>
+            <file>file:/C:/Users/pfsel/Documents/GitHub/ProjetoPoo/SCA/src/relatorios/RelHorario.java</file>
+            <file>file:/C:/Users/pfsel/Documents/GitHub/ProjetoPoo/SCA/src/relatorios/Relatorios.java</file>
+            <file>file:/C:/Users/pfsel/Documents/GitHub/ProjetoPoo/SCA/src/relatorios/RelSemana.java</file>
+            <file>file:/C:/Users/pfsel/Documents/GitHub/ProjetoPoo/SCA/src/bancodedados/Alerta.java</file>
+            <file>file:/C:/Users/pfsel/Documents/GitHub/ProjetoPoo/SCA/src/bancodedados/EscreveAlerta.java</file>
+            <file>file:/C:/Users/pfsel/Documents/GitHub/ProjetoPoo/SCA/src/controles/ControleAlerta.java</file>
+            <file>file:/C:/Users/pfsel/Documents/GitHub/ProjetoPoo/SCA/src/controles/ControleRelatorio.java</file>
+            <file>file:/C:/Users/pfsel/Documents/GitHub/ProjetoPoo/SCA/src/relatorios/RelFaltas.java</file>
         </group>
     </open-files>
 </project-private>

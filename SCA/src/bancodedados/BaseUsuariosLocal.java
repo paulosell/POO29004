@@ -58,6 +58,9 @@ public class BaseUsuariosLocal extends Bancos {
 
             while (leitor.hasNextLine()) {
                 String proximaLinha = leitor.nextLine();
+                   if(proximaLinha.length() ==0){
+                    proximaLinha = leitor.nextLine();
+                }
                 proximaLinha = proximaLinha.substring(proximaLinha.indexOf(",") + 1, proximaLinha.length());
                 l.add(proximaLinha);
             }
@@ -76,7 +79,7 @@ public class BaseUsuariosLocal extends Bancos {
     public void modificar() {
         File arquivo;
         try {
-            arquivo = new File(getClass().getResource("/db/db-alertas.csv").getPath());
+            arquivo = new File(getClass().getResource("/db/baselocal.csv").getPath());
             FileWriter fwArquivo = null;
 
 // Se o arquivo existir, abre para adicionar dados

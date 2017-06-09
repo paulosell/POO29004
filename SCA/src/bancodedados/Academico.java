@@ -40,6 +40,9 @@ public class Academico extends Bancos {
             String lixo = leitor.nextLine();
             while (leitor.hasNextLine()) {
                 String proximaLinha = leitor.nextLine();
+                   if(proximaLinha.length() == 0){
+                    proximaLinha = leitor.nextLine();
+                }
                 String separados[] = proximaLinha.split(",");
                 Alunos a = new Alunos(separados[0], separados[1], separados[2]);
                 lista.add(a);

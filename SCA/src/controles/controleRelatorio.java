@@ -134,7 +134,11 @@ public class ControleRelatorio extends Controle {
                 if (fim.getC().get(Calendar.MINUTE) < 10) {
                     String horario = (fim.getC().get(Calendar.HOUR_OF_DAY) + ":0" + fim.getC().get(Calendar.MINUTE));
                     String aluno = fim.getAluno();
-                    String data = (fim.getC().get(Calendar.DAY_OF_MONTH) + "/" + fim.getC().get(Calendar.MONTH) + "/"
+                    int tu = fim.getC().get(Calendar.MONTH) + 1;
+                    if (tu == 0) {
+                        tu = 12;
+                    }
+                    String data = (fim.getC().get(Calendar.DAY_OF_MONTH) + "/" + tu + "/"
                             + fim.getC().get(Calendar.YEAR));
                     RelHorario monitorado = new RelHorario(aluno, horario, data);
                     listaReport.add(monitorado);
@@ -142,7 +146,11 @@ public class ControleRelatorio extends Controle {
                 } else {
                     String horario = (fim.getC().get(Calendar.HOUR_OF_DAY) + ":" + fim.getC().get(Calendar.MINUTE));
                     String aluno = fim.getAluno();
-                    String data = (fim.getC().get(Calendar.DAY_OF_MONTH) + "/" + fim.getC().get(Calendar.MONTH) + "/"
+                    int tu = fim.getC().get(Calendar.MONTH) + 1;
+                    if (tu == 0) {
+                        tu = 12;
+                    }
+                    String data = (fim.getC().get(Calendar.DAY_OF_MONTH) + "/" + tu + "/"
                             + fim.getC().get(Calendar.YEAR));
                     RelHorario monitorado = new RelHorario(aluno, horario, data);
                     listaReport.add(monitorado);
@@ -204,15 +212,24 @@ public class ControleRelatorio extends Controle {
                 if (fim.getC().get(Calendar.MINUTE) < 10) {
                     String horario = (fim.getC().get(Calendar.HOUR_OF_DAY) + ":0" + fim.getC().get(Calendar.MINUTE));
                     String aluno = fim.getAluno();
-                    String data = (fim.getC().get(Calendar.DAY_OF_MONTH) + "/" + fim.getC().get(Calendar.MONTH) + "/"
+                    int tu = fim.getC().get(Calendar.MONTH) + 1;
+                    if (tu == 0) {
+                        tu = 12;
+                    }
+                    String data = (fim.getC().get(Calendar.DAY_OF_MONTH) + "/" + tu + "/"
                             + fim.getC().get(Calendar.YEAR));
+
                     RelHorario monitorado = new RelHorario(aluno, horario, data);
                     listaReport.add(monitorado);
 
                 } else {
                     String horario = (fim.getC().get(Calendar.HOUR_OF_DAY) + ":" + fim.getC().get(Calendar.MINUTE));
                     String aluno = fim.getAluno();
-                    String data = (fim.getC().get(Calendar.DAY_OF_MONTH) + "/" + fim.getC().get(Calendar.MONTH) + "/"
+                    int tu = fim.getC().get(Calendar.MONTH) + 1;
+                    if (tu == 0) {
+                        tu = 12;
+                    }
+                    String data = (fim.getC().get(Calendar.DAY_OF_MONTH) + "/" + tu + "/"
                             + fim.getC().get(Calendar.YEAR));
                     RelHorario monitorado = new RelHorario(aluno, horario, data);
                     listaReport.add(monitorado);
@@ -250,7 +267,6 @@ public class ControleRelatorio extends Controle {
             }
         }
 
-       
         Calendar aux1 = Calendar.getInstance();
 
         aux1.set(Calendar.YEAR, this.c1.get(Calendar.YEAR));
@@ -285,7 +301,7 @@ public class ControleRelatorio extends Controle {
             String separa[] = filtra.getC().getTime().toString().split(" ");
 
             if (separa[0].equals(t)) {
-                filtra.getC().set(Calendar.MONTH, filtra.getC().get(Calendar.MONDAY) + 1);
+                filtra.getC().set(Calendar.MONTH, filtra.getC().get(Calendar.MONTH) + 1);
                 fim.add(filtra);
             }
 

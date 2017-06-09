@@ -95,17 +95,22 @@ public class EscreveAlerta extends Bancos {
             Scanner leitor = new Scanner(arquivo);
             String lixo = leitor.nextLine();
             while (leitor.hasNextLine()) {
+                
                 String proximaLinha = leitor.nextLine();
+                if(proximaLinha.length() ==0){
+                    proximaLinha = leitor.nextLine();
+                }
                 String separados[] = proximaLinha.split(",");
                 Calendar c = Calendar.getInstance();
                 String data[] = separados[0].split(" ");
+                System.out.println(data[1]);
                 int t = this.retMes(data[1]);
                 c.set(Calendar.YEAR, Integer.parseInt(data[5]));
                 c.set(Calendar.DAY_OF_MONTH, Integer.parseInt(data[2]));
-                c.set(Calendar.MONTH, t);
+                c.set(Calendar.MONTH, t-2);
                 // System.out.println(c.getTime().toString());
                // System.out.println(lista.size());
-                Alerta al = new Alerta(separados[4], c, separados[1], separados[2], separados[3]);
+                Alerta al = new Alerta(separados[5], c, separados[1], separados[2], separados[3], separados[4]);
                 //System.out.println(al.toString());
                 lista.add(al);
 
@@ -131,14 +136,17 @@ public class EscreveAlerta extends Bancos {
             }
             BufferedWriter bw = new BufferedWriter(fwArquivo);
 
-            String separa[] = new String[5];
+            String separa[] = new String[6];
             separa[0] = a.getInicio().getTime().toString();
             separa[1] = a.getVezes();
             separa[2] = a.getNomeAlerta();
             separa[3] = a.getTipo();
-            separa[4] = a.getAluno();
+            separa[4] = a.getMinutos();
+            separa[5] = a.getAluno();
+            
 
-            bw.write('\n'+separa[0] + "," + separa[1] + "," + separa[2] + "," + separa[3] + "," + separa[4]);
+            bw.write('\n'+separa[0] + "," + separa[1] + "," + separa[2] + "," + separa[3] + "," + separa[4] + ","+
+                    separa[5]);
             
             // fechando arquivo
             bw.close();
