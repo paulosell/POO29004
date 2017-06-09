@@ -22,6 +22,7 @@ import relatorios.RelSemana;
 import relatorios.Relatorios;
 
 /**
+ * Classe que gera os relatórios solicitados pelos usuários (extends Controle)
  *
  * @author pfsel
  */
@@ -36,6 +37,14 @@ public class ControleRelatorio extends Controle {
     private Calendar c1, c2;
     private Bancos ev;
 
+    /**
+     * Construtor para os relatorios de faltas consecutivas ou intercaladas
+     *
+     * @param texto = campo de texto com o nome do aluno
+     * @param vezes = campo de texto com a quantidade de faltas
+     * @param c1 = data inicial
+     * @param c2 =data final
+     */
     public ControleRelatorio(JTextField texto,
             JFormattedTextField vezes, Calendar c1, Calendar c2) {
         this.ev = new Eventos();
@@ -47,17 +56,36 @@ public class ControleRelatorio extends Controle {
 
     }
 
+    /**
+     * Construtor para os relatorios que precisam trabalhar com horarios
+     *
+     * @param texto = campo de texto com o nome do aluno
+     * @param min = campo de texto com os mintos
+     * @param vezes = campo de texto com a quantidade
+     * @param c1 = data inicial
+     * @param c2 = data final
+     */
     public ControleRelatorio(JTextField texto,
-            JFormattedTextField min, JFormattedTextField vezes) {
+            JFormattedTextField min, JFormattedTextField vezes, Calendar c1, Calendar c2) {
         this.ev = new Eventos();
         this.ev.gerar();
-
         this.id = texto;
         this.min = min;
         this.vezes = vezes;
+        this.c1 = c1;
+        this.c2 = c2;
 
     }
 
+    /**
+     * Construtor para o relatorio que precisa da informação do dia da semana
+     *
+     * @param texto = campo de texto com o nome do aluno
+     * @param vezes = campo de texto com a quantidade de vezes
+     * @param diasemana = campo de texto com o dia da semana
+     * @param c1 = data inicial
+     * @param c2 = data final
+     */
     public ControleRelatorio(JTextField texto,
             JFormattedTextField vezes, JTextField diasemana, Calendar c1, Calendar c2) {
         this.ev = new Eventos();
@@ -73,6 +101,9 @@ public class ControleRelatorio extends Controle {
     }
 
     @Override
+    /**
+     * Método para transformar o dia da semana em String para fazer comparações
+     */
     public String auxiliaDia() {
 
         if (this.dia == 1) {
@@ -96,6 +127,10 @@ public class ControleRelatorio extends Controle {
     }
 
     @Override
+    /**
+     * método que verifica varre a as ArrayList e gera o relatorio de acordo com
+     * os parametros passados
+     */
     public void saidaAntecipada() {
 
         ArrayList<EventosAux> primeiraLista = this.ev.retornaListaEventos();
@@ -111,19 +146,23 @@ public class ControleRelatorio extends Controle {
 
         if (Integer.parseInt(this.min.getText()) > 30) {
             for (EventosAux hora : listaAuxiliar) {
-                if (hora.getSentido().equals("Interna,Externa")) {
-                    if (((hora.getC().get(Calendar.HOUR_OF_DAY) > 7) && (hora.getC().get(Calendar.HOUR) < 12))
-                            || ((hora.getC().get(Calendar.HOUR_OF_DAY) > 13) && (hora.getC().get(Calendar.HOUR) < 18))) {
-                        listaFinal.add(hora);
+                if (hora.getC().before(this.c2) && hora.getC().after(this.c1)) {
+                    if (hora.getSentido().equals("Interna,Externa")) {
+                        if (((hora.getC().get(Calendar.HOUR_OF_DAY) > 7) && (hora.getC().get(Calendar.HOUR) < 12))
+                                || ((hora.getC().get(Calendar.HOUR_OF_DAY) > 13) && (hora.getC().get(Calendar.HOUR) < 18))) {
+                            listaFinal.add(hora);
+                        }
                     }
                 }
             }
         } else {
             for (EventosAux monitorado : listaAuxiliar) {
-                if (monitorado.getSentido().equals("Interna,Externa")) {
-                    if (monitorado.getC().get(Calendar.MINUTE) < 30) {
-                        if ((monitorado.getC().get(Calendar.MINUTE) + (Integer.parseInt(this.min.getText()))) < 30) {
-                            listaFinal.add(monitorado);
+                if (monitorado.getC().before(this.c2) && monitorado.getC().after(this.c1)) {
+                    if (monitorado.getSentido().equals("Interna,Externa")) {
+                        if (monitorado.getC().get(Calendar.MINUTE) < 30) {
+                            if ((monitorado.getC().get(Calendar.MINUTE) + (Integer.parseInt(this.min.getText()))) < 30) {
+                                listaFinal.add(monitorado);
+                            }
                         }
                     }
                 }
@@ -173,6 +212,10 @@ public class ControleRelatorio extends Controle {
     }
 
     @Override
+    /**
+     * método que verifica varre a as ArrayList e gera o relatorio de acordo com
+     * os parametros passados
+     */
     public void chegadaTardia() {
 
         ArrayList<EventosAux> primeiraLista = this.ev.retornaListaEventos();
@@ -188,23 +231,28 @@ public class ControleRelatorio extends Controle {
 
         if (Integer.parseInt(this.min.getText()) > 30) {
             for (EventosAux monitorado : listaAuxiliar) {
-                if (monitorado.getSentido().equals("Externa,Interna")) {
-                    if (((monitorado.getC().get(Calendar.HOUR_OF_DAY) > 7) && (monitorado.getC().get(Calendar.HOUR) < 12))
-                            || ((monitorado.getC().get(Calendar.HOUR_OF_DAY) > 13) && (monitorado.getC().get(Calendar.HOUR) < 18))) {
-                        listaFinal.add(monitorado);
-                    }
-                }
-            }
-        } else {
-            for (EventosAux monitorado : listaAuxiliar) {
-                if (monitorado.getSentido().equals("Externa,Interna")) {
-                    if (monitorado.getC().get(Calendar.MINUTE) > 30) {
-                        if ((monitorado.getC().get(Calendar.MINUTE) - (Integer.parseInt(this.min.getText()))) > 30) {
+                if (monitorado.getC().before(this.c2) && monitorado.getC().after(this.c1)) {
+                    if (monitorado.getSentido().equals("Externa,Interna")) {
+                        if (((monitorado.getC().get(Calendar.HOUR_OF_DAY) > 7) && (monitorado.getC().get(Calendar.HOUR) < 12))
+                                || ((monitorado.getC().get(Calendar.HOUR_OF_DAY) > 13) && (monitorado.getC().get(Calendar.HOUR) < 18))) {
                             listaFinal.add(monitorado);
                         }
                     }
                 }
             }
+        } else {
+            for (EventosAux monitorado : listaAuxiliar) {
+                if (monitorado.getC().before(this.c2) && monitorado.getC().after(this.c1)) {
+                    if (monitorado.getSentido().equals("Externa,Interna")) {
+                        if (monitorado.getC().get(Calendar.MINUTE) > 30) {
+                            if ((monitorado.getC().get(Calendar.MINUTE) - (Integer.parseInt(this.min.getText()))) > 30) {
+                                listaFinal.add(monitorado);
+                            }
+                        }
+                    }
+                }
+            }
+
         }
 
         if (listaFinal.size() >= Integer.parseInt(this.vezes.getText())) {
@@ -251,6 +299,10 @@ public class ControleRelatorio extends Controle {
     }
 
     @Override
+    /**
+     * método que verifica varre a as ArrayList e gera o relatorio de acordo com
+     * os parametros passados
+     */
     public void faltasSemana() {
 
         String t = this.auxiliaDia();
@@ -336,6 +388,10 @@ public class ControleRelatorio extends Controle {
     }
 
     @Override
+    /**
+     * método que verifica varre a as ArrayList e gera o relatorio de acordo com
+     * os parametros passados
+     */
     public void faltasCon() {
 
         ArrayList<RelFaltas> listaReport = new ArrayList<RelFaltas>();
@@ -447,7 +503,10 @@ public class ControleRelatorio extends Controle {
     }
 
     @Override
-    @SuppressWarnings("empty-statement")
+    /**
+     * método que verifica varre a as ArrayList e gera o relatorio de acordo com
+     * os parametros passados
+     */
     public void faltasInt() {
 
         ArrayList<RelFaltas> listaReport = new ArrayList<RelFaltas>();
@@ -524,10 +583,15 @@ public class ControleRelatorio extends Controle {
     }
 
     @Override
+    /**
+     * método para transformar o dia da semana em int para facilitar a
+     * manipulação dos dados
+     */
     public int setDiaSemana(String diaSema) {
 
         if (diaSema.equals("SEGUNDA-FEIRA")) {
-            this.dia = 1;
+            this.diaFinal = "Mon";
+
         }
 
         if (diaSema.equals("TERÇA-FEIRA")) {

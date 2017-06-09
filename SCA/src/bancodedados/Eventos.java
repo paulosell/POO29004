@@ -14,7 +14,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
+ * Classe que controla os eventos da catraca (extends Bancos)
  * @author pfsel
  */
 public class Eventos extends Bancos {
@@ -37,6 +37,10 @@ public class Eventos extends Bancos {
     }
 
     @Override
+    /**
+     * método que gera uma ArrayList de EventosAux com os eventos do
+     * banco de dados das catracas
+     */
     public void gerar() {
         File arquivo;
         try {

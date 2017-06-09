@@ -5,18 +5,12 @@
  */
 package bancodedados;
 
-import controles.ControleAlerta;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.ArrayList;
+
 import java.util.Calendar;
-import javax.swing.JFormattedTextField;
-import javax.swing.JTextField;
+
 
 /**
- *
+ * Classe que monta os objetos dos alertas
  * @author pfsel
  */
 public class Alerta{
@@ -26,7 +20,15 @@ public class Alerta{
     private String nomeAlerta;
     private String tipo;
     private String minutos;
-
+    
+    /**
+     * Construtor para alertas que não precisam do parametro de minutos
+     * @param aluno = aluno que recebe o alerta
+     * @param inicio = data que o alerta começa a ser válido
+     * @param vezes = número de vezes que determinada situação deve ocorrer
+     * @param nomeAlerta = identificação do alerta
+     * @param tipo = tipo de alerta a ser gerado
+     */
     public Alerta(String aluno, Calendar inicio, String vezes, String nomeAlerta, String tipo) {
         this.aluno = aluno;
         this.tipo=tipo;
@@ -35,6 +37,16 @@ public class Alerta{
         this.nomeAlerta = nomeAlerta;
       
     }
+    
+    /**
+     * Construtor para alertas que precisam do parametro de minutos
+     * @param aluno = aluno que recebe o alerta
+     * @param inicio = data que o alerta começa a ser válido
+     * @param vezes = número de vezes que determinada situação deve ocorrer
+     * @param nomeAlerta = identificação do alerta
+     * @param tipo = tipo de alerta a ser gerado
+     * @param minutos = minutos para os alertas que envolvem horarios
+     */
      public Alerta(String aluno, Calendar inicio, String vezes, String nomeAlerta, String tipo, String minutos) {
         this.aluno = aluno;
         this.tipo=tipo;
@@ -53,7 +65,6 @@ public class Alerta{
         this.minutos = minutos;
     }
 
-     
      
     public String getTipo() {
         return tipo;
@@ -95,6 +106,7 @@ public class Alerta{
         this.nomeAlerta = nomeAlerta;
     }
     
+    @Override
     public String toString(){
         return(this.inicio.getTime().toString()+","+this.vezes+","+this.tipo
                 +","+this.nomeAlerta+","+this.aluno);

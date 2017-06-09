@@ -14,19 +14,19 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 /**
- *
+ * Classe que verifica se os alertas instanciados irão disparar ou não
+ * (extends Controle)
  * @author pfsel
  */
 public class ControleAlerta extends Controle {
 
-    private String aluno;
-    private Calendar inicio;
-    private String vezes;
-    private String nomeAlerta;
-    private String tipo;
     private Bancos ev;
     private Bancos al;
-
+    
+    /**
+     * Construtor instancia os objetos dos bancos de dados necessários
+     * para a classe
+     */
     public ControleAlerta() {
         ev = new Eventos();
         al = new EscreveAlerta();
@@ -41,6 +41,10 @@ public class ControleAlerta extends Controle {
     }
 
     @Override
+    /**
+     * método que verifica se os alertas criados do tipo saidaAntecipada
+     * serão disparados
+     */
     public void saidaAntecipada() {
         ArrayList<Alerta> listaAlerta = al.retornaListaAlertas();
         ArrayList<EventosAux> listaEventos = ev.retornaListaEventos();
@@ -93,6 +97,10 @@ public class ControleAlerta extends Controle {
     }
 
     @Override
+      /**
+     * método que verifica se os alertas criados do tipo chegadaTardia
+     * serão disparados
+     */
     public void chegadaTardia() {
         ArrayList<Alerta> listaAlerta = al.retornaListaAlertas();
         ArrayList<EventosAux> listaEventos = ev.retornaListaEventos();
@@ -157,7 +165,7 @@ public class ControleAlerta extends Controle {
     }
 
     @Override
-    public int setDiaSemana(String diaSema) {
+    public int setDiaSemana(String diaSema) {   
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

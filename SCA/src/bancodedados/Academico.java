@@ -13,15 +13,20 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
+ * Classe para gerar uma lista de alunos e verificar se o mesmo existe
+ * no banco de dados academico (extends Bancos)
  * @author pfsel
  */
 public class Academico extends Bancos {
 
     public ArrayList<Alunos> lista;
     public String aluno;
-    private boolean t;
-
+    private boolean existe;
+    
+    /**
+     * 
+     * @param s = aluno sendo pesquisado
+     */
     public Academico(String s) {
         lista = new ArrayList<Alunos>();
         this.aluno = s;
@@ -30,7 +35,11 @@ public class Academico extends Bancos {
     public String getAluno() {
         return aluno;
     }
-
+    
+    /**
+     * método que varre o banco de dados e envia as informações em uma
+     * ArrayList do tipo Alunos
+     */
     public void gerar() {
         File arquivo;
         try {
@@ -60,13 +69,17 @@ public class Academico extends Bancos {
     }
 
     @Override
+    /**
+     * método que consulta se o aluno sendo pesquisado existe na lista criada
+     * caso existir, é a variavel booleana é mudada para true
+     */
     public void consultar() {
 
         for (Alunos aluno : lista) {
 
             if (aluno.getNome().equals(this.aluno) || aluno.getMatricula().equals(this.aluno)) {
 
-                t = true;
+                existe = true;
             }
         }
     }
@@ -77,11 +90,12 @@ public class Academico extends Bancos {
     }
 
     @Override
+    /**
+     * método que retorna se o aluno pesquisado existe ou nao na ArrayList
+     */
     public boolean autenticado() {
-        return t;
+        return existe;
     }
-
-    
 
     @Override
     public ArrayList<EventosAux> retornaListaEventos() {

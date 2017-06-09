@@ -5,11 +5,7 @@
  */
 package relatorios;
 
-import bancodedados.EventosAux;
-import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.List;
-import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -18,11 +14,19 @@ import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.view.JasperViewer;
 
 /**
+ * Classe que gera os relatórios utilizando o JasperReports
  *
  * @author pfsel
  */
 public class Relatorios {
 
+    /**
+     * método que gera os relatorios de faltas
+     *
+     * @param lista = lista de RelFalktas
+     * @param i = falta intercalada ou consecutiva
+     * @throws Exception
+     */
     public void imprimir(ArrayList<RelFaltas> lista, int i) throws Exception {
         if (i == 1) {
 
@@ -38,26 +42,34 @@ public class Relatorios {
             JasperViewer.viewReport(print, false);
         }
 
-       
-
-      
     }
-    
-        public void imprimir(ArrayList<RelHorario> lista, String i) throws Exception {
-             String t = Relatorios.class.getResource(i).getPath();
-            JasperReport report = JasperCompileManager.compileReport(t);
-            JasperPrint print = JasperFillManager.fillReport(report, null, new JRBeanCollectionDataSource(lista));
-            JasperViewer.viewReport(print, false);
-               
 
-        }
+    /**
+     * método que gera os relatorios de entrada/saida
+     *
+     * @param lista = lista de RelHorario
+     * @param i = arquivo .jrxml que o jasper irá usar de base
+     * @throws Exception
+     */
+    public void imprimir(ArrayList<RelHorario> lista, String i) throws Exception {
+        String t = Relatorios.class.getResource(i).getPath();
+        JasperReport report = JasperCompileManager.compileReport(t);
+        JasperPrint print = JasperFillManager.fillReport(report, null, new JRBeanCollectionDataSource(lista));
+        JasperViewer.viewReport(print, false);
 
-          public void imprimir(ArrayList<RelSemana> lista) throws Exception {
-            String t = Relatorios.class.getResource("faltasSemana.jrxml").getPath();
-            JasperReport report = JasperCompileManager.compileReport(t);
-            JasperPrint print = JasperFillManager.fillReport(report, null, new JRBeanCollectionDataSource(lista));
-            JasperViewer.viewReport(print, false);
-               
+    }
 
-        }
+    /**
+     * método que gere os relatórios de faltas por dia da semana
+     *
+     * @param lista = lista de RelSemana
+     * @throws Exception
+     */
+    public void imprimir(ArrayList<RelSemana> lista) throws Exception {
+        String t = Relatorios.class.getResource("faltasSemana.jrxml").getPath();
+        JasperReport report = JasperCompileManager.compileReport(t);
+        JasperPrint print = JasperFillManager.fillReport(report, null, new JRBeanCollectionDataSource(lista));
+        JasperViewer.viewReport(print, false);
+
+    }
 }

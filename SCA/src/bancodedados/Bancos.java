@@ -5,30 +5,27 @@
  */
 package bancodedados;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 /**
+ * Classe abstrata para utilizar os bancos de dados
  *
  * @author pfsel
  */
 public abstract class Bancos {
-    
+
     public abstract void abrir();
+
     public abstract void consultar();
 
-    
     public abstract void gerar();
+
     public abstract void modificar();
+
     public abstract boolean autenticado();
 
     public abstract ArrayList<EventosAux> retornaListaEventos();
+
     public abstract ArrayList<Alerta> retornaListaAlertas();
-    
-    
-    
-    
-    
+
 }

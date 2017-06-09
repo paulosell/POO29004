@@ -168,12 +168,11 @@ public class JPCadastro extends javax.swing.JPanel {
 
 
     private void jBCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCadastrarActionPerformed
-                        
 
         Bancos t = new BaseUsuariosLocal(this.jTFUsuario.getText(), this.jTFLogin.getText(), this.jTFSenha.getText());
-         JOptionPane.showMessageDialog(this, "Usuário cadastrado",
-                    "Sucesso!",
-                    JOptionPane.WARNING_MESSAGE);
+        JOptionPane.showMessageDialog(this, "Usuário cadastrado",
+                "Sucesso!",
+                JOptionPane.WARNING_MESSAGE);
         t.modificar();
         pai.trocaPainel();
     }//GEN-LAST:event_jBCadastrarActionPerformed
@@ -192,6 +191,10 @@ public class JPCadastro extends javax.swing.JPanel {
     private void jTFSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTFSenhaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTFSenhaActionPerformed
+
+    /**
+     * método que libera o botão de cadastrar
+     */
     public void ativaLogin() {
         int aux = 0;
         for (int i = 0; i < 3; i++) {
@@ -204,6 +207,12 @@ public class JPCadastro extends javax.swing.JPanel {
         }
     }
 
+    /**
+     * método que verifica o conteudo dos campos de texto
+     *
+     * @param texto = texto escrito
+     * @param id = identificação do campo
+     */
     private void campoPreenchido(String texto, int id) {
         this.preenchido[id] = texto.length() > 0;
 

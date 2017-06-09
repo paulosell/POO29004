@@ -5,26 +5,19 @@
  */
 package telas;
 
-import bancodedados.Academico;
 import bancodedados.Bancos;
 import bancodedados.BaseUsuariosLocal;
-import bancodedados.EventosAux;
 import java.awt.Container;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.Scanner;
-import javax.swing.Icon;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 /**
+ * Classe principal do projeto
  *
  * @author pfsel
  */
-public class JFPrincipal extends javax.swing.JFrame {   
-    
-    private int aut=0;
+public class JFPrincipal extends javax.swing.JFrame {
+
+    private int aut = 0;
     private boolean preenchido[];
     public Container painelPrincipal;
 
@@ -167,38 +160,37 @@ public class JFPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jTFUsuarioKeyReleased
 
     private void jBLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBLoginActionPerformed
-     
+
         Bancos b = new BaseUsuariosLocal(this.jTFUsuario.getText(), this.jPFSenha.getText());
-        
-        
+
         b.consultar();
-        if(b.autenticado()){
-        JPSelecao painel = new JPSelecao(this);
-        painel.setVisible(true);
-        painel.setBounds(0, 0, this.getWidth(), this.getHeight());
-        this.setContentPane(painel);    
-        aut=0;
-      
+        if (b.autenticado()) {
+            JPSelecao painel = new JPSelecao(this);
+            painel.setVisible(true);
+            painel.setBounds(0, 0, this.getWidth(), this.getHeight());
+            this.setContentPane(painel);
+            aut = 0;
+
         } else {
-           JOptionPane.showMessageDialog(this, "Usuário não encontrado",
+            JOptionPane.showMessageDialog(this, "Usuário não encontrado",
                     "Opa!",
                     JOptionPane.WARNING_MESSAGE);
-           aut++;
+            aut++;
         }
-        if (aut==2){
-             JOptionPane.showMessageDialog(this, "O aplicativo irá finalizar se você"
-                     + " errar novamente",
+        if (aut == 2) {
+            JOptionPane.showMessageDialog(this, "O aplicativo irá finalizar se você"
+                    + " errar novamente",
                     "Opa!",
                     JOptionPane.WARNING_MESSAGE);
 
         }
-          if (aut==3){
-             JOptionPane.showMessageDialog(this, "O sistema será encerrado",
+        if (aut == 3) {
+            JOptionPane.showMessageDialog(this, "O sistema será encerrado",
                     "Opa!",
                     JOptionPane.WARNING_MESSAGE);
-             System.exit(0);
+            System.exit(0);
         }
-      
+
     }//GEN-LAST:event_jBLoginActionPerformed
 
     private void jPFSenhaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPFSenhaKeyReleased
@@ -211,18 +203,23 @@ public class JFPrincipal extends javax.swing.JFrame {
         painel.setVisible(true);
         painel.setBounds(0, 0, this.getWidth(), this.getHeight());
         this.setContentPane(painel);
-        
 
 
     }//GEN-LAST:event_jBCadastrarActionPerformed
-
+    
+    /**
+     * método para a troca de painel entre as telas de login e cadastro
+     */
     void trocaPainel() {
         painelPrincipal.setBounds(0, 0, this.getWidth(), this.getHeight());
         painelPrincipal.setVisible(true);
         this.setContentPane(painelPrincipal);
 
     }
-
+    
+    /**
+     * método que libera o botão de login
+     */
     public void ativaLogin() {
         int aux = 0;
         for (int i = 0; i < 2; i++) {
@@ -234,7 +231,12 @@ public class JFPrincipal extends javax.swing.JFrame {
             jBLogin.setEnabled(true);
         }
     }
-
+    
+    /**
+     * método que verifica o conteudo dos campos de texto
+     * @param texto = texto escrito
+     * @param id = identificação do campo
+     */
     private void campoPreenchido(String texto, int id) {
         this.preenchido[id] = texto.length() > 0;
 
@@ -275,7 +277,7 @@ public class JFPrincipal extends javax.swing.JFrame {
         });
     }
 
-        
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBCadastrar;
     private javax.swing.JButton jBLogin;

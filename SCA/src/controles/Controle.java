@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 /**
- *
+ * Classe que controla os relatorios ou alertas criados
  * @author pfsel
  */
 public abstract class Controle {

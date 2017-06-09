@@ -8,6 +8,7 @@ package bancodedados;
 import java.util.Calendar;
 
 /**
+ * Classe que cria os objetos dos eventos das catracas
  *
  * @author pfsel
  */
@@ -17,10 +18,16 @@ public class EventosAux {
     private String sentido;
     private Calendar c;
 
+    /**
+     * Construtor da classe com os parametros necessários
+     *
+     * @param aluno = aluno
+     * @param sentido = sentido do evento
+     * @param c = data do evento
+     */
     public EventosAux(String aluno, String sentido, Calendar c) {
         this.aluno = aluno;
         this.sentido = sentido;
-
         this.c = c;
     }
 

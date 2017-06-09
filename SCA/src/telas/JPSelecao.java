@@ -9,16 +9,11 @@ import bancodedados.Academico;
 import bancodedados.Alerta;
 import bancodedados.Bancos;
 import bancodedados.EscreveAlerta;
-import bancodedados.Eventos;
-import bancodedados.EventosAux;
 import controles.Controle;
 import controles.ControleAlerta;
 import controles.ControleRelatorio;
 import java.awt.Color;
-import java.awt.Component;
-import java.util.ArrayList;
 import java.util.Calendar;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -81,7 +76,7 @@ public class JPSelecao extends javax.swing.JPanel {
         jFTFaltasCon = new javax.swing.JFormattedTextField();
         jTFSemanas = new javax.swing.JTextField();
         jFTSemanasVezes = new javax.swing.JFormattedTextField();
-        jButton1 = new javax.swing.JButton();
+        jBSimulacao = new javax.swing.JButton();
 
         jBAlerta.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jBAlerta.setText("Alerta");
@@ -248,7 +243,7 @@ public class JPSelecao extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jlNomeAlerta.setText("Nome:");
+        jlNomeAlerta.setText("Alerta:");
         jlNomeAlerta.setEnabled(false);
 
         jTFNomeAlerta.setEnabled(false);
@@ -293,6 +288,7 @@ public class JPSelecao extends javax.swing.JPanel {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        jFTChegadaMin.setText("");
         jFTChegadaMin.setEnabled(false);
         jFTChegadaMin.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -374,11 +370,12 @@ public class JPSelecao extends javax.swing.JPanel {
             }
         });
 
-        jButton1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jButton1.setText("Simulação");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jBSimulacao.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jBSimulacao.setText("Simulação");
+        jBSimulacao.setEnabled(false);
+        jBSimulacao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jBSimulacaoActionPerformed(evt);
             }
         });
 
@@ -429,7 +426,7 @@ public class JPSelecao extends javax.swing.JPanel {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jFTSaidaVezes, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(jButton1)))
+                                .addComponent(jBSimulacao)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jBVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -493,7 +490,7 @@ public class JPSelecao extends javax.swing.JPanel {
                             .addComponent(jRBSaida)
                             .addComponent(jFTSaidaMin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jFTSaidaVezes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton1)))
+                            .addComponent(jBSimulacao)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(6, 6, 6)
@@ -512,8 +509,6 @@ public class JPSelecao extends javax.swing.JPanel {
 
     private void jBRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBRelatorioActionPerformed
         this.jRBAluno.setEnabled(true);
-        //this.jRBCurso.setEnabled(true);
-        //this.jRBTurma.setEnabled(true);
         this.jBAlerta.setEnabled(false);
         this.jBVoltar.setEnabled(true);
 
@@ -584,11 +579,13 @@ public class JPSelecao extends javax.swing.JPanel {
                 control.faltasCon();
             }
             if (this.jRBSaida.isSelected()) {
-                control = new ControleRelatorio(this.jTFIdentificacao, this.jFTSaidaMin, this.jFTSaidaVezes);
+                control = new ControleRelatorio(this.jTFIdentificacao, this.jFTSaidaMin,
+                        this.jFTSaidaVezes, this.c1, this.c2);
                 control.saidaAntecipada();
             }
             if (this.jRBChegada.isSelected()) {
-                control = new ControleRelatorio(this.jTFIdentificacao, this.jFTChegadaMin, this.jFTChegadaVezes);
+                control = new ControleRelatorio(this.jTFIdentificacao, this.jFTChegadaMin,
+                        this.jFTChegadaVezes, this.c1, this.c2);
                 control.chegadaTardia();
             }
             if (this.jRBFaltasSem.isSelected()) {
@@ -616,8 +613,8 @@ public class JPSelecao extends javax.swing.JPanel {
 
             }
         }
-
-        this.jBCriar.setEnabled(false);
+        this.limpaCampos();
+        // this.jBCriar.setEnabled(false);
     }//GEN-LAST:event_jBCriarActionPerformed
 
     private void jBVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBVoltarActionPerformed
@@ -703,8 +700,7 @@ public class JPSelecao extends javax.swing.JPanel {
 
     private void jBAlertaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAlertaActionPerformed
         this.jRBAluno.setEnabled(true);
-      //  this.jRBCurso.setEnabled(true);
-      //  this.jRBTurma.setEnabled(true);
+        this.jBSimulacao.setEnabled(true);
         this.jBRelatorio.setEnabled(false);
         this.jBVoltar.setEnabled(true);    }//GEN-LAST:event_jBAlertaActionPerformed
 
@@ -747,13 +743,16 @@ public class JPSelecao extends javax.swing.JPanel {
         jTFSemanas.setForeground(Color.BLACK);
     }//GEN-LAST:event_jTFSemanasMouseClicked
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jBSimulacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBSimulacaoActionPerformed
         Controle g = new ControleAlerta();
         g.chegadaTardia();
         g.saidaAntecipada();
 
-    }//GEN-LAST:event_jButton1ActionPerformed
-
+    }//GEN-LAST:event_jBSimulacaoActionPerformed
+    /**
+     * método que define os objetos do tipo Calendar que definem o periodo dos
+     * relatorios
+     */
     private void periodo() {
         if (this.jBRelatorio.isEnabled()) {
             this.c1 = Calendar.getInstance();
@@ -772,6 +771,12 @@ public class JPSelecao extends javax.swing.JPanel {
         }
     }
 
+    /**
+     * método que verifica se o aluno que foi informado existe no banco de dados
+     * ou não
+     *
+     * @param texto = nome do aluno
+     */
     private void idPreenchido(String texto) {
         Bancos d = new Academico(texto);
 
@@ -784,9 +789,9 @@ public class JPSelecao extends javax.swing.JPanel {
             this.jLAux.setEnabled(true);
         } else if (d.autenticado()) {
             this.jRBChegada.setEnabled(true);
-            this.jRBFaltasCon.setEnabled(true);
-            this.jRBFaltasSem.setEnabled(true);
-            this.jRBFaltasInt.setEnabled(true);
+            this.jRBFaltasCon.setEnabled(false);
+            this.jRBFaltasSem.setEnabled(false);
+            this.jRBFaltasInt.setEnabled(false);
             this.jRBSaida.setEnabled(true);
         } else {
             this.jFTPeriodo1.setEnabled(false);
@@ -802,6 +807,9 @@ public class JPSelecao extends javax.swing.JPanel {
 
     }
 
+    /**
+     * método que verifica qual tipo de filtro foi selecionado pelo usuário
+     */
     private void verificaTipos() {
         if (this.jRBFaltasCon.isSelected()) {
             this.jFTFaltasCon.setEnabled(true);
@@ -845,6 +853,9 @@ public class JPSelecao extends javax.swing.JPanel {
         }
     }
 
+    /**
+     * método para zerar os campos
+     */
     private void limpaCampos() {
         this.jRBAluno.setEnabled(false);
         this.jRBCurso.setEnabled(false);
@@ -878,8 +889,8 @@ public class JPSelecao extends javax.swing.JPanel {
     private javax.swing.JButton jBCriar;
     private javax.swing.JButton jBExcluirTab;
     private javax.swing.JButton jBRelatorio;
+    private javax.swing.JButton jBSimulacao;
     private javax.swing.JButton jBVoltar;
-    private javax.swing.JButton jButton1;
     private javax.swing.JFormattedTextField jFTChegadaMin;
     private javax.swing.JFormattedTextField jFTChegadaVezes;
     private javax.swing.JFormattedTextField jFTFaltasCon;

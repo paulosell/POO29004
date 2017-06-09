@@ -7,14 +7,21 @@ package relatorios;
 
 
 /**
- *
+ * Classe para estruturar os relatórios que necessitam de horario para
+ * criação do relatorio jasper
  * @author pfsel
  */
 public class RelHorario  {
     private String aluno;
     private String horario;
     private String data;
-
+    
+    /**
+     * Construtor da classe
+     * @param aluno = aluno
+     * @param horario = horario de entrada/saida
+     * @param data = data
+     */
     public RelHorario(String aluno, String horario, String data) {
         this.aluno = aluno;
         this.horario = horario;

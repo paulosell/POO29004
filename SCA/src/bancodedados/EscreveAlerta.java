@@ -17,6 +17,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
+ * Classe que controla os alertas queja foram 
+ * ou serão instanciados (extends Bancos)
  *
  * @author pfsel
  */
@@ -24,9 +26,16 @@ public class EscreveAlerta extends Bancos {
 
     private Alerta a;
     private ArrayList<Alerta> lista;
+    private int mes = 0;
 
+    /**
+     * Construtor que escreve um alerta no banco de dados
+     *
+     * @param q = alerta a ser instanciado no banco de dados
+     */
     public EscreveAlerta(Alerta q) {
         this.a = q;
+        lista = new ArrayList<Alerta>();
 
     }
 
@@ -44,8 +53,13 @@ public class EscreveAlerta extends Bancos {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    private int mes = 0;
-
+    /**
+     * método que retorna o mes em que o alerta está sendo instanciado na forma
+     * de inteiro, já que a classe Calendar informa o mes como String
+     *
+     * @param t = mes em String
+     * @return = mes em inteiro
+     */
     public int retMes(String t) {
         if (t.equals("Jan")) {
             mes = 0;
@@ -87,6 +101,10 @@ public class EscreveAlerta extends Bancos {
     }
 
     @Override
+    /**
+     * método que cria uma ArrayList do tipo Alerta com os alertas do banco de
+     * dados
+     */
     public void gerar() {
         File arquivo;
         try {
@@ -95,9 +113,9 @@ public class EscreveAlerta extends Bancos {
             Scanner leitor = new Scanner(arquivo);
             String lixo = leitor.nextLine();
             while (leitor.hasNextLine()) {
-                
+
                 String proximaLinha = leitor.nextLine();
-                if(proximaLinha.length() ==0){
+                if (proximaLinha.length() == 0) {
                     proximaLinha = leitor.nextLine();
                 }
                 String separados[] = proximaLinha.split(",");
@@ -107,11 +125,10 @@ public class EscreveAlerta extends Bancos {
                 int t = this.retMes(data[1]);
                 c.set(Calendar.YEAR, Integer.parseInt(data[5]));
                 c.set(Calendar.DAY_OF_MONTH, Integer.parseInt(data[2]));
-                c.set(Calendar.MONTH, t-2);
-                // System.out.println(c.getTime().toString());
-               // System.out.println(lista.size());
+                c.set(Calendar.MONTH, t - 2);
+
                 Alerta al = new Alerta(separados[5], c, separados[1], separados[2], separados[3], separados[4]);
-                //System.out.println(al.toString());
+
                 lista.add(al);
 
             }
@@ -122,16 +139,19 @@ public class EscreveAlerta extends Bancos {
     }
 
     @Override
+    /**
+     * método que instancia um alerta no banco de dados com as informações
+     * passadas no construtor
+     */
     public void modificar() {
         File arquivo;
         try {
             arquivo = new File(getClass().getResource("/db/db-alertas.csv").getPath());
             FileWriter fwArquivo = null;
 
-// Se o arquivo existir, abre para adicionar dados
             if (arquivo.exists() == true) {
                 fwArquivo = new FileWriter(arquivo, true);
-            } else { // se n~ao existir, ent~ao cria o arquivo
+            } else {
                 fwArquivo = new FileWriter(arquivo);
             }
             BufferedWriter bw = new BufferedWriter(fwArquivo);
@@ -143,12 +163,10 @@ public class EscreveAlerta extends Bancos {
             separa[3] = a.getTipo();
             separa[4] = a.getMinutos();
             separa[5] = a.getAluno();
-            
 
-            bw.write('\n'+separa[0] + "," + separa[1] + "," + separa[2] + "," + separa[3] + "," + separa[4] + ","+
-                    separa[5]);
-            
-            // fechando arquivo
+            bw.write('\n' + separa[0] + "," + separa[1] + "," + separa[2] + "," + separa[3] + "," + separa[4] + ","
+                    + separa[5]);
+
             bw.close();
             fwArquivo.close();
         } catch (IOException e) {
@@ -165,9 +183,13 @@ public class EscreveAlerta extends Bancos {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    /**
+     * método que retorna a lista gerada
+     *
+     * @return lista de alertas
+     */
     public ArrayList<Alerta> retornaListaAlertas() {
         return lista;
     }
-
 
 }
