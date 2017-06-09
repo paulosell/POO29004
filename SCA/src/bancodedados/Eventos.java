@@ -20,7 +20,7 @@ import java.util.logging.Logger;
 public class Eventos extends Bancos {
 
     private ArrayList<EventosAux> lista;
-    private Alunos aluno;
+  
 
     public Eventos() {
         lista = new ArrayList<EventosAux>();

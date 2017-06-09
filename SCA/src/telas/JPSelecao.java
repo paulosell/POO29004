@@ -14,6 +14,7 @@ import controles.ControleAlerta;
 import controles.ControleRelatorio;
 import java.awt.Color;
 import java.util.Calendar;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -571,50 +572,101 @@ public class JPSelecao extends javax.swing.JPanel {
         if (this.jBRelatorio.isEnabled()) {
             this.periodo();
             if (this.jRBFaltasInt.isSelected()) {
-                control = new ControleRelatorio(this.jTFIdentificacao, this.jFTFaltasInt, this.c1, this.c2);
-                control.faltasInt();
+                if (Integer.parseInt(jFTFaltasInt.getText()) == 0) {
+                    JOptionPane.showMessageDialog(this, "Numero inválido",
+                            "Opa!",
+                            JOptionPane.WARNING_MESSAGE);
+                } else {
+                    control = new ControleRelatorio(this.jTFIdentificacao, this.jFTFaltasInt, this.c1, this.c2);
+                    control.faltasInt();
+                }
             }
             if (this.jRBFaltasCon.isSelected()) {
-                control = new ControleRelatorio(this.jTFIdentificacao, this.jFTFaltasCon, this.c1, this.c2);
-                control.faltasCon();
+
+                if (Integer.parseInt(jFTFaltasCon.getText()) == 0) {
+                    JOptionPane.showMessageDialog(this, "Numero inválido",
+                            "Opa!",
+                            JOptionPane.WARNING_MESSAGE);
+                } else {
+                    control = new ControleRelatorio(this.jTFIdentificacao, this.jFTFaltasCon, this.c1, this.c2);
+                    control.faltasCon();
+                }
             }
             if (this.jRBSaida.isSelected()) {
-                control = new ControleRelatorio(this.jTFIdentificacao, this.jFTSaidaMin,
-                        this.jFTSaidaVezes, this.c1, this.c2);
-                control.saidaAntecipada();
+
+                if (Integer.parseInt(jFTSaidaVezes.getText()) == 0) {
+                    JOptionPane.showMessageDialog(this, "Numero inválido",
+                            "Opa!",
+                            JOptionPane.WARNING_MESSAGE);
+                } else {
+
+                    control = new ControleRelatorio(this.jTFIdentificacao, this.jFTSaidaMin,
+                            this.jFTSaidaVezes, this.c1, this.c2);
+                    control.saidaAntecipada();
+
+                }
             }
             if (this.jRBChegada.isSelected()) {
-                control = new ControleRelatorio(this.jTFIdentificacao, this.jFTChegadaMin,
-                        this.jFTChegadaVezes, this.c1, this.c2);
-                control.chegadaTardia();
+
+                if (Integer.parseInt(jFTChegadaVezes.getText()) == 0) {
+                    JOptionPane.showMessageDialog(this, "Numero inválido",
+                            "Opa!",
+                            JOptionPane.WARNING_MESSAGE);
+                } else {
+                    control = new ControleRelatorio(this.jTFIdentificacao, this.jFTChegadaMin,
+                            this.jFTChegadaVezes, this.c1, this.c2);
+                    control.chegadaTardia();
+                }
             }
             if (this.jRBFaltasSem.isSelected()) {
-                control = new ControleRelatorio(this.jTFIdentificacao, this.jFTSemanasVezes, this.jTFSemanas,
-                        this.c1, this.c2);
-                control.faltasSemana();
+
+                if (Integer.parseInt(jFTSemanasVezes.getText()) == 0) {
+                    JOptionPane.showMessageDialog(this, "Numero inválido",
+                            "Opa!",
+                            JOptionPane.WARNING_MESSAGE);
+                } else {
+                    control = new ControleRelatorio(this.jTFIdentificacao, this.jFTSemanasVezes, this.jTFSemanas,
+                            this.c1, this.c2);
+                    control.faltasSemana();
+                }
             }
 
         } else {
             if (this.jRBChegada.isSelected()) {
-                Calendar data = Calendar.getInstance();
-                Alerta c = new Alerta(this.jTFIdentificacao.getText().toUpperCase(), data, this.jFTChegadaVezes.getText(),
-                        this.jTFNomeAlerta.getText(), "1", this.jFTChegadaMin.getText());
-                Bancos esc = new EscreveAlerta(c);
-                esc.modificar();
 
+                if (Integer.parseInt(jFTChegadaVezes.getText()) == 0) {
+                    JOptionPane.showMessageDialog(this, "Numero inválido",
+                            "Opa!",
+                            JOptionPane.WARNING_MESSAGE);
+                } else {
+                    Calendar data = Calendar.getInstance();
+                    data.set(Calendar.MONTH, (data.get(Calendar.MONTH)-2));
+                    Alerta c = new Alerta(this.jTFIdentificacao.getText().toUpperCase(), data, this.jFTChegadaVezes.getText(),
+                            this.jTFNomeAlerta.getText(), "1", this.jFTChegadaMin.getText());
+                    Bancos esc = new EscreveAlerta(c);
+                    esc.modificar();
+
+                }
             }
 
             if (this.jRBSaida.isSelected()) {
-                Calendar data = Calendar.getInstance();
-                Alerta c = new Alerta(this.jTFIdentificacao.getText().toUpperCase(), data, this.jFTSaidaVezes.getText(),
-                        this.jTFNomeAlerta.getText(), "2", this.jFTSaidaMin.getText());
-                Bancos esc = new EscreveAlerta(c);
-                esc.modificar();
 
+                if (Integer.parseInt(jFTSaidaVezes.getText()) == 0) {
+                    JOptionPane.showMessageDialog(this, "Numero inválido",
+                            "Opa!",
+                            JOptionPane.WARNING_MESSAGE);
+                } else {
+                    Calendar data = Calendar.getInstance();
+                    Alerta c = new Alerta(this.jTFIdentificacao.getText().toUpperCase(), data, this.jFTSaidaVezes.getText(),
+                            this.jTFNomeAlerta.getText(), "2", this.jFTSaidaMin.getText());
+                    Bancos esc = new EscreveAlerta(c);
+                    esc.modificar();
+
+                }
             }
         }
-        this.limpaCampos();
-        // this.jBCriar.setEnabled(false);
+        // this.limpaCampos();
+        this.jBCriar.setEnabled(false);
     }//GEN-LAST:event_jBCriarActionPerformed
 
     private void jBVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBVoltarActionPerformed

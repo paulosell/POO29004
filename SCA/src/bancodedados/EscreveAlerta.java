@@ -125,7 +125,7 @@ public class EscreveAlerta extends Bancos {
                 int t = this.retMes(data[1]);
                 c.set(Calendar.YEAR, Integer.parseInt(data[5]));
                 c.set(Calendar.DAY_OF_MONTH, Integer.parseInt(data[2]));
-                c.set(Calendar.MONTH, t - 2);
+                c.set(Calendar.MONTH, t);
 
                 Alerta al = new Alerta(separados[5], c, separados[1], separados[2], separados[3], separados[4]);
 

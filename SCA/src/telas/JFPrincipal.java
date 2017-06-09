@@ -210,7 +210,7 @@ public class JFPrincipal extends javax.swing.JFrame {
     /**
      * método para a troca de painel entre as telas de login e cadastro
      */
-    void trocaPainel() {
+    public void trocaPainel() {
         painelPrincipal.setBounds(0, 0, this.getWidth(), this.getHeight());
         painelPrincipal.setVisible(true);
         this.setContentPane(painelPrincipal);

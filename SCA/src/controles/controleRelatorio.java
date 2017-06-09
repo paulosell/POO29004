@@ -217,7 +217,7 @@ public class ControleRelatorio extends Controle {
      * os parametros passados
      */
     public void chegadaTardia() {
-
+       
         ArrayList<EventosAux> primeiraLista = this.ev.retornaListaEventos();
         ArrayList<EventosAux> listaAuxiliar = new ArrayList<EventosAux>();
         ArrayList<EventosAux> listaFinal = new ArrayList<EventosAux>();
@@ -467,7 +467,7 @@ public class ControleRelatorio extends Controle {
                 }
             }
         }
-        System.out.println(faltasTot.size());
+    
         if (faltasTot.size() < Integer.parseInt(this.vezes.getText())) {
             JOptionPane.showMessageDialog(null, "Aluno não faltou mais que " + this.vezes.getText()
                     + " vezes.",
@@ -477,7 +477,6 @@ public class ControleRelatorio extends Controle {
             for (EventosAux monitorado : faltasTot) {
 
                 SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-                //monitorado.getC().set(Calendar.MONTH, (monitorado.getC().get(Calendar.MONTH) + 1));
                 int tu = monitorado.getC().get(Calendar.MONTH) + 1;
                 if (tu == 0) {
                     tu = 12;
